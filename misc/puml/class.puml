@@ -1,0 +1,37 @@
+@startuml
+
+class Parking {
+  +Place
+}
+
+class Place {
+  +Parking
+}
+
+enum TypePlace {
+  normal
+  electric
+  motorcycle
+}
+
+class User {
+  +email
+  +password
+  +lastName
+  +firstName
+}
+
+class Reservation {
+  +startDate
+  +endDate
+  +duration
+}
+
+
+Parking "1" *-- "1..*" Place : consists of
+Place "1" *-- "1..*" Reservation : consists of
+Reservation "*" --> "1" User : concerns
+Reservation "1" *-- "1" TypeReservation : consists of
+Place <|-- TypePlace
+
+@enduml

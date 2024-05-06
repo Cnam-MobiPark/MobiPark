@@ -1,0 +1,41 @@
+@startuml usecase
+
+title UseCaseParking
+left to right direction
+skinparam packageStyle rect
+skinparam actorStyle awesome
+
+:User:
+:ParkingUser:
+:ParkingOwner:
+:ParkingSystem:
+
+ParkingOwner --|> User : étend
+ParkingUser --|> User : étend
+
+package "Identification au Parking" {
+    User --> (S'identifier)
+    User --> (S'inscrire)
+    User --> (Modifier son compte)
+}
+
+package "Utilisation du Parking" {
+    ParkingUser ---> (Modifier ses véhicules)
+    ParkingUser ---> (Consulter les places)
+    ParkingUser ---> (Réserver une place)
+    ParkingUser ---> (Modifier une réservation)
+    ParkingUser ---> (Annuler une réservation)
+}
+
+package "Gestion du Parking" {
+    ParkingOwner --> (Modifier le type de place)
+    ParkingOwner --> (Ajouter une place)
+    ParkingOwner --> (Supprimer une place)
+    ParkingOwner --> (Consulter les réservations)
+}
+
+
+package "API-Système tierce" #cccccc {
+    ParkingSystem --> (Mettre à jour la disponibilité des places)
+    ParkingSystem --> (Lister les réservations en cours)
+}
