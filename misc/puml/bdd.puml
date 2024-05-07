@@ -1,0 +1,43 @@
+@startuml Database diagram for Parking System
+
+!define Table(name,desc) class name as "desc" << (T,#FFAAAA) >>
+!define PrimaryKey(x) <u>x</u>
+!define ForeignKey(x) #x
+
+skinparam classAttributeIconSize 0
+skinparam classBorderThickness 0.5
+
+Table(User, "User") {
+  + PrimaryKey(UserID)
+  + Username
+  + Password
+  + Email
+  + RegistrationDate
+}
+
+Table(Vehicle, "Vehicle") {
+  + PrimaryKey(VehicleID)
+  + ForeignKey(UserID)
+  + LicenseNumber
+  + VehicleType
+}
+
+Table(Reservation, "Reservation") {
+  + PrimaryKey(ReservationID)
+  + ForeignKey(UserID)
+  + ForeignKey(SpaceID)
+  + StartTime
+  + EndTime
+  + Status
+}
+
+Table(ParkingSpace, "Parking Space") {
+  + PrimaryKey(SpaceID)
+  + SpaceType
+  + IsAvailable
+}
+
+User "1" *-down- "0..*" Vehicle : has >
+User "1" *-down- "0..*" Reservation : books >
+ParkingSpace "1" <-- "0..*" Reservation : allocated to >
+@enduml
