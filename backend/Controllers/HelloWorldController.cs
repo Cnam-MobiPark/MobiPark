@@ -1,20 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
 
-[ApiController]
-[Route("[controller]")]
-public class HelloWorldController : ControllerBase
+namespace MobiPark.Controllers
 {
-    private readonly IGreetingService _greetingService;
-
-    public HelloWorldController(IGreetingService greetingService)
+    [ApiController]
+    [Route("[controller]")]
+    public class HelloWorldController : ControllerBase
     {
-        _greetingService = greetingService;
-    }
+        private readonly IGreetingService _greetingService;
 
-    [HttpGet("sayhello/{name}")]
-    public IActionResult SayHello(string name)
-    {
-        var greeting = _greetingService.Greet(name);
-        return Ok(greeting);
+        public HelloWorldController(IGreetingService greetingService)
+        {
+            _greetingService = greetingService;
+        }
+
+        [HttpGet("sayhello/{name}")]
+        public IActionResult SayHello(string name)
+        {
+            var greeting = _greetingService.Greet(name);
+            return Ok(greeting);
+        }
     }
 }
