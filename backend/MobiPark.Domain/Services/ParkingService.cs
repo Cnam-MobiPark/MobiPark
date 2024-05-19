@@ -1,8 +1,8 @@
 using System.Text.Json;
-using MobiPark.Services.Interfaces;
-using MobiPark.Models;
+using MobiPark.Dom.Models;
+using MobiPark.Dom.Services.Interfaces;
 
-namespace MobiPark.Services
+namespace MobiPark.Dom.Services
 {
     public class ParkingService : IParkingService
     {
@@ -20,7 +20,7 @@ namespace MobiPark.Services
             _parkingLot = JsonSerializer.Deserialize<ParkingLot>(json) ?? throw new InvalidOperationException("Invalid parking data in JSON file.");
         }
 
-        public List<Space> GetSpaces()
+        public List<ParkingSpace> GetSpaces()
         {
             return _parkingLot.Spaces;
         }

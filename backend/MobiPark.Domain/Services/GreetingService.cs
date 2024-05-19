@@ -1,6 +1,6 @@
-using MobiPark.Services.Interfaces;
+using MobiPark.Dom.Services.Interfaces;
 
-namespace MobiPark.Services
+namespace MobiPark.Dom.Services
 {
     public class GreetingService : IGreetingService
     {

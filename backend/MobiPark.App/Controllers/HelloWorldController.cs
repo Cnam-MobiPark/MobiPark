@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using MobiPark.Services.Interfaces;
+using MobiPark.Dom.Services.Interfaces;
 
-namespace MobiPark.Controllers
+namespace MobiPark.App.Controllers
 {
     [ApiController]
     [Route("[controller]")]

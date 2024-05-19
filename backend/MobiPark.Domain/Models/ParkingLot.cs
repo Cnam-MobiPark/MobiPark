@@ -1,4 +1,4 @@
-namespace MobiPark.Models
+namespace MobiPark.Dom.Models
 {
     public class ParkingLot
     {
@@ -6,6 +6,6 @@ namespace MobiPark.Models
         public required string Address { get; set; }
         public int TotalCapacity { get; set; }
         public int AvailableSpaces { get; set; }
-        public List<Space> Spaces { get; set; }
+        public List<ParkingSpace> Spaces { get; set; }
     }
 }

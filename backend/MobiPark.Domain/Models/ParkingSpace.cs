@@ -1,6 +1,6 @@
-namespace MobiPark.Models
+namespace MobiPark.Dom.Models
 {
-    public class Space
+    public class ParkingSpace
     {
         public int Number { get; set; }
         public required string Type { get; set; }
