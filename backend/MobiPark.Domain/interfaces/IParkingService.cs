@@ -1,6 +1,6 @@
 using MobiPark.Domain.Models;
 
-namespace MobiPark.Domain.Services.Interfaces
+namespace MobiPark.Domain.Interfaces
 {
     public interface IParkingService
     {

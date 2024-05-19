@@ -1,5 +1,5 @@
 using MobiPark.Domain.Services;
-using MobiPark.Domain.Services.Interfaces;
+using MobiPark.Domain.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

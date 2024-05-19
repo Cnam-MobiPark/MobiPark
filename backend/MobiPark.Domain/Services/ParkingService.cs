@@ -1,6 +1,6 @@
 using System.Text.Json;
 using MobiPark.Domain.Models;
-using MobiPark.Domain.Services.Interfaces;
+using MobiPark.Domain.Interfaces;
 
 namespace MobiPark.Domain.Services
 {

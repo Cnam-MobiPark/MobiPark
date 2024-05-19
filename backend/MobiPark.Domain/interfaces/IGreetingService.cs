@@ -1,4 +1,4 @@
-namespace MobiPark.Domain.Services.Interfaces
+namespace MobiPark.Domain.Interfaces
 {
     public interface IGreetingService
     {
