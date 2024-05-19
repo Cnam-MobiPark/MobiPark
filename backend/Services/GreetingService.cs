@@ -1,12 +1,12 @@
-public interface IGreetingService
-{
-    string Greet(string name);
-}
+using MobiPark.Services.Interfaces;
 
-public class GreetingService : IGreetingService
+namespace MobiPark.Services
 {
-    public string Greet(string name)
+    public class GreetingService : IGreetingService
     {
-        return $"Hello, {name}!";
+        public string Greet(string name)
+        {
+            return $"Hello, {name}!";
+        }
     }
 }
