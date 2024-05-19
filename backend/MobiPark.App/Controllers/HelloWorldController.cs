@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using MobiPark.Dom.Services.Interfaces;
+using MobiPark.Domain.Services.Interfaces;
 
 namespace MobiPark.App.Controllers
 {

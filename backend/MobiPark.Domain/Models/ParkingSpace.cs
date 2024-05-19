@@ -1,4 +1,4 @@
-namespace MobiPark.Dom.Models
+namespace MobiPark.Domain.Models
 {
     public class ParkingSpace
     {

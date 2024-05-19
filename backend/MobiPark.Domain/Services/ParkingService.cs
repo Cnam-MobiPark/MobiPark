@@ -1,8 +1,8 @@
 using System.Text.Json;
-using MobiPark.Dom.Models;
-using MobiPark.Dom.Services.Interfaces;
+using MobiPark.Domain.Models;
+using MobiPark.Domain.Services.Interfaces;
 
-namespace MobiPark.Dom.Services
+namespace MobiPark.Domain.Services
 {
     public class ParkingService : IParkingService
     {
