@@ -1,0 +1,19 @@
+{
+    "vehicles": [
+        {
+            "type": "car",
+            "maker": "Toyota",
+            "plate": "ABC-123"
+        },
+        {
+            "type": "car",
+            "maker": "Honda",
+            "plate": "DEF-456"
+        },
+        {
+            "type": "motorcycle",
+            "maker": "Yamaha",
+            "plate": "XYZ-789"
+        }
+    ]
+}
