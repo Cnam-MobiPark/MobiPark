@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MobiPark.App.Presenters;
 using MobiPark.Domain.Interfaces;
 
 namespace MobiPark.App.Controllers
@@ -18,7 +19,8 @@ namespace MobiPark.App.Controllers
         public IActionResult GetSpaces()
         {
             var spaces = _parkingService.GetSpaces();
-            return Ok(spaces);
+            var spacePresenters = spaces.Select(space => new ParkingSpacePresenter(space)).ToList();
+            return Ok(spacePresenters);
         }
     }
 }
