@@ -23,7 +23,7 @@ public class ParkingTest
         Assert.NotNull(space.Vehicle);
         Assert.Equal("occupied", space.Status);
         Assert.Equal(space.Vehicle.Type.ToString().ToLower(), space.Type);
-        Assert.Equal(1, space.Vehicle.Id);
+        Assert.Equal(1, space.Number);
     }
     
     [Fact]
@@ -43,7 +43,7 @@ public class ParkingTest
         Assert.NotNull(space.Vehicle);
         Assert.Equal("occupied", space.Status);
         Assert.Equal(space.Vehicle.Type.ToString().ToLower(), space.Type);
-        Assert.Equal(2, space.Vehicle.Id);
+        Assert.Equal(3, space.Number);
     }
 
     [Fact]
