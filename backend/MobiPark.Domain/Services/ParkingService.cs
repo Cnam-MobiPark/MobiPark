@@ -8,7 +8,7 @@ namespace MobiPark.Domain.Services
     {
         private readonly ParkingLot _parkingLot;
 
-        public ParkingService()
+        public ParkingService(IParkingRepository repository)
         {
             var path = Path.Combine(AppContext.BaseDirectory, "parking.json");
             if (!File.Exists(path))
