@@ -14,9 +14,9 @@ public class ParkingTest
         var repository = new ParkingRepository();
         var service = new ParkingService(repository);
         var vehicle = new Vehicle { Id = 1, Type = Vehicle.VehicleType.Car, Maker = "Toyota", LicensePlate = "ABC-1234" };
-            
+
         // Act
-        var space = service.ParkVehicle(vehicle, 1);
+        var space = service.ParkVehicle(vehicle);
 
         // Assert
         Assert.NotNull(space);
