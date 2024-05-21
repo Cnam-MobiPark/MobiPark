@@ -45,6 +45,25 @@ public class ParkingTest
         Assert.Equal(space.Vehicle.Type.ToString().ToLower(), space.Type);
         Assert.Equal(3, space.Number);
     }
+    
+    [Fact]
+    [Trait("Category", "Parking Vehicles")]
+    public void ParkVehicle_Should_Throw_Exception_When_No_Space_Available()
+    {
+        // Arrange
+        var repository = new ParkingRepository();
+        var service = new ParkingService(repository);
+        var vehicle = new Vehicle { Id = 1, Type = Vehicle.VehicleType.Car, Maker = "Toyota", LicensePlate = "ABC-1234" };
+        
+        foreach (var space in service.GetAvailableSpaces(vehicle.Type))
+        {
+            service.ParkVehicle(new Vehicle { Id = space.Number, Type = vehicle.Type, Maker = "TestMaker", LicensePlate = "TEST" + space.Number });
+        }
+
+        // Act & Assert
+        var exception = Assert.Throws<InvalidOperationException>(() => service.ParkVehicle(vehicle));
+        Assert.Equal("No available parking spaces.", exception.Message);
+    }
 
     [Fact]
     [Trait("Category", "Parking Spaces")]
@@ -96,4 +115,5 @@ public class ParkingTest
         Assert.NotEmpty(spaces);
         Assert.All(spaces, s => Assert.Equal("motorcycle", s.Type));
     }
+    
 }
