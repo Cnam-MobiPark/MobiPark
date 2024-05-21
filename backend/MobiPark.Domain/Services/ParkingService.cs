@@ -30,6 +30,11 @@ namespace MobiPark.Domain.Services
             return _parkingLot.Spaces.Where(s => s.Status == "free").ToList();
         }
         
+        public List<ParkingSpace> GetAvailableSpaces(Vehicle.VehicleType vehicletype)
+        {
+            return _parkingLot.Spaces.Where(s => s.Status == "free" && s.Type.Equals(vehicletype.ToString(), StringComparison.CurrentCultureIgnoreCase)).ToList();
+        }
+        
         public ParkingSpace ParkVehicle(Vehicle vehicle)
         {
             var space = GetAvailableSpaces().FirstOrDefault();

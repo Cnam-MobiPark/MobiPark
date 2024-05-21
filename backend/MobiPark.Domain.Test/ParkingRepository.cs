@@ -16,21 +16,32 @@ public class ParkingRepository : IParkingRepository
             new ParkingSpace { Number = 5, Type = "car", Status = "free" }
         };
     }
-
-    public ParkingSpace ParkVehicle(int vehicleId, int spaceId)
+    
+    public List<ParkingSpace> GetAvailableSpaces()
     {
-        var space = GetSpaces().FirstOrDefault(s => s.Number == spaceId);
+        return GetSpaces().Where(s => s.Status == "free").ToList();
+    }
+    
+    public List<ParkingSpace> GetAvailableSpaces(Vehicle.VehicleType vehicletype)
+    {
+        return GetSpaces().Where(s => s.Status == "free" && s.Type == vehicletype.ToString().ToLower()).ToList();
+    }
+
+    public ParkingSpace ParkVehicle(Vehicle vehicle)
+    {
+        var space = GetSpaces().FirstOrDefault();
         if (space == null)
         {
-            throw new InvalidOperationException($"Could not find a parking space with ID {spaceId}");
+            throw new InvalidOperationException($"Could not find a parking space with ID {space.Number}");
         }
 
         if (space.Status != "free")
         {
-            throw new InvalidOperationException($"Parking space {spaceId} is already occupied.");
+            throw new InvalidOperationException($"Parking space {space.Number} is already occupied.");
         }
-
-        space.Vehicle = new Vehicle { Id = vehicleId };
+        space.Status = "occupied";
+        space.Vehicle = vehicle;
         return space;
     }
+    
 }
