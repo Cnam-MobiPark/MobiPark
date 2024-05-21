@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "type": "Car",
+    "maker": "Toyota",
+    "licensePlate": "ABC-123"
+  },
+  {
+    "id": 2,
+    "type": "Car",
+    "maker": "Honda",
+    "licensePlate": "DEF-456"
+  },
+  {
+    "id": 3,
+    "type": "Motorcycle",
+    "maker": "Yamaha",
+    "licensePlate": "XYZ-789"
+  }
+]
