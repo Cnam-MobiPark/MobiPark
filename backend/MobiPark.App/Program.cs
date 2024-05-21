@@ -7,7 +7,6 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IGreetingService, GreetingService>();
 builder.Services.AddSingleton<IParkingService, ParkingService>();
 builder.Services.AddSingleton<IVehicleService, VehicleService>();
 
