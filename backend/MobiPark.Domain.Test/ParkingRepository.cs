@@ -1,39 +1,23 @@
+using System.Text.Json;
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
+using Xunit.Sdk;
 
 namespace MobiPark.Domain.Test;
 
 public class ParkingRepository : IParkingRepository
 {
-    public List<ParkingSpace> GetSpaces()
+    public readonly List<ParkingSpace> spaces = [];
+
+    public List<ParkingSpace> GetAvailableSpaces(Vehicle.VehicleType? vehicleType = null)
     {
-        return new List<ParkingSpace>
-        {
-            new ParkingSpace { Number = 1, Type = "car", Status = "free" },
-            new ParkingSpace { Number = 2, Type = "car", Status = "free" },
-            new ParkingSpace { Number = 3, Type = "car", Status = "free" },
-            new ParkingSpace { Number = 4, Type = "car", Status = "free" },
-            new ParkingSpace { Number = 5, Type = "car", Status = "free" }
-        };
-    }
-    
-    public List<ParkingSpace> GetAvailableSpaces()
-    {
-        return GetSpaces().Where(s => s.Status == "free").ToList();
-    }
-    
-    public List<ParkingSpace> GetAvailableSpaces(Vehicle.VehicleType vehicletype)
-    {
-        return GetSpaces().Where(s => s.Status == "free" && s.Type == vehicletype.ToString().ToLower()).ToList();
+        return spaces.Where(s => s.Status == "free" && (vehicleType == null || s.Type == vehicleType.ToString().ToLower())).ToList();
     }
 
-    public ParkingSpace ParkVehicle(Vehicle vehicle)
+    public void ParkVehicle(Vehicle vehicle, int spaceId)
     {
-        var space = GetSpaces().FirstOrDefault();
-        if (space == null)
-        {
-            throw new InvalidOperationException($"Could not find a parking space with ID {space.Number}");
-        }
+        var space = spaces.Find(space => space.Number == spaceId)
+            ?? throw new NullReferenceException($"No parking space with number {spaceId} exists");
 
         if (space.Status != "free")
         {
@@ -41,7 +25,5 @@ public class ParkingRepository : IParkingRepository
         }
         space.Status = "occupied";
         space.Vehicle = vehicle;
-        return space;
     }
-    
 }
