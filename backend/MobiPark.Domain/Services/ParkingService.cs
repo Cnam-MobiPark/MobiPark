@@ -37,7 +37,7 @@ namespace MobiPark.Domain.Services
         
         public ParkingSpace ParkVehicle(Vehicle vehicle)
         {
-            var space = GetAvailableSpaces().FirstOrDefault();
+            var space = GetAvailableSpaces(vehicle.Type).FirstOrDefault();
             if (space == null)
             {
                 throw new InvalidOperationException($"Could not find a parking space with ID {space.Number}");
