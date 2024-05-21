@@ -20,6 +20,7 @@ public class ParkingTest
 
         // Assert
         Assert.NotNull(space);
+        Assert.NotNull(space.Vehicle);
         Assert.Equal("occupied", space.Status);
         Assert.Equal(1, space.Vehicle.Id);
     }
