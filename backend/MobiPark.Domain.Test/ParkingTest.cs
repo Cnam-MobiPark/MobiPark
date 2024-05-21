@@ -24,4 +24,22 @@ public class ParkingTest
         Assert.Equal("occupied", space.Status);
         Assert.Equal(1, space.Vehicle.Id);
     }
+
+    [Fact]
+    [Trait("Category", "Parking Spaces")]
+
+    public void GetAvailableSpaces_Should_Return_Available_Spaces()
+    {
+        // Arrange
+        var repository = new ParkingRepository();
+        var service = new ParkingService(repository);
+
+        // Act
+        var spaces = service.GetAvailableSpaces();
+
+        // Assert
+        Assert.NotNull(spaces);
+        Assert.NotEmpty(spaces);
+        Assert.All(spaces, s => Assert.Equal("free", s.Status));
+    }
 }
