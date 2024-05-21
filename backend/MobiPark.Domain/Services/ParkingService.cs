@@ -25,6 +25,11 @@ namespace MobiPark.Domain.Services
             return _parkingLot.Spaces;
         }
         
+        public List<ParkingSpace> GetAvailableSpaces()
+        {
+            return _parkingLot.Spaces.Where(s => s.Status == "free").ToList();
+        }
+        
         public ParkingSpace ParkVehicle(Vehicle vehicle, int spaceId)
         {
             var space = _parkingLot.Spaces.FirstOrDefault(s => s.Number == spaceId);
