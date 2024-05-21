@@ -8,7 +8,7 @@ public class ParkingTest
 {
     [Fact]
     [Trait("Category", "Parking Vehicles")]
-    public void ParkVehicle_Should_Park_A_Vehicle()
+    public void ParkVehicle_Should_Park_A_Car()
     {
         // Arrange
         var repository = new ParkingRepository();
@@ -22,7 +22,28 @@ public class ParkingTest
         Assert.NotNull(space);
         Assert.NotNull(space.Vehicle);
         Assert.Equal("occupied", space.Status);
+        Assert.Equal(space.Vehicle.Type.ToString().ToLower(), space.Type);
         Assert.Equal(1, space.Vehicle.Id);
+    }
+    
+    [Fact]
+    [Trait("Category", "Parking Vehicles")]
+    public void ParkVehicle_Should_Park_A_Motorcycle()
+    {
+        // Arrange
+        var repository = new ParkingRepository();
+        var service = new ParkingService(repository);
+        var vehicle = new Vehicle { Id = 1, Type = Vehicle.VehicleType.Motorcycle, Maker = "Honda", LicensePlate = "XYZ-987" };
+
+        // Act
+        var space = service.ParkVehicle(vehicle);
+
+        // Assert
+        Assert.NotNull(space);
+        Assert.NotNull(space.Vehicle);
+        Assert.Equal("occupied", space.Status);
+        Assert.Equal(space.Vehicle.Type.ToString().ToLower(), space.Type);
+        Assert.Equal(2, space.Vehicle.Id);
     }
 
     [Fact]
