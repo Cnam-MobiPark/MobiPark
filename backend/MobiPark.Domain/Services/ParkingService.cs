@@ -30,17 +30,17 @@ namespace MobiPark.Domain.Services
             return _parkingLot.Spaces.Where(s => s.Status == "free").ToList();
         }
         
-        public ParkingSpace ParkVehicle(Vehicle vehicle, int spaceId)
+        public ParkingSpace ParkVehicle(Vehicle vehicle)
         {
-            var space = _parkingLot.Spaces.FirstOrDefault(s => s.Number == spaceId);
+            var space = GetAvailableSpaces().FirstOrDefault();
             if (space == null)
             {
-                throw new InvalidOperationException($"Could not find a parking space with ID {spaceId}");
+                throw new InvalidOperationException($"Could not find a parking space with ID {space.Number}");
             }
 
             if (space.Status != "free")
             {
-                throw new InvalidOperationException($"Parking space {spaceId} is already occupied.");
+                throw new InvalidOperationException($"Parking space {space.Number} is already occupied.");
             }
             space.Status = "occupied";
             space.Vehicle = vehicle;

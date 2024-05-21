@@ -6,6 +6,6 @@ namespace MobiPark.Domain.Interfaces
     {
         List<ParkingSpace> GetSpaces();
         List<ParkingSpace> GetAvailableSpaces();
-        ParkingSpace ParkVehicle(Vehicle vehicle, int spaceId);
+        ParkingSpace ParkVehicle(Vehicle vehicle);
     }
 }
