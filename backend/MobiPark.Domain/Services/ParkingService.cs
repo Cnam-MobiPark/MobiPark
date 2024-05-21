@@ -6,49 +6,40 @@ namespace MobiPark.Domain.Services
 {
     public class ParkingService : IParkingService
     {
-        private readonly ParkingLot _parkingLot;
+        private readonly IParkingRepository _repository;
 
         public ParkingService(IParkingRepository repository)
         {
-            var path = Path.Combine(AppContext.BaseDirectory, "parking.json");
-            if (!File.Exists(path))
-            {
-                throw new FileNotFoundException($"Could not find the file at {path}");
-            }
+            _repository = repository;
+        }
 
-            var json = File.ReadAllText(path);
-            _parkingLot = JsonSerializer.Deserialize<ParkingLot>(json) ?? throw new InvalidOperationException("Invalid parking data in JSON file.");
+        public List<ParkingSpace> GetAvailableCarSpaces()
+        {
+            return _repository.GetAvailableSpaces(Vehicle.VehicleType.Car);
+        }
+
+        public List<ParkingSpace> GetAvailableMotorcycleSpaces()
+        {
+            return _repository.GetAvailableSpaces(Vehicle.VehicleType.Motorcycle);
+        }
+
+        public List<ParkingSpace> GetAvailableSpaces()
+        {
+            return _repository.GetAvailableSpaces();
         }
 
         public List<ParkingSpace> GetSpaces()
         {
-            return _parkingLot.Spaces;
+            throw new NotImplementedException();
         }
-        
-        public List<ParkingSpace> GetAvailableSpaces()
-        {
-            return _parkingLot.Spaces.Where(s => s.Status == "free").ToList();
-        }
-        
-        public List<ParkingSpace> GetAvailableSpaces(Vehicle.VehicleType vehicletype)
-        {
-            return _parkingLot.Spaces.Where(s => s.Status == "free" && s.Type.Equals(vehicletype.ToString(), StringComparison.CurrentCultureIgnoreCase)).ToList();
-        }
-        
+
         public ParkingSpace ParkVehicle(Vehicle vehicle)
         {
-            var space = GetAvailableSpaces(vehicle.Type).FirstOrDefault();
-            if (space == null)
-            {
-                throw new InvalidOperationException("No available parking spaces.");
-            }
+            var space = _repository.GetAvailableSpaces(vehicle.Type).FirstOrDefault()
+                ?? throw new InvalidOperationException("No available parking spaces.");
 
-            if (space.Status != "free")
-            {
-                throw new InvalidOperationException($"Parking space {space.Number} is already occupied.");
-            }
-            space.Status = "occupied";
-            space.Vehicle = vehicle;
+            _repository.ParkVehicle(vehicle, space.Number);
+
             return space;
         }
     }
