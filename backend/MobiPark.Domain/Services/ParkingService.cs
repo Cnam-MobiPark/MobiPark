@@ -40,7 +40,7 @@ namespace MobiPark.Domain.Services
             var space = GetAvailableSpaces(vehicle.Type).FirstOrDefault();
             if (space == null)
             {
-                throw new InvalidOperationException($"Could not find a parking space with ID {space.Number}");
+                throw new InvalidOperationException("No available parking spaces.");
             }
 
             if (space.Status != "free")
