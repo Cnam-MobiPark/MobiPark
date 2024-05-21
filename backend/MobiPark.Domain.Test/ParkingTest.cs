@@ -27,7 +27,6 @@ public class ParkingTest
 
     [Fact]
     [Trait("Category", "Parking Spaces")]
-
     public void GetAvailableSpaces_Should_Return_Available_Spaces()
     {
         // Arrange
@@ -41,5 +40,39 @@ public class ParkingTest
         Assert.NotNull(spaces);
         Assert.NotEmpty(spaces);
         Assert.All(spaces, s => Assert.Equal("free", s.Status));
+    }
+    
+    [Fact]
+    [Trait("Category", "Parking Spaces")]
+    public void GetAvailableSpaces_Should_Return_Available_Spaces_Only_For_Cars()
+    {
+        // Arrange
+        var repository = new ParkingRepository();
+        var service = new ParkingService(repository);
+
+        // Act
+        var spaces = service.GetAvailableSpaces(Vehicle.VehicleType.Car);
+
+        // Assert
+        Assert.NotNull(spaces);
+        Assert.NotEmpty(spaces);
+        Assert.All(spaces, s => Assert.Equal("car", s.Type));
+    }
+    
+    [Fact]
+    [Trait("Category", "Parking Spaces")]
+    public void GetAvailableSpaces_Should_Return_Available_Spaces_Only_For_Motorcycles()
+    {
+        // Arrange
+        var repository = new ParkingRepository();
+        var service = new ParkingService(repository);
+
+        // Act
+        var spaces = service.GetAvailableSpaces(Vehicle.VehicleType.Motorcycle);
+
+        // Assert
+        Assert.NotNull(spaces);
+        Assert.NotEmpty(spaces);
+        Assert.All(spaces, s => Assert.Equal("motorcycle", s.Type));
     }
 }
