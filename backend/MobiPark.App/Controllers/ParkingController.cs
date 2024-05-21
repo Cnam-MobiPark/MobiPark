@@ -26,9 +26,8 @@ namespace MobiPark.App.Controllers
         [HttpPut("spaces/park")]
         public IActionResult ParkCar([FromBody] ParkVehicleRequest request)
         {
-            var space = _parkingService.ParkVehicle(request.VehicleId, request.SpaceId);
-            var spacePresenter = new ParkingSpacePresenter(space);
-            return Ok(spacePresenter);
+            var space = _parkingService.ParkVehicle(request.Vehicle);
+            return Ok(new ParkingSpacePresenter(space));
         }
     }
 }
