@@ -25,7 +25,7 @@ namespace MobiPark.Domain.Services
             return _parkingLot.Spaces;
         }
         
-        public ParkingSpace ParkVehicle(int vehicleId, int spaceId)
+        public ParkingSpace ParkVehicle(Vehicle vehicle, int spaceId)
         {
             var space = _parkingLot.Spaces.FirstOrDefault(s => s.Number == spaceId);
             if (space == null)
@@ -37,8 +37,8 @@ namespace MobiPark.Domain.Services
             {
                 throw new InvalidOperationException($"Parking space {spaceId} is already occupied.");
             }
-
-            space.Vehicle = new Vehicle { Id = vehicleId };
+            space.Status = "occupied";
+            space.Vehicle = vehicle;
             return space;
         }
     }

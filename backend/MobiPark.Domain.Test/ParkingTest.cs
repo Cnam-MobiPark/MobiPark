@@ -7,14 +7,16 @@ namespace MobiPark.Domain.Test;
 public class ParkingTest
 {
     [Fact]
-    public void ParkVehicle()
+    [Trait("Category", "Parking Vehicles")]
+    public void ParkVehicle_Should_Park_A_Vehicle()
     {
         // Arrange
         var repository = new ParkingRepository();
         var service = new ParkingService(repository);
-
+        var vehicle = new Vehicle { Id = 1, Type = Vehicle.VehicleType.Car, Maker = "Toyota", LicensePlate = "ABC-1234" };
+            
         // Act
-        var space = service.ParkVehicle(1, 1);
+        var space = service.ParkVehicle(vehicle, 1);
 
         // Assert
         Assert.NotNull(space);
