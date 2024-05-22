@@ -1,6 +1,7 @@
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
 using MobiPark.Domain.Services;
+using MobiPark.Domain.Test.Repository;
 
 namespace MobiPark.Domain.Test
 {

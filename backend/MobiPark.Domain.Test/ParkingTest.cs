@@ -1,5 +1,6 @@
 using MobiPark.Domain.Models;
 using MobiPark.Domain.Services;
+using MobiPark.Domain.Test.Repository;
 using static MobiPark.Domain.Models.Vehicle;
 
 namespace MobiPark.Domain.Test;

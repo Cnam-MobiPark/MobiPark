@@ -3,11 +3,11 @@ using System.Text.Json.Serialization;
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
 
-namespace MobiPark.Domain.Test;
+namespace MobiPark.Domain.Test.Repository;
 
 public class VehicleRepository : IVehicleRepository
 {
-    public List<Vehicle> _vehicles = new List<Vehicle>();
+    public List<Vehicle> vehicles = new List<Vehicle>();
     
     public Vehicle CreateVehicle(Vehicle.VehicleType type, string maker, string licensePlate)
     {
@@ -35,8 +35,8 @@ public class VehicleRepository : IVehicleRepository
             Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
         };
 
-        _vehicles = JsonSerializer.Deserialize<List<Vehicle>>(json, options) ??
+        vehicles = JsonSerializer.Deserialize<List<Vehicle>>(json, options) ??
                     throw new InvalidOperationException("Invalid vehicle data in JSON file.");
-        return _vehicles;
+        return vehicles;
     }
 }

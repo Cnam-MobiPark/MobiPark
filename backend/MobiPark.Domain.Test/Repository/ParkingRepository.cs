@@ -1,7 +1,7 @@
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
 
-namespace MobiPark.Domain.Test;
+namespace MobiPark.Domain.Test.Repository;
 
 public class ParkingRepository : IParkingRepository
 {
