@@ -23,18 +23,18 @@ namespace MobiPark.Domain.Test
         public void CreateReservation_Should_Create_A_New_Reservation()
         {
             // Arrange
-            var parkingSpaceId = 1;
+            var parkingSpace = new ParkingSpace { Number = 1, Type = "car", Status = "free" };
             var vehicleType = Vehicle.VehicleType.Car;
             var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
             var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
             var isElectricCharging = false;
 
             // Act
-            var reservation = _reservationService.CreateReservation(parkingSpaceId, vehicleType, startTime, endTime, isElectricCharging);
+            var reservation = _reservationService.CreateReservation(parkingSpace, vehicleType, startTime, endTime, isElectricCharging);
 
             // Assert
             Assert.NotNull(reservation);
-            Assert.Equal(parkingSpaceId, reservation.ParkingSpace.Number);
+            Assert.Equal(parkingSpace, reservation.ParkingSpace);
             Assert.Equal(vehicleType, reservation.VehicleType);
             Assert.Equal(startTime, reservation.ReservationStartTime);
             Assert.Equal(endTime, reservation.ReservationEndTime);
@@ -58,7 +58,7 @@ namespace MobiPark.Domain.Test
             _reservations.Add(reservation);
 
             // Act
-            var result = _reservationService.GetReservation(reservationId);
+            var result = _reservationService.GetReservationById(reservationId);
 
             // Assert
             Assert.NotNull(result);
@@ -81,7 +81,7 @@ namespace MobiPark.Domain.Test
             _reservations.Add(reservation);
 
             // Act
-            _reservationService.CancelReservation(reservationId);
+            _reservationService.CancelReservation(reservation);
 
             // Assert
             Assert.DoesNotContain(_reservations, r => r.ReservationId == reservationId);

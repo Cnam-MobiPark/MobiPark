@@ -1,4 +1,3 @@
-using System.Text.Json;
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
 
@@ -12,11 +11,6 @@ public class ParkingRepository : IParkingRepository
     }
 
     public void ParkVehicle(Vehicle vehicle, ParkingSpace space)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void ParkVehicle(Vehicle vehicle, int spaceId)
     {
         throw new NotImplementedException();
     }

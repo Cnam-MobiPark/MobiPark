@@ -14,12 +14,12 @@ namespace MobiPark.Domain.Services
             _parkingService = parkingService;
         }
 
-        public Reservation CreateReservation(int parkingSpaceId, Vehicle.VehicleType vehicleType, DateTime startTime, DateTime endTime, bool isElectricCharging)
+        public Reservation CreateReservation(ParkingSpace parkingSpace, Vehicle.VehicleType vehicleType, DateTime startTime, DateTime endTime, bool isElectricCharging)
         {
             var reservation = new Reservation
             {
                 ReservationId = _reservations.Count + 1,
-                ParkingSpace = _parkingService.GetAvailableSpaces().FirstOrDefault(p => p.Number == parkingSpaceId),
+                ParkingSpace = parkingSpace,
                 VehicleType = vehicleType,
                 ReservationStartTime = startTime,
                 ReservationEndTime = endTime,
@@ -32,19 +32,14 @@ namespace MobiPark.Domain.Services
             return reservation;
         }
 
-        public Reservation GetReservation(int reservationId)
+        public Reservation? GetReservationById(int reservationId)
         {
             return _reservations.FirstOrDefault(r => r.ReservationId == reservationId);
         }
 
-        public void CancelReservation(int reservationId)
+        public void CancelReservation(Reservation reservation)
         {
-            var reservation = _reservations.FirstOrDefault(r => r.ReservationId == reservationId);
-
-            if (reservation != null)
-            {
-                _reservations.Remove(reservation);
-            }
+            _reservations.Remove(reservation);
         }
 
         private double CalculateTotalPrice(DateTime startTime, DateTime endTime, bool isElectricCharging)

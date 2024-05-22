@@ -38,7 +38,7 @@ namespace MobiPark.Domain.Services
             var space = _repository.GetAvailableSpaces(vehicle.Type).FirstOrDefault()
                 ?? throw new InvalidOperationException("No available parking spaces.");
 
-            _repository.ParkVehicle(vehicle, space.Number);
+            _repository.ParkVehicle(vehicle, space);
 
             return space;
         }

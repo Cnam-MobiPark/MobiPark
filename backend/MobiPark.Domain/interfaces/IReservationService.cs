@@ -4,7 +4,7 @@ namespace MobiPark.Domain.Interfaces;
 
 public interface IReservationService
 {
-    Reservation CreateReservation(int parkingSpaceId, Vehicle.VehicleType vehicleType, DateTime startTime, DateTime endTime, bool isElectricCharging);
-    Reservation GetReservation(int reservationId);
-    void CancelReservation(int reservationId);
+    Reservation CreateReservation(ParkingSpace parkingSpace, Vehicle.VehicleType vehicleType, DateTime startTime, DateTime endTime, bool isElectricCharging);
+    Reservation? GetReservationById(int reservationId);
+    void CancelReservation(Reservation reservation);
 }
