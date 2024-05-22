@@ -8,9 +8,9 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IParkingService, ParkingService>();
-builder.Services.AddSingleton<IVehicleService, VehicleService>();
-builder.Services.AddSingleton<IParkingRepository, ParkingRepository>();
+builder.Services.AddTransient<IParkingService, ParkingService>();
+builder.Services.AddTransient<IVehicleService, VehicleService>();
+builder.Services.AddTransient<IParkingRepository, ParkingRepository>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
