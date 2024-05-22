@@ -1,6 +1,6 @@
 using MobiPark.Domain.Models;
 
-namespace MobiPark.App.Presenters;
+namespace MobiPark.App.Api.Presenters;
 
 public class VehiclePresenter
 {

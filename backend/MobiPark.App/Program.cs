@@ -1,6 +1,6 @@
-using MobiPark.App;
 using MobiPark.Domain.Services;
 using MobiPark.Domain.Interfaces;
+using MobiPark.App.Database.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

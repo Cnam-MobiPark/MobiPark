@@ -2,7 +2,7 @@ using System.Text.Json;
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
 
-namespace MobiPark.App;
+namespace MobiPark.App.Database.Repositories;
 
 public class ParkingRepository : IParkingRepository
 {
