@@ -22,21 +22,11 @@ public class VehicleRepository : IVehicleRepository
 
     public List<Vehicle> GetVehicles()
     {
-        var path = Path.Combine(AppContext.BaseDirectory, "vehicles.json");
-        if (!File.Exists(path))
+        return new List<Vehicle>
         {
-            throw new FileNotFoundException($"Could not find the file at {path}");
-        }
-
-        var json = File.ReadAllText(path);
-        var options = new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
+            new() { Id = 1, Type = Vehicle.VehicleType.Car, Maker = "Toyota", LicensePlate = "ABC123" },
+            new() { Id = 2, Type = Vehicle.VehicleType.Motorcycle, Maker = "Honda", LicensePlate = "XYZ987" },
+            new() { Id = 3, Type = Vehicle.VehicleType.Car, Maker = "Ford", LicensePlate = "DEF456" }
         };
-
-        vehicles = JsonSerializer.Deserialize<List<Vehicle>>(json, options) ??
-                    throw new InvalidOperationException("Invalid vehicle data in JSON file.");
-        return vehicles;
     }
 }
