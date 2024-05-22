@@ -1,8 +1,11 @@
 namespace MobiPark.Domain.Models;
 
+using VehicleId = int;
+
 public class Pricing
 {
-    public int PricingId { get; set; }
+    
+    public VehicleId Id { get; set; }
     public Vehicle.VehicleType VehicleType { get; set; }
     public double BaseRate { get; set; }
     public double WeekendRate { get; set; }
