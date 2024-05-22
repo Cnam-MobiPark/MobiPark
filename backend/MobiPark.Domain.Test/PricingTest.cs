@@ -1,16 +1,19 @@
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
 using MobiPark.Domain.Services;
+using MobiPark.Domain.Test.Repository;
 
 namespace MobiPark.Domain.Test;
 
 public class PricingTest
 {
     private readonly IPricingService _pricingService;
+    private readonly IPricingRepository _pricingRepository;
 
     public PricingTest()
     {
-        _pricingService = new PricingService();
+        _pricingRepository = new PricingRepository();
+        _pricingService = new PricingService(_pricingRepository);
     }
 
     [Fact]
