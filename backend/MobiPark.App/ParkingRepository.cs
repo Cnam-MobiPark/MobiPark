@@ -39,13 +39,13 @@ public class ParkingRepository : IParkingRepository
         return spaces.Where(s => s.Status == "free" && (vehicleType == null || s.Type == vehicleType.ToString().ToLower())).ToList();
     }
 
-    public void ParkVehicle(Vehicle vehicle, ParkingSpace space)
+    public void ParkVehicle(Vehicle vehicle, ParkingSpace parkingSpace)
     {
-        if (space.Status != "free")
+        if (parkingSpace.Status != "free")
         {
-            throw new InvalidOperationException($"Parking space {space.Number} is already occupied.");
+            throw new InvalidOperationException($"Parking space {parkingSpace.Number} is already occupied.");
         }
-        space.Status = "occupied";
-        space.Vehicle = vehicle;
+        parkingSpace.Status = "occupied";
+        parkingSpace.Vehicle = vehicle;
     }
 }
