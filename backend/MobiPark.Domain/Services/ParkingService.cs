@@ -1,4 +1,3 @@
-using System.Text.Json;
 using MobiPark.Domain.Models;
 using MobiPark.Domain.Interfaces;
 
@@ -30,7 +29,7 @@ namespace MobiPark.Domain.Services
 
         public List<ParkingSpace> GetSpaces()
         {
-            throw new NotImplementedException();
+            return _repository.GetSpaces();
         }
 
         public ParkingSpace ParkVehicle(Vehicle vehicle)
