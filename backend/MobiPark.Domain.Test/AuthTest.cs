@@ -1,3 +1,7 @@
+using MobiPark.Domain.Models;
+using MobiPark.Domain.Services;
+using MobiPark.Domain.Test.Repository;
+
 namespace MobiPark.Domain.Test;
 
 public class AuthTest
@@ -8,10 +12,7 @@ public class AuthTest
     {
         // Arrange
         var user = new User { Id = 1, Username = "admin", Password = "admin" };
-        var userRepository = new UserRepository(new User[] 
-        {
-            user
-        });
+        var userRepository = new UserRepository(new User[] { user });
         var authService = new AuthService(userRepository);
 
         // Act
