@@ -6,6 +6,8 @@ namespace MobiPark.Domain.Test;
 public class VehicleTest
 {
     
+    private readonly VehicleService _vehicleService;
+    
     public VehicleTest()
     {
         var vehicleRepository = new VehicleRepository();
@@ -36,11 +38,8 @@ public class VehicleTest
     [Trait("Category", "Creating Vehicles")]
     public void GetVehicles_ReturnsVehicles()
     {
-        // Arrange
-        var vehicleService = new VehicleService();
-
         // Act
-        var vehicles = vehicleService.GetVehicles();
+        var vehicles = _vehicleService.GetVehicles();
 
         // Assert
         Assert.NotNull(vehicles);
