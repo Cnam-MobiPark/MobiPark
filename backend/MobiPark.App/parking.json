@@ -1,128 +1,128 @@
 {
-  "Name": "City Center Parking",
-  "Address": "456 Main Street, Anytown",
-  "TotalCapacity": 20,
-  "AvailableSpaces": 20,
-  "Spaces": [
+  "name": "City Center Parking",
+  "address": "456 Main Street, Anytown",
+  "totalCapacity": 20,
+  "availableSpaces": 20,
+  "spaces": [
     {
-      "Number": 1,
-      "Type": "car",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 1,
+      "type": "car",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 2,
-      "Type": "car",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 2,
+      "type": "car",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 3,
-      "Type": "motorcycle",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 3,
+      "type": "motorcycle",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 4,
-      "Type": "car",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 4,
+      "type": "car",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 5,
-      "Type": "car",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 5,
+      "type": "car",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 6,
-      "Type": "motorcycle",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 6,
+      "type": "motorcycle",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 7,
-      "Type": "car",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 7,
+      "type": "car",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 8,
-      "Type": "car",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 8,
+      "type": "car",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 9,
-      "Type": "motorcycle",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 9,
+      "type": "motorcycle",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 10,
-      "Type": "car",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 10,
+      "type": "car",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 11,
-      "Type": "car",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 11,
+      "type": "car",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 12,
-      "Type": "motorcycle",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 12,
+      "type": "motorcycle",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 13,
-      "Type": "car",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 13,
+      "type": "car",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 14,
-      "Type": "car",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 14,
+      "type": "car",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 15,
-      "Type": "motorcycle",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 15,
+      "type": "motorcycle",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 16,
-      "Type": "car",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 16,
+      "type": "car",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 17,
-      "Type": "car",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 17,
+      "type": "car",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 18,
-      "Type": "car",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 18,
+      "type": "car",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 19,
-      "Type": "car",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 19,
+      "type": "car",
+      "status": "free",
+      "vehicle": null
     },
     {
-      "Number": 20,
-      "Type": "car",
-      "Status": "free",
-      "Vehicle": {}
+      "number": 20,
+      "type": "car",
+      "status": "free",
+      "vehicle": null
     }
   ]
 }
