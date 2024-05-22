@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiPark.Domain", "MobiPark
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiPark.Domain.Test", "MobiPark.Domain.Test\MobiPark.Domain.Test.csproj", "{F3C0A0AB-A1AA-4EE6-801E-C229F7D017E3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobiPark.Infra", "MobiPark.Infra\MobiPark.Infra.csproj", "{A6000594-88A6-485E-A362-39A8D1EEA607}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F3C0A0AB-A1AA-4EE6-801E-C229F7D017E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3C0A0AB-A1AA-4EE6-801E-C229F7D017E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3C0A0AB-A1AA-4EE6-801E-C229F7D017E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6000594-88A6-485E-A362-39A8D1EEA607}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6000594-88A6-485E-A362-39A8D1EEA607}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6000594-88A6-485E-A362-39A8D1EEA607}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6000594-88A6-485E-A362-39A8D1EEA607}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

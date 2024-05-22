@@ -20,6 +20,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MobiPark.Domain\MobiPark.Domain.csproj" />
+      <ProjectReference Include="..\MobiPark.Infra\MobiPark.Infra.csproj" />
     </ItemGroup>
 
     <ItemGroup>
