@@ -5,23 +5,16 @@ namespace MobiPark.Domain.Services;
 
 public class PricingService : IPricingService
 {
+    
+    private readonly IPricingRepository pricingRepository;
+    
+    public PricingService(IPricingRepository pricingRepository)
+    {
+        this.pricingRepository = pricingRepository;
+    }
+    
     public double CalculatePrice(Vehicle.VehicleType vehicleType, DateTime startTime, DateTime endTime, bool isElectricCharging)
     {
-        var price = vehicleType switch
-        {
-            Vehicle.VehicleType.Car => 5,
-            Vehicle.VehicleType.Motorcycle => 3,
-            _ => throw new ArgumentOutOfRangeException(nameof(vehicleType), vehicleType, null)
-        };
-
-        if (isElectricCharging)
-        {
-            price += 2;
-        }
-
-        var duration = endTime - startTime;
-        var hours = (int)Math.Ceiling(duration.TotalHours);
-        price *= hours;
-        return price;
+        return pricingRepository.CalculatePrice(vehicleType.ToString().ToLower(), startTime, endTime, isElectricCharging);
     }
 }
