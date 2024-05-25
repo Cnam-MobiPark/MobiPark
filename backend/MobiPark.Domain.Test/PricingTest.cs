@@ -10,11 +10,9 @@ public class PricingTest
 {
     private readonly IPricingService _pricingService;
     private readonly IPricingRepository _pricingRepository;
-    private readonly VehicleFactory _vehicleFactory;
 
     public PricingTest()
     {
-        _vehicleFactory = new VehicleFactory();
         _pricingRepository = new PricingRepository();
         _pricingService = new PricingService(_pricingRepository);
     }
@@ -24,7 +22,7 @@ public class PricingTest
     public void CalculatePrice_Should_Return_Correct_Price_For_Car_Without_Charging()
     {
         // Arrange
-        var car = _vehicleFactory.CreateCar("Toyota", "ABC-1234");
+        var car = VehicleFactory.CreateCar("Toyota", "ABC-1234");
         var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
         var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
         var isElectricCharging = false;
@@ -41,7 +39,7 @@ public class PricingTest
     public void CalculatePrice_Should_Return_Correct_Price_For_Motorcycle_Without_Charging()
     {
         // Arrange
-        var motorcycle = _vehicleFactory.CreateMotorcycle("Toyota", "ABC-1234");
+        var motorcycle = VehicleFactory.CreateMotorcycle("Toyota", "ABC-1234");
         var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
         var endTime = new DateTime(2024, 5, 21, 10, 0, 0);
         var isElectricCharging = false;
@@ -58,7 +56,7 @@ public class PricingTest
     public void CalculatePrice_Should_Return_Correct_Price_For_Car_With_Charging()
     {
         // Arrange
-        var car = _vehicleFactory.CreateCar("Toyota", "ABC-1234");
+        var car = VehicleFactory.CreateCar("Toyota", "ABC-1234");
         var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
         var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
         var isElectricCharging = true;

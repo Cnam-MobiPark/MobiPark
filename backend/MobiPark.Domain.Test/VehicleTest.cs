@@ -9,13 +9,11 @@ public class VehicleTest
 {
 
     private readonly VehicleService _vehicleService;
-    private readonly VehicleFactory _vehicleFactory;
 
     public VehicleTest()
     {
         var vehicleRepository = new VehicleRepository();
         _vehicleService = new VehicleService(vehicleRepository);
-        _vehicleFactory = new VehicleFactory();
     }
 
     [Fact]
@@ -27,7 +25,7 @@ public class VehicleTest
         var licensePlate = "ABC123";
 
         // Act
-        var vehicle = _vehicleFactory.CreateCar(maker, licensePlate);
+        var vehicle = VehicleFactory.CreateCar(maker, licensePlate);
 
         // Assert
         Assert.NotNull(vehicle);

@@ -7,7 +7,6 @@ namespace MobiPark.App;
 
 public class VehicleRepository : IVehicleRepository
 {
-    public VehicleFactory VehicleFactory { get; set; } = new VehicleFactory();
     public List<Vehicle> vehicles = new List<Vehicle>();
     
     public VehicleRepository()

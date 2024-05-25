@@ -11,7 +11,6 @@ namespace MobiPark.Domain.Test
         private readonly List<Reservation> _reservations;
         private readonly IParkingService _parkingService;
         private readonly IReservationService _reservationService;
-        private readonly VehicleFactory _vehicleFactory;
 
         public ReservationTest()
         {
@@ -19,7 +18,6 @@ namespace MobiPark.Domain.Test
             var parkingRepository = new FakeParkingRepository();
             _parkingService = new ParkingService(parkingRepository);
             _reservationService = new ReservationService(_reservations, _parkingService);
-            _vehicleFactory = new VehicleFactory();
         }
 
         [Fact]
@@ -28,7 +26,7 @@ namespace MobiPark.Domain.Test
         {
             // Arrange
             var parkingSpace = new ParkingSpace { Number = 1, Type = "car", Status = "free" };
-            var vehicle = _vehicleFactory.CreateCar("Toyota", "ABC-1234");
+            var vehicle = VehicleFactory.CreateCar("Toyota", "ABC-1234");
             var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
             var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
             var isElectricCharging = false;
@@ -52,7 +50,7 @@ namespace MobiPark.Domain.Test
         {
             // Arrange
             var reservationId = 1;
-            var vehicle = _vehicleFactory.CreateCar("Toyota", "ABC-1234");
+            var vehicle = VehicleFactory.CreateCar("Toyota", "ABC-1234");
             var reservation = new Reservation
             {
                 ReservationId = reservationId,
@@ -76,7 +74,7 @@ namespace MobiPark.Domain.Test
         {
             // Arrange
             var reservationId = 1;
-            var vehicle = _vehicleFactory.CreateCar("Toyota", "ABC-1234");
+            var vehicle = VehicleFactory.CreateCar("Toyota", "ABC-1234");
             var reservation = new Reservation
             {
                 ReservationId = reservationId,

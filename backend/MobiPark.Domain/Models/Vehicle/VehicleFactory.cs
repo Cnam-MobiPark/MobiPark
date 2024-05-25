@@ -2,9 +2,9 @@ using MobiPark.Domain.Interfaces;
 
 namespace MobiPark.Domain.Models.Vehicle;
 
-public class VehicleFactory
+public static class VehicleFactory
 {
-    public Car CreateCar(string maker, string licensePlate)
+    public static Car CreateCar(string maker, string licensePlate)
     {
         return new Car
         {
@@ -13,7 +13,7 @@ public class VehicleFactory
         };
     }
     
-    public Motorcycle CreateMotorcycle(string maker, string licensePlate)
+    public static Motorcycle CreateMotorcycle(string maker, string licensePlate)
     {
         return new Motorcycle
         {

@@ -6,12 +6,6 @@ namespace MobiPark.Domain.Test;
 
 public class ParkingTest
 {
-    public VehicleFactory VehicleFactory { get; set; } = new VehicleFactory();
-    
-    public ParkingTest()
-    {
-        VehicleFactory = new VehicleFactory();
-    }
     
     [Fact]
     [Trait("Category", "Parking Vehicles")]
