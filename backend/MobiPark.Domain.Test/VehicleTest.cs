@@ -7,17 +7,17 @@ namespace MobiPark.Domain.Test;
 
 public class VehicleTest
 {
-    
+
     private readonly VehicleService _vehicleService;
-    private VehicleFactory _vehicleFactory;
-    
+    private readonly VehicleFactory _vehicleFactory;
+
     public VehicleTest()
     {
         var vehicleRepository = new VehicleRepository();
         _vehicleService = new VehicleService(vehicleRepository);
         _vehicleFactory = new VehicleFactory();
     }
-    
+
     [Fact]
     [Trait("Category", "Creating Vehicles")]
     public void CreateVehicle_ShouldCreateVehicle()
@@ -25,10 +25,10 @@ public class VehicleTest
         // Arrange
         var maker = "Toyota";
         var licensePlate = "ABC123";
-        
+
         // Act
         var vehicle = _vehicleFactory.CreateCar(maker, licensePlate);
-        
+
         // Assert
         Assert.NotNull(vehicle);
         Assert.IsType<Car>(vehicle);
