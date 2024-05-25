@@ -19,13 +19,16 @@ namespace MobiPark.Domain.Test.Repository
 
         public Pricing GetPricing(string vehicleType)
         {
-            if (_pricings == null)
-                throw new InvalidOperationException("Pricing data is not initialized.");
+            if (string.IsNullOrWhiteSpace(vehicleType))
+            {
+                throw new ArgumentException("Vehicle type cannot be null or empty", nameof(vehicleType));
+            }
 
-            var pricing = _pricings.FirstOrDefault(p => Type.GetType(p.Vehicle.ToString()).Name == vehicleType);
-
+            var pricing = _pricings.FirstOrDefault(p => p.Vehicle.GetType().Name == vehicleType);
             if (pricing == null)
-                throw new KeyNotFoundException($"No pricing found for vehicle type: {vehicleType}");
+            {
+                throw new InvalidOperationException($"No pricing found for vehicle type {vehicleType}");
+            }
 
             return pricing;
         }
@@ -40,9 +43,19 @@ namespace MobiPark.Domain.Test.Repository
 
         public double CalculatePrice(Vehicle vehicle, DateTime startTime, DateTime endTime, bool isElectricCharging)
         {
-            var pricing = GetPricing(Type.GetType(vehicle.ToString()).Name);
-            var price = pricing.Price;
+            if (vehicle == null)
+            {
+                throw new ArgumentNullException(nameof(vehicle));
+            }
 
+            var vehicleTypeName = vehicle.GetType().Name;
+            var pricing = GetPricing(vehicleTypeName);
+            if (pricing == null)
+            {
+                throw new InvalidOperationException($"No pricing found for vehicle type {vehicleTypeName}");
+            }
+
+            var price = pricing.Price;
             if (isElectricCharging)
             {
                 price += 2;
@@ -51,7 +64,10 @@ namespace MobiPark.Domain.Test.Repository
             var duration = endTime - startTime;
             var hours = (int)Math.Ceiling(duration.TotalHours);
             price *= hours;
+
             return price;
         }
+
+
     }
 }
