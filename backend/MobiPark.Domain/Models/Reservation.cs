@@ -6,7 +6,7 @@ public class Reservation
 {
     public ReservationId ReservationId { get; set; }
     public ParkingSpace ParkingSpace { get; set; }
-    public Vehicle.VehicleType VehicleType { get; set; }
+    public Vehicle.Vehicle Vehicle { get; set; }
     public DateTime ReservationStartTime { get; set; }
     public DateTime ReservationEndTime { get; set; }
     public bool IsElectricCharging { get; set; }

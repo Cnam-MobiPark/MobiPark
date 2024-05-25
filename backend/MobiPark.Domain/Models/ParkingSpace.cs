@@ -7,5 +7,5 @@ public class ParkingSpace
     public ParkingSpaceNumber Number { get; set; }
     public required string Type { get; set; }
     public required string Status { get; set; }
-    public Vehicle? Vehicle { get; set; }
+    public Vehicle.Vehicle? Vehicle { get; set; }
 }

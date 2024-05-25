@@ -1,5 +1,6 @@
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
+using MobiPark.Domain.Models.Vehicle;
 using MobiPark.Domain.Services;
 using MobiPark.Domain.Test.Repository;
 
@@ -14,7 +15,7 @@ namespace MobiPark.Domain.Test
         public ReservationTest()
         {
             _reservations = new List<Reservation>();
-            var parkingRepository = new ParkingRepository();
+            var parkingRepository = new FakeParkingRepository();
             _parkingService = new ParkingService(parkingRepository);
             _reservationService = new ReservationService(_reservations, _parkingService);
         }
@@ -25,18 +26,18 @@ namespace MobiPark.Domain.Test
         {
             // Arrange
             var parkingSpace = new ParkingSpace { Number = 1, Type = "car", Status = "free" };
-            var vehicleType = Vehicle.VehicleType.Car;
+            var vehicle = VehicleFactory.CreateCar("Toyota", "ABC-1234");
             var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
             var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
             var isElectricCharging = false;
 
             // Act
-            var reservation = _reservationService.CreateReservation(parkingSpace, vehicleType, startTime, endTime, isElectricCharging);
+            var reservation = _reservationService.CreateReservation(parkingSpace, vehicle, startTime, endTime, isElectricCharging);
 
             // Assert
             Assert.NotNull(reservation);
             Assert.Equal(parkingSpace, reservation.ParkingSpace);
-            Assert.Equal(vehicleType, reservation.VehicleType);
+            Assert.Equal(vehicle, reservation.Vehicle);
             Assert.Equal(startTime, reservation.ReservationStartTime);
             Assert.Equal(endTime, reservation.ReservationEndTime);
             Assert.Equal(isElectricCharging, reservation.IsElectricCharging);
@@ -49,10 +50,11 @@ namespace MobiPark.Domain.Test
         {
             // Arrange
             var reservationId = 1;
+            var vehicle = VehicleFactory.CreateCar("Toyota", "ABC-1234");
             var reservation = new Reservation
             {
                 ReservationId = reservationId,
-                VehicleType = Vehicle.VehicleType.Car,
+                Vehicle = vehicle,
                 ReservationStartTime = DateTime.Now,
                 ReservationEndTime = DateTime.Now.AddHours(1)
             };
@@ -72,10 +74,11 @@ namespace MobiPark.Domain.Test
         {
             // Arrange
             var reservationId = 1;
+            var vehicle = VehicleFactory.CreateCar("Toyota", "ABC-1234");
             var reservation = new Reservation
             {
                 ReservationId = reservationId,
-                VehicleType = Vehicle.VehicleType.Car,
+                Vehicle = vehicle,
                 ReservationStartTime = DateTime.Now,
                 ReservationEndTime = DateTime.Now.AddHours(1)
             };

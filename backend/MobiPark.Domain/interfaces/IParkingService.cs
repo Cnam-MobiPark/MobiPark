@@ -1,4 +1,5 @@
 using MobiPark.Domain.Models;
+using MobiPark.Domain.Models.Vehicle;
 
 namespace MobiPark.Domain.Interfaces
 {
@@ -6,8 +7,7 @@ namespace MobiPark.Domain.Interfaces
     {
         List<ParkingSpace> GetSpaces();
         List<ParkingSpace> GetAvailableSpaces();
-        List<ParkingSpace> GetAvailableCarSpaces();
-        List<ParkingSpace> GetAvailableMotorcycleSpaces();
+        List<ParkingSpace> GetAvailableSpacesFor(Vehicle vehicle);
         ParkingSpace ParkVehicle(Vehicle vehicle);
     }
 }

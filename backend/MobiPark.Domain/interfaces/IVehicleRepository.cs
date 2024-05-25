@@ -1,9 +1,9 @@
-using MobiPark.Domain.Models;
+using MobiPark.Domain.Models.Vehicle;
 
 namespace MobiPark.Domain.Interfaces;
 
 public interface IVehicleRepository
 {
-    public Vehicle CreateVehicle(Vehicle.VehicleType type, string maker, string licensePlate);
+    public Vehicle CreateVehicle(string type, string maker, string licensePlate);
     public List<Vehicle> GetVehicles();
 }
