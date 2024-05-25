@@ -35,6 +35,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install dependencies
+        run: dotnet restore mobipark.sln --locked-mode
+        working-directory: ./backend
+
       - name: Run tests
         run: dotnet test mobipark.sln --no-restore --verbosity normal
         working-directory: ./backend
