@@ -1,5 +1,6 @@
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
+using MobiPark.Domain.Models.Vehicle;
 using MobiPark.Domain.Services;
 using MobiPark.Domain.Test.Repository;
 
@@ -13,6 +14,7 @@ public class PricingTest
 
     public PricingTest()
     {
+        _vehicleFactory = new VehicleFactory();
         _pricingRepository = new PricingRepository();
         _pricingService = new PricingService(_pricingRepository);
     }
