@@ -21,12 +21,18 @@ jobs:
           cache: true
 
       - name: Install dependencies
-        run: dotnet restore mobipark.sln --locked-mode
+        run: dotnet restore mobipark.sln
         working-directory: ./backend
 
       - name: Build
         run: dotnet build mobipark.sln --configuration Release --no-restore
         working-directory: ./backend
+
+      - name: Publish build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: ./backend/bin
 
   tests:
     runs-on: ubuntu-latest
@@ -42,9 +48,11 @@ jobs:
           dotnet-version: "8.0.x"
           cache: true
 
-      - name: Install dependencies
-        run: dotnet restore mobipark.sln --locked-mode
-        working-directory: ./backend
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifacts
+          path: ./backend/bin
 
       - name: Run tests
         run: dotnet test mobipark.sln --no-restore --verbosity normal
