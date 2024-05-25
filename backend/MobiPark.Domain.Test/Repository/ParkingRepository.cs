@@ -1,5 +1,6 @@
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
+using MobiPark.Domain.Models.Vehicle;
 
 namespace MobiPark.Domain.Test.Repository;
 
@@ -11,9 +12,14 @@ public class ParkingRepository : IParkingRepository
     {
         return spaces;
     }
-    public List<ParkingSpace> GetAvailableSpaces(Vehicle.VehicleType? vehicleType = null)
+    
+    public List<ParkingSpace> GetAvailableSpaces()
     {
-        return spaces.Where(s => s.Status == "free" && (vehicleType == null || s.Type == vehicleType.ToString().ToLower())).ToList();
+        return spaces.Where(s => s.Status == "free").ToList();
+    }
+    public List<ParkingSpace> GetAvailableSpaces(Vehicle vehicle)
+    {
+        return spaces.Where(s => s.Status == "free" && Type.GetType(s.Type) == vehicle.GetType()).ToList();
     }
 
     public void ParkVehicle(Vehicle vehicle, ParkingSpace parkingSpace)

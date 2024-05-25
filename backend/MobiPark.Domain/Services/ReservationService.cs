@@ -1,5 +1,6 @@
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
+using MobiPark.Domain.Models.Vehicle;
 
 namespace MobiPark.Domain.Services
 {
@@ -14,13 +15,13 @@ namespace MobiPark.Domain.Services
             _parkingService = parkingService;
         }
 
-        public Reservation CreateReservation(ParkingSpace parkingSpace, Vehicle.VehicleType vehicleType, DateTime startTime, DateTime endTime, bool isElectricCharging)
+        public Reservation CreateReservation(ParkingSpace parkingSpace, Vehicle vehicle, DateTime startTime, DateTime endTime, bool isElectricCharging)
         {
             var reservation = new Reservation
             {
                 ReservationId = _reservations.Count + 1,
                 ParkingSpace = parkingSpace,
-                VehicleType = vehicleType,
+                Vehicle = vehicle,
                 ReservationStartTime = startTime,
                 ReservationEndTime = endTime,
                 IsElectricCharging = isElectricCharging,

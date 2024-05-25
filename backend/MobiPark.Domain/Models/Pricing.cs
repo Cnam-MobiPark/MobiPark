@@ -6,7 +6,7 @@ public class Pricing
 {
     
     public VehicleId Id { get; set; }
-    public Vehicle.VehicleType VehicleType { get; set; }
+    public Vehicle.Vehicle Vehicle { get; set; }
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
     public bool IsElectricCharging { get; set; }

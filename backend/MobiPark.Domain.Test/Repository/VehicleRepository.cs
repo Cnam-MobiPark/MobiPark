@@ -2,31 +2,30 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
+using MobiPark.Domain.Models.Vehicle;
 
 namespace MobiPark.Domain.Test.Repository;
 
 public class VehicleRepository : IVehicleRepository
 {
+    public VehicleFactory VehicleFactory { get; set; } = new VehicleFactory();
     public List<Vehicle> vehicles = new List<Vehicle>();
     
-    public Vehicle CreateVehicle(Vehicle.VehicleType type, string maker, string licensePlate)
+    public Vehicle CreateVehicle(string type, string maker, string licensePlate)
     {
-        var vehicle = new Vehicle
+        switch (type)
         {
-            Type = type,
-            Maker = maker,
-            LicensePlate = licensePlate
-        };
-        return vehicle;
+            case "Car":
+                return VehicleFactory.CreateCar(maker, licensePlate);
+            case "Motorcycle":
+                return VehicleFactory.CreateMotorcycle(maker, licensePlate);
+            default:
+                throw new InvalidOperationException("Invalid vehicle type");
+        }
     }
 
     public List<Vehicle> GetVehicles()
     {
-        return new List<Vehicle>
-        {
-            new() { Id = 1, Type = Vehicle.VehicleType.Car, Maker = "Toyota", LicensePlate = "ABC123" },
-            new() { Id = 2, Type = Vehicle.VehicleType.Motorcycle, Maker = "Honda", LicensePlate = "XYZ987" },
-            new() { Id = 3, Type = Vehicle.VehicleType.Car, Maker = "Ford", LicensePlate = "DEF456" }
-        };
+        return vehicles;
     }
 }

@@ -1,5 +1,6 @@
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
+using MobiPark.Domain.Models.Vehicle;
 
 namespace MobiPark.Domain.Services;
 
@@ -13,8 +14,8 @@ public class PricingService : IPricingService
         this.pricingRepository = pricingRepository;
     }
     
-    public double CalculatePrice(Vehicle.VehicleType vehicleType, DateTime startTime, DateTime endTime, bool isElectricCharging)
+    public double CalculatePrice(Vehicle vehicle, DateTime startTime, DateTime endTime, bool isElectricCharging)
     {
-        return pricingRepository.CalculatePrice(vehicleType.ToString().ToLower(), startTime, endTime, isElectricCharging);
+        return pricingRepository.CalculatePrice(vehicle, startTime, endTime, isElectricCharging);
     }
 }

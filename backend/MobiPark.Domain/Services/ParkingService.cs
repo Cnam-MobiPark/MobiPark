@@ -1,5 +1,6 @@
 using MobiPark.Domain.Models;
 using MobiPark.Domain.Interfaces;
+using MobiPark.Domain.Models.Vehicle;
 
 namespace MobiPark.Domain.Services
 {
@@ -11,20 +12,15 @@ namespace MobiPark.Domain.Services
         {
             _repository = repository;
         }
-
-        public List<ParkingSpace> GetAvailableCarSpaces()
-        {
-            return _repository.GetAvailableSpaces(Vehicle.VehicleType.Car);
-        }
-
-        public List<ParkingSpace> GetAvailableMotorcycleSpaces()
-        {
-            return _repository.GetAvailableSpaces(Vehicle.VehicleType.Motorcycle);
-        }
-
+        
         public List<ParkingSpace> GetAvailableSpaces()
         {
             return _repository.GetAvailableSpaces();
+        }
+        
+        public List<ParkingSpace> GetAvailableSpacesFor(Vehicle vehicle)
+        {
+            return _repository.GetAvailableSpaces(vehicle);
         }
 
         public List<ParkingSpace> GetSpaces()
@@ -34,7 +30,7 @@ namespace MobiPark.Domain.Services
 
         public ParkingSpace ParkVehicle(Vehicle vehicle)
         {
-            var space = _repository.GetAvailableSpaces(vehicle.Type).FirstOrDefault()
+            var space = _repository.GetAvailableSpaces(vehicle).FirstOrDefault()
                 ?? throw new InvalidOperationException("No available parking spaces.");
 
             _repository.ParkVehicle(vehicle, space);

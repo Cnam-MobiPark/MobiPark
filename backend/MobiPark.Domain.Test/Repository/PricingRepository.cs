@@ -1,5 +1,6 @@
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
+using MobiPark.Domain.Models.Vehicle;
 
 namespace MobiPark.Domain.Test.Repository
 {
@@ -11,8 +12,8 @@ namespace MobiPark.Domain.Test.Repository
         {
             _pricings = new List<Pricing>
             {
-                new Pricing { VehicleType = Vehicle.VehicleType.Car, Price = 5 },
-                new Pricing { VehicleType = Vehicle.VehicleType.Motorcycle, Price = 3 }
+                new Pricing { Vehicle = new Car(), Price = 5 },
+                new Pricing { Vehicle = new Motorcycle(), Price = 3 }
             };
         }
 
@@ -21,7 +22,7 @@ namespace MobiPark.Domain.Test.Repository
             if (_pricings == null)
                 throw new InvalidOperationException("Pricing data is not initialized.");
 
-            var pricing = _pricings.FirstOrDefault(p => p.VehicleType.ToString().Equals(vehicleType, StringComparison.OrdinalIgnoreCase));
+            var pricing = _pricings.FirstOrDefault(p => Type.GetType(p.Vehicle.ToString()).Name == vehicleType);
 
             if (pricing == null)
                 throw new KeyNotFoundException($"No pricing found for vehicle type: {vehicleType}");
@@ -37,9 +38,9 @@ namespace MobiPark.Domain.Test.Repository
             _pricings.Add(pricing);
         }
 
-        public double CalculatePrice(string vehicleType, DateTime startTime, DateTime endTime, bool isElectricCharging)
+        public double CalculatePrice(Vehicle vehicle, DateTime startTime, DateTime endTime, bool isElectricCharging)
         {
-            var pricing = GetPricing(vehicleType);
+            var pricing = GetPricing(Type.GetType(vehicle.ToString()).Name);
             var price = pricing.Price;
 
             if (isElectricCharging)
