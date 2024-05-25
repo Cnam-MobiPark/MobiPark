@@ -48,7 +48,7 @@ namespace MobiPark.Domain.Test.Repository
             var pricing = GetPricing(vehicleTypeName);
             if (pricing == null)
             {
-                throw new InvalidOperationException($"No pricing found for vehicle type {vehicleTypeName}");
+                throw new PricingNotFoundException(vehicleTypeName);
             }
 
             var price = pricing.Price;
