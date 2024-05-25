@@ -43,11 +43,6 @@ namespace MobiPark.Domain.Test.Repository
 
         public double CalculatePrice(Vehicle vehicle, DateTime startTime, DateTime endTime, bool isElectricCharging)
         {
-            if (vehicle == null)
-            {
-                throw new ArgumentNullException(nameof(vehicle));
-            }
-
             var vehicleTypeName = vehicle.GetType().Name;
             var pricing = GetPricing(vehicleTypeName);
             if (pricing == null)
