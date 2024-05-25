@@ -1,0 +1,29 @@
+name: .NET Core
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '6.0.x'
+
+    - name: Install dependencies
+      run: dotnet restore mobipark.sln
+
+    - name: Build
+      run: dotnet build mobipark.sln --configuration Release --no-restore
+
+    - name: Run tests
+      run: dotnet test mobipark.sln --no-restore --verbosity normal
