@@ -9,6 +9,7 @@ public class PricingTest
 {
     private readonly IPricingService _pricingService;
     private readonly IPricingRepository _pricingRepository;
+    private readonly IVehicleFactory _vehicleFactory;
 
     public PricingTest()
     {
@@ -21,13 +22,13 @@ public class PricingTest
     public void CalculatePrice_Should_Return_Correct_Price_For_Car_Without_Charging()
     {
         // Arrange
-        var vehicleType = Vehicle.VehicleType.Car;
+        var car = _vehicleFactory.CreateCar("Toyota", "ABC-1234");
         var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
         var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
         var isElectricCharging = false;
 
         // Act
-        var price = _pricingService.CalculatePrice(vehicleType, startTime, endTime, isElectricCharging);
+        var price = _pricingService.CalculatePrice(car, startTime, endTime, isElectricCharging);
 
         // Assert
         Assert.Equal(20, price);
@@ -38,13 +39,13 @@ public class PricingTest
     public void CalculatePrice_Should_Return_Correct_Price_For_Motorcycle_Without_Charging()
     {
         // Arrange
-        var vehicleType = Vehicle.VehicleType.Motorcycle;
+        var motorcycle = _vehicleFactory.CreateMotorcycle("Toyota", "ABC-1234");
         var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
         var endTime = new DateTime(2024, 5, 21, 10, 0, 0);
         var isElectricCharging = false;
 
         // Act
-        var price = _pricingService.CalculatePrice(vehicleType, startTime, endTime, isElectricCharging);
+        var price = _pricingService.CalculatePrice(motorcycle, startTime, endTime, isElectricCharging);
 
         // Assert
         Assert.Equal(6, price);
@@ -55,13 +56,13 @@ public class PricingTest
     public void CalculatePrice_Should_Return_Correct_Price_For_Car_With_Charging()
     {
         // Arrange
-        var vehicleType = Vehicle.VehicleType.Car;
+        var car = _vehicleFactory.CreateCar("Toyota", "ABC-1234");
         var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
         var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
         var isElectricCharging = true;
 
         // Act
-        var price = _pricingService.CalculatePrice(vehicleType, startTime, endTime, isElectricCharging);
+        var price = _pricingService.CalculatePrice(car, startTime, endTime, isElectricCharging);
 
         // Assert
         Assert.Equal(28, price);
