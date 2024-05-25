@@ -19,11 +19,15 @@ jobs:
       with:
         dotnet-version: '6.0.x'
 
+    - name: Verify solution file exists
+      run: ls -la backend
+      working-directory: ./
+
     - name: Install dependencies
-      run: dotnet restore mobipark.sln
+      run: dotnet restore backend/mobipark.sln
 
     - name: Build
-      run: dotnet build mobipark.sln --configuration Release --no-restore
+      run: dotnet build backend/mobipark.sln --configuration Release --no-restore
 
     - name: Run tests
-      run: dotnet test mobipark.sln --no-restore --verbosity normal
+      run: dotnet test backend/mobipark.sln --no-restore --verbosity normal
