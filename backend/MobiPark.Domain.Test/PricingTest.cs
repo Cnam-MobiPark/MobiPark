@@ -10,7 +10,7 @@ public class PricingTest
 {
     private readonly IPricingService _pricingService;
     private readonly IPricingRepository _pricingRepository;
-    private readonly IVehicleFactory _vehicleFactory;
+    private readonly VehicleFactory _vehicleFactory;
 
     public PricingTest()
     {
