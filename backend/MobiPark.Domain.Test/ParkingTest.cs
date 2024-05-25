@@ -15,7 +15,7 @@ public class ParkingTest
         var repository = new FakeParkingRepository();
         AddSpaces(repository, "Car", "free", 0, 1);
         var service = new ParkingService(repository);
-        var vehicle = VehicleFactory.CreateCar("Toyota", "ABC-1234");
+        var vehicle = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"));
 
         // Act
         service.ParkVehicle(vehicle);
@@ -36,7 +36,7 @@ public class ParkingTest
         var repository = new FakeParkingRepository();
         AddSpaces(repository, "Motorcycle", "free", 0, 1);
         var service = new ParkingService(repository);
-        var vehicle = VehicleFactory.CreateMotorcycle("Toyota", "ABC-1234");
+        var vehicle = VehicleFactory.CreateMotorcycle("Toyota", new FrLicensePlate("AB-123-CD"));
 
         // Act
         service.ParkVehicle(vehicle);
@@ -56,7 +56,7 @@ public class ParkingTest
         // Arrange
         var repository = new FakeParkingRepository();
         var service = new ParkingService(repository);
-        var vehicle = VehicleFactory.CreateCar("Toyota", "ABC-1234");
+        var vehicle = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"));
 
         // Act & Assert
         var exception = Assert.Throws<InvalidOperationException>(() => service.ParkVehicle(vehicle));
@@ -90,7 +90,7 @@ public class ParkingTest
         AddSpaces(repository, "Car", "free", 0, 5);
         AddSpaces(repository, "Motorcycle", "free", 5, 5);
         var service = new ParkingService(repository);
-        var vehicle = VehicleFactory.CreateCar("Toyota", "ABC-1234");
+        var vehicle = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"));
 
         // Act
         var spaces = service.GetAvailableSpacesFor(vehicle);
@@ -110,7 +110,7 @@ public class ParkingTest
         AddSpaces(repository, "Car", "free", 0, 5);
         AddSpaces(repository, "Motorcycle", "free", 5, 5);
         var service = new ParkingService(repository);
-        var vehicle = VehicleFactory.CreateMotorcycle("Toyota", "ABC-1234");
+        var vehicle = VehicleFactory.CreateMotorcycle("Toyota", new FrLicensePlate("AB-123-CD"));
 
         // Act
         var spaces = service.GetAvailableSpacesFor(vehicle);

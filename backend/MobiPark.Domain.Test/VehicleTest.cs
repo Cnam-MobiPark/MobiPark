@@ -21,7 +21,7 @@ public class VehicleTest
     {
         // Arrange
         var maker = "Toyota";
-        var licensePlate = "ABC123";
+        var licensePlate = new FrLicensePlate("AB-123-CD");
 
         // Act
         var vehicle = VehicleFactory.CreateCar(maker, licensePlate);
