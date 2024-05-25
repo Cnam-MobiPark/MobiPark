@@ -26,7 +26,7 @@ namespace MobiPark.Domain.Test
         {
             // Arrange
             var parkingSpace = new ParkingSpace { Number = 1, Type = "car", Status = "free" };
-            var vehicle = VehicleFactory.CreateCar("Toyota", "ABC-1234");
+            var vehicle = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"));
             var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
             var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
             var isElectricCharging = false;
@@ -50,7 +50,7 @@ namespace MobiPark.Domain.Test
         {
             // Arrange
             var reservationId = 1;
-            var vehicle = VehicleFactory.CreateCar("Toyota", "ABC-1234");
+            var vehicle = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"));
             var reservation = new Reservation
             {
                 ReservationId = reservationId,
@@ -74,7 +74,7 @@ namespace MobiPark.Domain.Test
         {
             // Arrange
             var reservationId = 1;
-            var vehicle = VehicleFactory.CreateCar("Toyota", "ABC-1234");
+            var vehicle = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"));
             var reservation = new Reservation
             {
                 ReservationId = reservationId,
