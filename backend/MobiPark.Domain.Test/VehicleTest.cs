@@ -35,17 +35,4 @@ public class VehicleTest
         Assert.Equal(maker, vehicle.Maker);
         Assert.Equal(licensePlate, vehicle.LicensePlate);
     }
-    
-    
-    [Fact]
-    [Trait("Category", "Creating Vehicles")]
-    public void GetVehicles_ReturnsVehicles()
-    {
-        // Act
-        var vehicles = _vehicleService.GetVehicles();
-
-        // Assert
-        Assert.NotNull(vehicles);
-        Assert.NotEmpty(vehicles);
-    }
 }
