@@ -11,6 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IParkingService, ParkingService>();
 builder.Services.AddTransient<IVehicleService, VehicleService>();
 builder.Services.AddTransient<IParkingRepository, ParkingRepository>();
+builder.Services.AddTransient<IVehicleRepository, VehicleRepository>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
