@@ -18,7 +18,7 @@ public class ParkingTest
     public void ParkVehicle_Should_Park_A_Car()
     {
         // Arrange
-        var repository = new ParkingRepository();
+        var repository = new FakeParkingRepository();
         AddSpaces(repository, "Car", "free", 0, 1);
         var service = new ParkingService(repository);
         var vehicle = VehicleFactory.CreateCar("Toyota", "ABC-1234");
@@ -39,7 +39,7 @@ public class ParkingTest
     public void ParkVehicle_Should_Park_A_Motorcycle()
     {
         // Arrange
-        var repository = new ParkingRepository();
+        var repository = new FakeParkingRepository();
         AddSpaces(repository, "Motorcycle", "free", 0, 1);
         var service = new ParkingService(repository);
         var vehicle = VehicleFactory.CreateMotorcycle("Toyota", "ABC-1234");
@@ -60,7 +60,7 @@ public class ParkingTest
     public void ParkVehicle_Should_Throw_Exception_When_No_Space_Available()
     {
         // Arrange
-        var repository = new ParkingRepository();
+        var repository = new FakeParkingRepository();
         var service = new ParkingService(repository);
         var vehicle = VehicleFactory.CreateCar("Toyota", "ABC-1234");
 
@@ -74,7 +74,7 @@ public class ParkingTest
     public void GetAvailableSpaces_Should_Return_Available_Spaces()
     {
         // Arrange
-        var repository = new ParkingRepository();
+        var repository = new FakeParkingRepository();
         AddSpaces(repository, "Car", "free", 0, 5);
         AddSpaces(repository, "Motorcycle", "free", 5, 5);
         var service = new ParkingService(repository);
@@ -92,7 +92,7 @@ public class ParkingTest
     public void GetAvailableSpacesFor_Should_Return_Available_Spaces_Only_For_Cars()
     {
         // Arrange
-        var repository = new ParkingRepository();
+        var repository = new FakeParkingRepository();
         AddSpaces(repository, "Car", "free", 0, 5);
         AddSpaces(repository, "Motorcycle", "free", 5, 5);
         var service = new ParkingService(repository);
@@ -112,7 +112,7 @@ public class ParkingTest
     public void GetAvailableSpacesFor_Should_Return_Available_Spaces_Only_For_Motorcycles()
     {
         // Arrange
-        var repository = new ParkingRepository();
+        var repository = new FakeParkingRepository();
         AddSpaces(repository, "Car", "free", 0, 5);
         AddSpaces(repository, "Motorcycle", "free", 5, 5);
         var service = new ParkingService(repository);
@@ -127,7 +127,7 @@ public class ParkingTest
         Assert.All(spaces, space => Assert.True(space.Number >= 5));
     }
 
-    private static void AddSpaces(ParkingRepository repository, string type, string status, int startIndex, int size)
+    private static void AddSpaces(FakeParkingRepository repository, string type, string status, int startIndex, int size)
     {
         for (int i = startIndex; i < startIndex + size; i++)
         {

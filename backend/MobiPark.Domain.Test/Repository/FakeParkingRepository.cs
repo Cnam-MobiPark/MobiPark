@@ -4,7 +4,7 @@ using MobiPark.Domain.Models.Vehicle;
 
 namespace MobiPark.Domain.Test.Repository;
 
-public class ParkingRepository : IParkingRepository
+public class FakeParkingRepository : IParkingRepository
 {
     public readonly List<ParkingSpace> spaces = [];
     

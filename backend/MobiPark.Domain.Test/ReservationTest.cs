@@ -16,7 +16,7 @@ namespace MobiPark.Domain.Test
         public ReservationTest()
         {
             _reservations = new List<Reservation>();
-            var parkingRepository = new ParkingRepository();
+            var parkingRepository = new FakeParkingRepository();
             _parkingService = new ParkingService(parkingRepository);
             _reservationService = new ReservationService(_reservations, _parkingService);
             _vehicleFactory = new VehicleFactory();
