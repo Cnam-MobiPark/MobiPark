@@ -15,6 +15,7 @@ public class VehicleTest
     {
         var vehicleRepository = new VehicleRepository();
         _vehicleService = new VehicleService(vehicleRepository);
+        _vehicleFactory = new VehicleFactory();
     }
     
     [Fact]
