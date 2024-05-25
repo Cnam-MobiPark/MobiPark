@@ -1,3 +1,4 @@
+using MobiPark.Domain.Exceptions;
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
 using MobiPark.Domain.Models.Vehicle;
@@ -27,7 +28,7 @@ namespace MobiPark.Domain.Test.Repository
             var pricing = _pricings.FirstOrDefault(p => p.Vehicle.GetType().Name == vehicleType);
             if (pricing == null)
             {
-                throw new InvalidOperationException($"No pricing found for vehicle type {vehicleType}");
+                throw new PricingNotFoundException(vehicleType);
             }
 
             return pricing;
