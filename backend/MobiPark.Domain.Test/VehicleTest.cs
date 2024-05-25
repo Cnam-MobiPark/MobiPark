@@ -1,4 +1,3 @@
-using MobiPark.Domain.Models;
 using MobiPark.Domain.Models.Vehicle;
 using MobiPark.Domain.Services;
 using MobiPark.Domain.Test.Repository;

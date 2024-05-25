@@ -1,5 +1,3 @@
-using MobiPark.Domain.Models.Vehicle;
-
 namespace MobiPark.Domain.Exceptions;
 
 public class PricingNotFoundException : NotFoundException

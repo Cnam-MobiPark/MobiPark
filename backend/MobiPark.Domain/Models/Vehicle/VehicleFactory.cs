@@ -1,5 +1,3 @@
-using MobiPark.Domain.Interfaces;
-
 namespace MobiPark.Domain.Models.Vehicle;
 
 public static class VehicleFactory

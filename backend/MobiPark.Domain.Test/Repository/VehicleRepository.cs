@@ -1,7 +1,4 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using MobiPark.Domain.Interfaces;
-using MobiPark.Domain.Models;
 using MobiPark.Domain.Models.Vehicle;
 
 namespace MobiPark.Domain.Test.Repository;

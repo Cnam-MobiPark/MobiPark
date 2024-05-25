@@ -1,4 +1,3 @@
-using MobiPark.Domain.Models;
 using MobiPark.Domain.Models.Vehicle;
 
 namespace MobiPark.App.Presenters;
