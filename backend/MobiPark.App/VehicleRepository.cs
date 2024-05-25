@@ -29,7 +29,7 @@ public class VehicleRepository : IVehicleRepository
         vehicles = vehicleData;
     }
     
-    public Vehicle CreateVehicle(string type, string maker, string licensePlate)
+    public Vehicle CreateVehicle(string type, string maker, AbstractLicensePlate licensePlate)
     {
         switch (type)
         {
