@@ -1,3 +1,5 @@
+using MobiPark.Domain.Exceptions;
+
 namespace MobiPark.Domain.Models.Vehicle
 {
     public abstract class AbstractLicensePlate
@@ -8,7 +10,12 @@ namespace MobiPark.Domain.Models.Vehicle
         {
             if (!IsValid(value))
             {
-                throw new ArgumentException("Invalid license plate format.");
+                throw new InvalidLicensePlateException(value);
+            }
+            
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new NullLicensePlateException();
             }
             Value = value;
         }
