@@ -1,6 +1,6 @@
 using MobiPark.Domain.Exceptions;
 
-namespace MobiPark.Domain.Models.Vehicle
+namespace MobiPark.Domain.Models.Vehicle.LicensePlate
 {
     public abstract class AbstractLicensePlate
     {
