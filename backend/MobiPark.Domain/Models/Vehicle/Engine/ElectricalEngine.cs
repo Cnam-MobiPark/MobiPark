@@ -1,13 +1,15 @@
-namespace MobiPark.Domain.Models.Vehicle.Engine;
-
-public class ElectricalEngine : Engine
+namespace MobiPark.Domain.Models.Vehicle.Engine
 {
-    public readonly int batteryCapacity;
-    public int batteryLevel { get; private set; }
-    
-    public ElectricalEngine(int batteryCapacity)
+    public class ElectricalEngine : Engine
     {
-        this.batteryCapacity = batteryCapacity;
-        this.batteryLevel = batteryCapacity;
+        public readonly int batteryCapacity;
+        public int currentBatteryCapacity { get; private set; }
+        public int batteryLevel => (currentBatteryCapacity * 100) / batteryCapacity;
+    
+        public ElectricalEngine(int batteryCapacity, int currentBatteryCapacity)
+        {
+            this.batteryCapacity = batteryCapacity;
+            this.currentBatteryCapacity = currentBatteryCapacity;
+        }
     }
 }
