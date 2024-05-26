@@ -8,14 +8,9 @@ namespace MobiPark.Domain.Models.Vehicle
 
         protected AbstractLicensePlate(string value)
         {
-            if (!IsValid(value))
+            if ((string.IsNullOrWhiteSpace(value)) || (!IsValid(value)))
             {
                 throw new InvalidLicensePlateException(value);
-            }
-            
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                throw new NullLicensePlateException();
             }
             Value = value;
         }
