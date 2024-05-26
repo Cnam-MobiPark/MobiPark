@@ -1,5 +1,6 @@
-using MobiPark.Domain.Exceptions;
 using MobiPark.Domain.Models.Vehicle;
+using MobiPark.Domain.Models.Vehicle.Engine;
+using MobiPark.Domain.Models.Vehicle.LicensePlate;
 using MobiPark.Domain.Services;
 using MobiPark.Domain.Test.Repository;
 
@@ -25,7 +26,7 @@ public class VehicleTest
         var licensePlate = new FrLicensePlate("AB-123-CD");
 
         // Act
-        var vehicle = VehicleFactory.CreateCar(maker, licensePlate);
+        var vehicle = VehicleFactory.CreateCar(maker, licensePlate, new ThermalEngine());
 
         // Assert
         Assert.NotNull(vehicle);

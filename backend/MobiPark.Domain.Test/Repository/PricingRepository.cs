@@ -2,6 +2,8 @@ using MobiPark.Domain.Exceptions;
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
 using MobiPark.Domain.Models.Vehicle;
+using MobiPark.Domain.Models.Vehicle.Engine;
+using MobiPark.Domain.Models.Vehicle.LicensePlate;
 
 namespace MobiPark.Domain.Test.Repository
 {
@@ -13,8 +15,8 @@ namespace MobiPark.Domain.Test.Repository
         {
             _pricings = new List<Pricing>
             {
-                new Pricing { Vehicle = new Car("Toyota", new FrLicensePlate("AB-123-CD")), Price = 5 },
-                new Pricing { Vehicle = new Motorcycle("Toyota", new FrLicensePlate("DE-456-FG")), Price = 3 }
+                new Pricing { Vehicle = new Car("Toyota", new FrLicensePlate("AB-123-CD"), new ThermalEngine()), Price = 5 },
+                new Pricing { Vehicle = new Motorcycle("Toyota", new FrLicensePlate("DE-456-FG"), new ThermalEngine()), Price = 3 }
             };
         }
 
