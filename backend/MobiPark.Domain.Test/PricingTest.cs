@@ -1,5 +1,7 @@
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models.Vehicle;
+using MobiPark.Domain.Models.Vehicle.Engine;
+using MobiPark.Domain.Models.Vehicle.LicensePlate;
 using MobiPark.Domain.Services;
 using MobiPark.Domain.Test.Repository;
 
@@ -21,7 +23,7 @@ public class PricingTest
     public void CalculatePrice_Should_Return_Correct_Price_For_Car_Without_Charging()
     {
         // Arrange
-        var car = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"));
+        var car = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"), new ThermalEngine());
         var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
         var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
         var isElectricCharging = false;
@@ -38,7 +40,7 @@ public class PricingTest
     public void CalculatePrice_Should_Return_Correct_Price_For_Motorcycle_Without_Charging()
     {
         // Arrange
-        var motorcycle = VehicleFactory.CreateMotorcycle("Toyota", new FrLicensePlate("AB-123-CD"));
+        var motorcycle = VehicleFactory.CreateMotorcycle("Toyota", new FrLicensePlate("AB-123-CD"), new ThermalEngine());
         var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
         var endTime = new DateTime(2024, 5, 21, 10, 0, 0);
         var isElectricCharging = false;
@@ -55,7 +57,7 @@ public class PricingTest
     public void CalculatePrice_Should_Return_Correct_Price_For_Car_With_Charging()
     {
         // Arrange
-        var car = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"));
+        var car = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"), new ThermalEngine());
         var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
         var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
         var isElectricCharging = true;
