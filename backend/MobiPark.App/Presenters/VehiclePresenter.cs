@@ -6,7 +6,7 @@ public class VehiclePresenter
 {
     public string Type { get; private set; }
     public string Maker { get; private set; }
-    public string LicensePlate { get; private set; }
+    public AbstractLicensePlate LicensePlate { get; private set; }
     
     public VehiclePresenter(Vehicle vehicle)
     {

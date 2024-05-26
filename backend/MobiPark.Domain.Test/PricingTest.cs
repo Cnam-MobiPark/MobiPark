@@ -21,7 +21,7 @@ public class PricingTest
     public void CalculatePrice_Should_Return_Correct_Price_For_Car_Without_Charging()
     {
         // Arrange
-        var car = VehicleFactory.CreateCar("Toyota", "ABC-1234");
+        var car = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"));
         var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
         var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
         var isElectricCharging = false;
@@ -38,7 +38,7 @@ public class PricingTest
     public void CalculatePrice_Should_Return_Correct_Price_For_Motorcycle_Without_Charging()
     {
         // Arrange
-        var motorcycle = VehicleFactory.CreateMotorcycle("Toyota", "ABC-1234");
+        var motorcycle = VehicleFactory.CreateMotorcycle("Toyota", new FrLicensePlate("AB-123-CD"));
         var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
         var endTime = new DateTime(2024, 5, 21, 10, 0, 0);
         var isElectricCharging = false;
@@ -55,7 +55,7 @@ public class PricingTest
     public void CalculatePrice_Should_Return_Correct_Price_For_Car_With_Charging()
     {
         // Arrange
-        var car = VehicleFactory.CreateCar("Toyota", "ABC-1234");
+        var car = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"));
         var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
         var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
         var isElectricCharging = true;

@@ -1,3 +1,4 @@
+using MobiPark.Domain.Exceptions;
 using MobiPark.Domain.Models.Vehicle;
 using MobiPark.Domain.Services;
 using MobiPark.Domain.Test.Repository;
@@ -21,7 +22,7 @@ public class VehicleTest
     {
         // Arrange
         var maker = "Toyota";
-        var licensePlate = "ABC123";
+        var licensePlate = new FrLicensePlate("AB-123-CD");
 
         // Act
         var vehicle = VehicleFactory.CreateCar(maker, licensePlate);

@@ -13,8 +13,8 @@ namespace MobiPark.Domain.Test.Repository
         {
             _pricings = new List<Pricing>
             {
-                new Pricing { Vehicle = new Car(), Price = 5 },
-                new Pricing { Vehicle = new Motorcycle(), Price = 3 }
+                new Pricing { Vehicle = new Car("Toyota", new FrLicensePlate("AB-123-CD")), Price = 5 },
+                new Pricing { Vehicle = new Motorcycle("Toyota", new FrLicensePlate("DE-456-FG")), Price = 3 }
             };
         }
 

@@ -7,7 +7,7 @@ public class VehicleRepository : IVehicleRepository
 {
     public List<Vehicle> vehicles = new List<Vehicle>();
     
-    public Vehicle CreateVehicle(string type, string maker, string licensePlate)
+    public Vehicle CreateVehicle(string type, string maker, AbstractLicensePlate licensePlate)
     {
         switch (type)
         {
