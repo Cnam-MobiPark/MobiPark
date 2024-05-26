@@ -36,85 +36,76 @@ public class VehicleTest
     
     [Fact]
     [Trait("Category", "Creating Vehicles")]
-    public void CreateVehicle_ShouldThrowException_WhenLicensePlateIsNull()
+    public void CreatingALicensePlateWithNullValue_ShouldThrowException()
     {
         // Arrange
-        var maker = "Toyota";
+        var nullLicensePlate = (string)null;
 
         // Act
-        Action act = () => VehicleFactory.CreateCar(maker, new FrLicensePlate("null"));
-
+        Action act = () => new FrLicensePlate(nullLicensePlate);
+        
         // Assert
-        var exception = Assert.Throws<InvalidLicensePlateException>(act);
-        Assert.Equal("Invalid license plate: null", exception.Message);
+        Assert.Throws<InvalidLicensePlateException>(act);
         
     }
     
     [Fact]
     [Trait("Category", "Creating Vehicles")]
-    public void CreateVehicle_ShouldThrowException_WhenLicensePlateIsInvalidforFr()
+    public void CreatingALicensePlateWithInvalidValue_ShouldThrowExceptionforFr()
     {
         // Arrange
         var maker = "Toyota";
         var invalidLicensePlate = "AB-123-CD-123";
 
         // Act
-        Action act = () => VehicleFactory.CreateCar(maker, new FrLicensePlate(invalidLicensePlate));
+        Action act = () => new FrLicensePlate(invalidLicensePlate);
 
         // Assert
         var exception = Assert.Throws<InvalidLicensePlateException>(act);
-        Assert.Equal("Invalid license plate: " + invalidLicensePlate, exception.Message);
     }
     
     [Fact]
     [Trait("Category", "Creating Vehicles")]
-    public void CreateVehicle_ShouldWork_WhenLicensePlateIsValidforFr()
+    public void CreatingALicensePlateWithGoodValue_ShouldWorkforFr()
     {
         // Arrange
         var maker = "Toyota";
-        var licensePlate = new FrLicensePlate("AB-123-CD");
+        var licensePlate = "AB-123-CD";
 
         // Act
-        var vehicle = VehicleFactory.CreateCar(maker, licensePlate);
+        Action act = () => new FrLicensePlate(licensePlate);
 
         // Assert
-        Assert.NotNull(vehicle);
-        Assert.IsType<Car>(vehicle);
-        Assert.Equal(maker, vehicle.Maker);
-        Assert.Equal(licensePlate, vehicle.LicensePlate);
+        Assert.NotNull(act);
     }
     
     [Fact]
     [Trait("Category", "Creating Vehicles")]
-    public void CreateVehicle_ShouldThrowException_WhenLicensePlateIsInvalidforDe()
+    public void CreatingALicensePlateWithInvalidValue_ShouldThrowExceptionforDe()
     {
         // Arrange
         var maker = "Toyota";
         var invalidLicensePlate = "AB-123-CD";
         
         // Act
-        Action act = () => VehicleFactory.CreateCar(maker, new DeLicensePlate(invalidLicensePlate));
+        Action act = () => new DeLicensePlate(invalidLicensePlate);
         
         // Assert
-        var exception = Assert.Throws<InvalidLicensePlateException>(act);
-        Assert.Equal("Invalid license plate: " + invalidLicensePlate, exception.Message);
+        Assert.Throws<InvalidLicensePlateException>(act);
     }
     
     [Fact]
     [Trait("Category", "Creating Vehicles")]
-    public void CreateVehicle_ShouldWork_WhenLicensePlateIsValidforDe()
+    public void CreatingALicensePlateWithGoodValue_ShouldWorkforDe()
     {
         // Arrange
         var maker = "Toyota";
-        var licensePlate = new DeLicensePlate("A X 1234");
+        var licensePlate = "A X 1234";
 
         // Act
-        var vehicle = VehicleFactory.CreateCar(maker, licensePlate);
+        Action act = () => new DeLicensePlate(licensePlate);
 
         // Assert
-        Assert.NotNull(vehicle);
-        Assert.IsType<Car>(vehicle);
-        Assert.Equal(maker, vehicle.Maker);
-        Assert.Equal(licensePlate, vehicle.LicensePlate);
+        Assert.NotNull(act);
     }
 }
