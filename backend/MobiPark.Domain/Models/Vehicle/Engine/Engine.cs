@@ -1,6 +1,6 @@
 namespace MobiPark.Domain.Models.Vehicle.Engine;
 
-public class Engine
+public abstract class Engine
 {
     
 }
