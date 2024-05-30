@@ -1,4 +1,6 @@
 using MobiPark.Domain.Models.Vehicle;
+using MobiPark.Domain.Models.Vehicle.Engine;
+using MobiPark.Domain.Models.Vehicle.LicensePlate;
 using MobiPark.Domain.Services;
 using MobiPark.Domain.Test.Repository;
 
@@ -15,7 +17,7 @@ public class ParkingTest
         var repository = new FakeParkingRepository();
         AddSpaces(repository, "Car", "free", 0, 1);
         var service = new ParkingService(repository);
-        var vehicle = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"));
+        var vehicle = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"), new ThermalEngine());
 
         // Act
         service.ParkVehicle(vehicle);
@@ -36,7 +38,7 @@ public class ParkingTest
         var repository = new FakeParkingRepository();
         AddSpaces(repository, "Motorcycle", "free", 0, 1);
         var service = new ParkingService(repository);
-        var vehicle = VehicleFactory.CreateMotorcycle("Toyota", new FrLicensePlate("AB-123-CD"));
+        var vehicle = VehicleFactory.CreateMotorcycle("Toyota", new FrLicensePlate("AB-123-CD"), new ThermalEngine());
 
         // Act
         service.ParkVehicle(vehicle);
@@ -56,7 +58,7 @@ public class ParkingTest
         // Arrange
         var repository = new FakeParkingRepository();
         var service = new ParkingService(repository);
-        var vehicle = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"));
+        var vehicle = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"), new ThermalEngine());
 
         // Act & Assert
         var exception = Assert.Throws<InvalidOperationException>(() => service.ParkVehicle(vehicle));
@@ -90,7 +92,7 @@ public class ParkingTest
         AddSpaces(repository, "Car", "free", 0, 5);
         AddSpaces(repository, "Motorcycle", "free", 5, 5);
         var service = new ParkingService(repository);
-        var vehicle = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"));
+        var vehicle = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"), new ThermalEngine());
 
         // Act
         var spaces = service.GetAvailableSpacesFor(vehicle);
@@ -110,7 +112,7 @@ public class ParkingTest
         AddSpaces(repository, "Car", "free", 0, 5);
         AddSpaces(repository, "Motorcycle", "free", 5, 5);
         var service = new ParkingService(repository);
-        var vehicle = VehicleFactory.CreateMotorcycle("Toyota", new FrLicensePlate("AB-123-CD"));
+        var vehicle = VehicleFactory.CreateMotorcycle("Toyota", new FrLicensePlate("AB-123-CD"), new ThermalEngine());
 
         // Act
         var spaces = service.GetAvailableSpacesFor(vehicle);

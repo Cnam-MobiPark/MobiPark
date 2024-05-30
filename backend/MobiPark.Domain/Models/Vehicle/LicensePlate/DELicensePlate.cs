@@ -1,4 +1,4 @@
-namespace MobiPark.Domain.Models.Vehicle
+namespace MobiPark.Domain.Models.Vehicle.LicensePlate
 {
     public class DeLicensePlate : AbstractLicensePlate
     {

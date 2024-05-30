@@ -12,10 +12,6 @@ namespace MobiPark.Domain.Services
             _repository = repository;
         }
         
-        public Vehicle CreateVehicle(string type, string maker, AbstractLicensePlate licensePlate)
-        {
-            return _repository.CreateVehicle(type, maker, licensePlate);
-        }
 
         public List<Vehicle> GetVehicles()
         {

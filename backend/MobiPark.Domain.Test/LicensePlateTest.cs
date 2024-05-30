@@ -1,5 +1,6 @@
 using MobiPark.Domain.Exceptions;
 using MobiPark.Domain.Models.Vehicle;
+using MobiPark.Domain.Models.Vehicle.LicensePlate;
 
 namespace MobiPark.Domain.Test;
 

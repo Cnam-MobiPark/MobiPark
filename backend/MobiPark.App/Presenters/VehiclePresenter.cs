@@ -1,4 +1,5 @@
 using MobiPark.Domain.Models.Vehicle;
+using MobiPark.Domain.Models.Vehicle.LicensePlate;
 
 namespace MobiPark.App.Presenters;
 

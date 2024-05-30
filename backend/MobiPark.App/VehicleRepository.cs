@@ -2,6 +2,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models.Vehicle;
+using MobiPark.Domain.Models.Vehicle.Engine;
+using MobiPark.Domain.Models.Vehicle.LicensePlate;
 
 namespace MobiPark.App;
 
@@ -29,14 +31,14 @@ public class VehicleRepository : IVehicleRepository
         vehicles = vehicleData;
     }
     
-    public Vehicle CreateVehicle(string type, string maker, AbstractLicensePlate licensePlate)
+    public Vehicle CreateVehicle(string type, string maker, AbstractLicensePlate licensePlate, Engine engine)
     {
         switch (type)
         {
             case "Car":
-                return VehicleFactory.CreateCar(maker, licensePlate);
+                return VehicleFactory.CreateCar(maker, licensePlate, engine);
             case "Motorcycle":
-                return VehicleFactory.CreateMotorcycle(maker, licensePlate);
+                return VehicleFactory.CreateMotorcycle(maker, licensePlate, engine);
             default:
                 throw new InvalidOperationException("Invalid vehicle type");
         }
