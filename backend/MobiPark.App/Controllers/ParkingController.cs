@@ -19,7 +19,7 @@ namespace MobiPark.App.Controllers
         public IActionResult GetSpaces()
         {
             var spaces = _parkingService.GetSpaces();
-            var spacePresenters = spaces.Select(space => new ParkingSpacePresenter(space)).ToList();
+            var spacePresenters = spaces.Result.Select(space => new ParkingSpacePresenter(space)).ToList();
             return Ok(spacePresenters);
         }
         
@@ -27,7 +27,7 @@ namespace MobiPark.App.Controllers
         public IActionResult ParkCar([FromBody] ParkVehicleRequest request)
         {
             var space = _parkingService.ParkVehicle(request.Vehicle);
-            return Ok(new ParkingSpacePresenter(space));
+            return Ok(new ParkingSpacePresenter(space.Result));
         }
     }
 }

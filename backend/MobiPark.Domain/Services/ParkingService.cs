@@ -13,29 +13,30 @@ namespace MobiPark.Domain.Services
             _repository = repository;
         }
         
-        public List<ParkingSpace> GetAvailableSpaces()
+        public async Task<List<ParkingSpace>> GetAvailableSpaces()
         {
-            return _repository.GetAvailableSpaces();
+            return await _repository.GetAvailableSpaces();
         }
         
-        public List<ParkingSpace> GetAvailableSpacesFor(Vehicle vehicle)
+        public async Task<List<ParkingSpace>> GetAvailableSpacesFor(Vehicle vehicle)
         {
-            return _repository.GetAvailableSpaces(vehicle);
+            return await _repository.GetAvailableSpaces(vehicle);
         }
 
-        public List<ParkingSpace> GetSpaces()
+        public async Task<List<ParkingSpace>> GetSpaces()
         {
-            return _repository.GetSpaces();
+            return await _repository.GetSpaces();
         }
 
-        public ParkingSpace ParkVehicle(Vehicle vehicle)
+        public async Task<ParkingSpace> ParkVehicle(Vehicle vehicle)
         {
-            var space = _repository.GetAvailableSpaces(vehicle).FirstOrDefault()
+            var space = await _repository.GetAvailableSpaces(vehicle)
                 ?? throw new InvalidOperationException("No available parking spaces.");
 
-            _repository.ParkVehicle(vehicle, space);
+            var firstAvailableSpace = space.First();
+            _repository.ParkVehicle(vehicle, firstAvailableSpace);
 
-            return space;
+            return firstAvailableSpace;
         }
     }
 }
