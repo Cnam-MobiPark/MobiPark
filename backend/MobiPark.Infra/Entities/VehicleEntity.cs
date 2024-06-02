@@ -29,6 +29,7 @@ public class VehicleEntity
     public int CurrentBatteryCapacity { get; set; }
     public EngineType EngineType { get; set; }
     public VehicleType VehicleType { get; set; }
+    public ReservationEntity Reservation { get; set; }
 
     public VehicleEntity() { }
 

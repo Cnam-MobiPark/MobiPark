@@ -14,6 +14,7 @@ namespace MobiPark.Infra
 
         public DbSet<ParkingSpace> ParkingSpaces { get; set; }
         public DbSet<VehicleEntity> Vehicles { get; set; }
+        public DbSet<ReservationEntity> Reservations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +23,13 @@ namespace MobiPark.Infra
 
             modelBuilder.Entity<VehicleEntity>()
                 .HasKey(v => v.Plate);
+            
+            modelBuilder.Entity<ReservationEntity>()
+                .HasKey(r => r.ReservationId);
+
+            modelBuilder.Entity<ReservationEntity>()
+                .HasOne(r => r.Vehicle)
+                .WithOne(v => v.Reservation);
         }
     }
 }
