@@ -2,7 +2,7 @@ using MobiPark.Domain.Models.Vehicle;
 using MobiPark.Domain.Models.Vehicle.Engine;
 using MobiPark.Domain.Models.Vehicle.LicensePlate;
 
-namespace MobiPark.Infra.Entities.VehicleEntities;
+namespace MobiPark.Infra.Entities;
 
 public enum VehicleType
 {

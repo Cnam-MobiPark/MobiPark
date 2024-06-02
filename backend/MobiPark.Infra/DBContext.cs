@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using MobiPark.Domain.Models;
-using MobiPark.Infra.Entities.VehicleEntities;
+using MobiPark.Infra.Entities;
 
 namespace MobiPark.Infra
 {
