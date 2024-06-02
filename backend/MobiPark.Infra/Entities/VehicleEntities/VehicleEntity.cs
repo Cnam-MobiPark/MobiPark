@@ -1,38 +1,74 @@
 using MobiPark.Domain.Models.Vehicle;
 using MobiPark.Domain.Models.Vehicle.Engine;
 using MobiPark.Domain.Models.Vehicle.LicensePlate;
-using MobiPark.Infra.Entities.VehicleEntities.EngineEntities;
-using MobiPark.Infra.Entities.VehicleEntities.LicensePlateEntities;
 
 namespace MobiPark.Infra.Entities.VehicleEntities;
 
-public abstract class VehicleEntity
+public enum VehicleType
 {
+    Car,
+    Motorcycle
+}
+public enum LicensePlateType
+{
+    FR,
+    DE
+}
+
+public enum EngineType
+{
+    Thermal,
+    Electrical
+}
+public class VehicleEntity
+{
+    public string Plate { get; set; }
+    public LicensePlateType PlateType { get; set; }
     public string Maker { get; set; }
-    public string LicensePlateValue { get; set; } // Foreign key
-    public LicensePlateEntity LicensePlate { get; set; }
-    public int EngineId { get; set; } // Foreign key
-    public EngineEntity Engine { get; set; }
+    public int BatteryCapacity { get; set; }
+    public int CurrentBatteryCapacity { get; set; }
+    public EngineType EngineType { get; set; }
+    public VehicleType VehicleType { get; set; }
 
-    protected VehicleEntity() { }
+    public VehicleEntity() { }
 
-    protected VehicleEntity(Vehicle vehicle)
+    public VehicleEntity(Vehicle vehicle)
     {
-        Maker = vehicle.Maker;
-        LicensePlate = vehicle.LicensePlate switch
-        {
-            DeLicensePlate de => new DeLicensePlateEntity(de),
-            FrLicensePlate fr => new FrLicensePlateEntity(fr),
-            _ => throw new InvalidOperationException("Unknown license plate type")
-        };
-        LicensePlateValue = vehicle.LicensePlate.Value;
-        Engine = vehicle.Engine switch
-        {
-            ElectricalEngine electrical => new ElectricalEngineEntity(electrical),
-            ThermalEngine thermal => new ThermalEngineEntity(thermal),
-            _ => throw new InvalidOperationException("Unknown engine type")
-        };
+        Maker = vehicle.Maker;    
+        Plate = vehicle.LicensePlate.Value;
+        PlateType = (vehicle.LicensePlate is FrLicensePlate) ? LicensePlateType.FR : LicensePlateType.DE;                    
+
+        if (vehicle.Engine is ThermalEngine thermalEngine)
+        {            
+            EngineType = EngineType.Thermal;
+        }
+        else if (vehicle.Engine is ElectricalEngine electricalEngine)
+        {           
+            BatteryCapacity = electricalEngine.BatteryCapacity;
+            CurrentBatteryCapacity = electricalEngine.CurrentBatteryCapacity;
+            EngineType = EngineType.Electrical;
+        }
+
+        VehicleType = (vehicle is Car) ? VehicleType.Car : VehicleType.Motorcycle;
     }
 
-    public abstract Vehicle ToDomainModel();
+    public Vehicle ToDomainModel()
+    {
+        AbstractLicensePlate plate;
+        if(PlateType == LicensePlateType.FR)
+            plate = new FrLicensePlate(Plate);
+        else
+            plate = new DeLicensePlate(Plate);
+
+        Engine engine;
+        if (EngineType == EngineType.Thermal)
+            engine = new ThermalEngine();
+        else
+           engine = new ElectricalEngine(BatteryCapacity, CurrentBatteryCapacity);
+
+        if(VehicleType == VehicleType.Car)        
+            return new Car(Maker, plate, engine);        
+        else
+            return new Motorcycle(Maker, plate, engine);              
+    }
 }
