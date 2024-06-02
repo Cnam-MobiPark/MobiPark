@@ -1,6 +1,6 @@
 using MobiPark.Domain.Models.Vehicle.Engine;
 
-namespace MobiPark.Infra.Entities;
+namespace MobiPark.Infra.Entities.VehicleEntities.EngineEntities;
 
 public abstract class EngineEntity
 {

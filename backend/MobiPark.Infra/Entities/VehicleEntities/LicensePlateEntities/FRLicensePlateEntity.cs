@@ -1,6 +1,6 @@
 using MobiPark.Domain.Models.Vehicle.LicensePlate;
 
-namespace MobiPark.Infra.Entities;
+namespace MobiPark.Infra.Entities.VehicleEntities.LicensePlateEntities;
 
 public class FrLicensePlateEntity : LicensePlateEntity
 {

@@ -1,7 +1,10 @@
 using MobiPark.Domain.Models.Vehicle;
 using MobiPark.Domain.Models.Vehicle.Engine;
 using MobiPark.Domain.Models.Vehicle.LicensePlate;
-using MobiPark.Infra.Entities;
+using MobiPark.Infra.Entities.VehicleEntities.EngineEntities;
+using MobiPark.Infra.Entities.VehicleEntities.LicensePlateEntities;
+
+namespace MobiPark.Infra.Entities.VehicleEntities;
 
 public abstract class VehicleEntity
 {

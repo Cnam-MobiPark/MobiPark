@@ -1,4 +1,5 @@
 using MobiPark.Domain.Models.Vehicle;
+using MobiPark.Infra.Entities.VehicleEntities;
 
 namespace MobiPark.Infra.Entities;
 
