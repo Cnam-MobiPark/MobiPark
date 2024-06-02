@@ -1,0 +1,44 @@
+<p-card header="Login" class="w-96 mx-auto">
+  <ng-template pTemplate="header">
+    <div class="text-center">
+      <h1 class="font-bold p-8 pb-0 text-4xl">MobiPark</h1>
+    </div>
+  </ng-template>
+
+  <form action="" class="flex flex-col gap-2">
+    <div class="flex flex-col gap-1">
+      <label for="username">Username</label>
+      <p-iconField iconPosition="left">
+        <p-inputIcon styleClass="pi pi-user" />
+        <input
+          type="text"
+          pInputText
+          placeholder="Username"
+          id="username"
+          class="w-full"
+        />
+      </p-iconField>
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label for="password">Password</label>
+      <p-iconField iconPosition="left">
+        <p-inputIcon styleClass="pi pi-lock" />
+        <p-password
+          type="password"
+          placeholder="Password"
+          id="password"
+          [toggleMask]="true"
+          styleClass="w-full"
+          inputStyleClass="w-full"
+        />
+      </p-iconField>
+    </div>
+  </form>
+
+  <ng-template pTemplate="footer">
+    <div class="flex gap-3 mt-1">
+      <p-button label="Login" class="w-full" styleClass="w-full" />
+    </div>
+  </ng-template>
+</p-card>
