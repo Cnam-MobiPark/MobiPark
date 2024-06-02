@@ -5,8 +5,8 @@ namespace MobiPark.Domain.Interfaces;
 
 public interface IParkingRepository
 {
-    List<ParkingSpace> GetSpaces();
-    List<ParkingSpace> GetAvailableSpaces();
-    List<ParkingSpace> GetAvailableSpaces(Vehicle vehicle);
+    Task<List<ParkingSpace>> GetSpaces();
+    Task<List<ParkingSpace>> GetAvailableSpaces();
+    Task<List<ParkingSpace>> GetAvailableSpaces(Vehicle vehicle);
     void ParkVehicle(Vehicle vehicle, ParkingSpace parkingSpace);
 }
