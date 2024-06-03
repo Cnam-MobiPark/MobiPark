@@ -1,5 +1,7 @@
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models.Vehicle;
+using MobiPark.Domain.Models.Vehicle.Engine;
+using MobiPark.Domain.Models.Vehicle.LicensePlate;
 
 namespace MobiPark.Domain.Services
 {
@@ -12,10 +14,14 @@ namespace MobiPark.Domain.Services
             _repository = repository;
         }
         
-
         public async Task<List<Vehicle>> GetVehicles()
         {
             return await _repository.GetVehicles();
+        }
+        
+        public async Task<Vehicle> CreateVehicle(string type, string maker, AbstractLicensePlate licensePlate, Engine engine)
+        {
+            return await _repository.CreateVehicle(type, maker, licensePlate, engine);
         }
     }
 }
