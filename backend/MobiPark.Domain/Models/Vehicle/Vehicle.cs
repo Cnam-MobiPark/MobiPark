@@ -17,7 +17,7 @@ namespace MobiPark.Domain.Models.Vehicle
         
         public Reservation Park(ParkingSpace parkingPlace, DateTime beginDateTime, DateTime endDateTime)
         {
-            return null;
+            return new Reservation(this, parkingPlace, beginDateTime, endDateTime);
         }
 
         public abstract VehicleSize GetSize();
