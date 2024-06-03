@@ -13,9 +13,9 @@ namespace MobiPark.Domain.Services
         }
         
 
-        public List<Vehicle> GetVehicles()
+        public async Task<List<Vehicle>> GetVehicles()
         {
-            return _repository.GetVehicles();
+            return await _repository.GetVehicles();
         }
     }
 }

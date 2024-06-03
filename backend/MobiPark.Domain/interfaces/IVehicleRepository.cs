@@ -6,6 +6,6 @@ namespace MobiPark.Domain.Interfaces;
 
 public interface IVehicleRepository
 {
-    public Vehicle CreateVehicle(string type, string maker, AbstractLicensePlate licensePlate, Engine engine);
-    public List<Vehicle> GetVehicles();
+    public Task<Vehicle> CreateVehicle(string type, string maker, AbstractLicensePlate licensePlate, Engine engine);
+    public Task<List<Vehicle>> GetVehicles();
 }

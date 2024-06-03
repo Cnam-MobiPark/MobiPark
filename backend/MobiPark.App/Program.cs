@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using MobiPark.App;
 using MobiPark.Domain.Services;
 using MobiPark.Domain.Interfaces;
 using MobiPark.Infra;

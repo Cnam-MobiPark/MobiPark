@@ -4,6 +4,6 @@ namespace MobiPark.Domain.Interfaces
 {
     public interface IVehicleService
     {
-        List<Vehicle> GetVehicles();
+        Task<List<Vehicle>> GetVehicles();
     }
 }

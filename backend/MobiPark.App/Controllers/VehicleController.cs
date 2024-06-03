@@ -19,7 +19,7 @@ namespace MobiPark.App.Controllers
         public IActionResult GetVehicles()
         {
             var vehicles = _vehicleService.GetVehicles();
-            var vehiclePresenters = vehicles.Select(vehicle => new VehiclePresenter(vehicle)).ToList();
+            var vehiclePresenters = vehicles.Result.ConvertAll(v => new VehiclePresenter(v));
             return Ok(vehiclePresenters);
         }
     }
