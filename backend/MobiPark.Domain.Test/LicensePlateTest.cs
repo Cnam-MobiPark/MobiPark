@@ -8,7 +8,7 @@ public class LicensePlateTest
 {
     
     [Fact]
-    [Trait("Category", "Creating License Plates")]
+    [Trait("LicencePlate", "Creating License Plates")]
     public void CreatingALicensePlateWithNullValue_ShouldThrowException()
     {
         // Arrange
@@ -23,7 +23,7 @@ public class LicensePlateTest
     }
     
     [Fact]
-    [Trait("Category", "Creating License Plates")]
+    [Trait("LicencePlate", "Creating License Plates")]
     public void CreatingALicensePlateWithInvalidValue_ShouldThrowExceptionforFr()
     {
         // Arrange
@@ -38,7 +38,7 @@ public class LicensePlateTest
     }
     
     [Fact]
-    [Trait("Category", "Creating License Plates")]
+    [Trait("LicencePlate", "Creating License Plates")]
     public void CreatingALicensePlateWithGoodValue_ShouldWorkforFr()
     {
         // Arrange
@@ -53,7 +53,7 @@ public class LicensePlateTest
     }
     
     [Fact]
-    [Trait("Category", "Creating License Plates")]
+    [Trait("LicencePlate", "Creating License Plates")]
     public void CreatingALicensePlateWithInvalidValue_ShouldThrowExceptionforDe()
     {
         // Arrange
@@ -68,7 +68,7 @@ public class LicensePlateTest
     }
     
     [Fact]
-    [Trait("Category", "Creating License Plates")]
+    [Trait("LicencePlate", "Creating License Plates")]
     public void CreatingALicensePlateWithGoodValue_ShouldWorkforDe()
     {
         // Arrange

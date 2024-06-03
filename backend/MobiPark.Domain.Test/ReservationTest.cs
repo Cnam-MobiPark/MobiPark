@@ -14,7 +14,6 @@ namespace MobiPark.Domain.Test
     {
         private readonly List<Reservation> _reservations;
         private readonly IParkingService _parkingService;
-        private readonly IReservationService _reservationService;
 
         public ReservationTest()
         {

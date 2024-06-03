@@ -6,7 +6,7 @@ namespace MobiPark.Domain.Test;
 public class EngineTest
 {
     [Fact]
-    [Trait("Category", "Creating Engines")]
+    [Trait("Engine", "Creating Engines")]
     public void CreateElectricalEngine_ShouldCreateElectricalEngine()
     {
         // Arrange
@@ -25,7 +25,7 @@ public class EngineTest
     }
     
     [Fact]
-    [Trait("Category", "Creating Engines")]
+    [Trait("Engine", "Creating Engines")]
     public void CreateElectricalEngine_WithNegativeBatteryCapacity_ShouldThrowInvalidBatteryException()
     {
         // Arrange
@@ -40,7 +40,7 @@ public class EngineTest
     }
     
     [Fact]
-    [Trait("Category", "Creating Engines")]
+    [Trait("Engine", "Creating Engines")]
     public void CreateElectricalEngine_WithNegativeCurrentBatteryCapacity_ShouldThrowInvalidBatteryException()
     {
         // Arrange
@@ -55,7 +55,7 @@ public class EngineTest
     }
     
     [Fact]
-    [Trait("Category", "Creating Engines")]
+    [Trait("Engine", "Creating Engines")]
     public void CreateElectricalEngine_WithCurrentBatteryCapacityGreaterThanBatteryCapacity_ShouldThrowInvalidBatteryException()
     {
         // Arrange
