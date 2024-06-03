@@ -42,7 +42,7 @@ public class VehicleTest
 
     [Fact]
     [Trait("Vehicle", "Vehicle should park")]
-    public void Vehicle_VehicleShouldPark()
+    public void Vehicle_ShouldPark()
     {
         // Arrange
         var vehicle = MakeCar();
