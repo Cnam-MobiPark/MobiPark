@@ -36,7 +36,7 @@ public class ParkingRepository: IParkingRepository
     public async Task<List<ParkingSpace>> GetAvailableSpaces(Vehicle vehicle)
     {
         return await _context.ParkingSpaces
-            .Where(p => p.Status == "Available" && p.Type == vehicle.GetType().ToString())
+            .Where(p => p.Status == "Available" && p.Size == vehicle.GetType().ToString())
             .ToListAsync();
     }
     

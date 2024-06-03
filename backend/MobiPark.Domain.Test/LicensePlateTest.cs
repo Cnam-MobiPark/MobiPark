@@ -34,7 +34,7 @@ public class LicensePlateTest
         Action act = () => new FrLicensePlate(invalidLicensePlate);
 
         // Assert
-        var exception = Assert.Throws<InvalidLicensePlateException>(act);
+        Assert.Throws<InvalidLicensePlateException>(act);
     }
     
     [Fact]

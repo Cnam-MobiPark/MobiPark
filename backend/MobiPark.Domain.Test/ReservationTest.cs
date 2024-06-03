@@ -1,6 +1,6 @@
+using MobiPark.Domain.Factories;
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
-using MobiPark.Domain.Models.Vehicle;
 using MobiPark.Domain.Models.Vehicle.Engine;
 using MobiPark.Domain.Models.Vehicle.LicensePlate;
 using MobiPark.Domain.Services;
@@ -27,7 +27,7 @@ namespace MobiPark.Domain.Test
         public void CreateReservation_Should_Create_A_New_Reservation()
         {
             // Arrange
-            var parkingSpace = new ParkingSpace { Number = 1, Type = "car", Status = "free" };
+            var parkingSpace = new ParkingSpace(1, 2);
             var vehicle = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"), new ThermalEngine());
             var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
             var endTime = new DateTime(2024, 5, 21, 12, 0, 0);

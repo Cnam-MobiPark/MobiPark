@@ -1,3 +1,5 @@
+using MobiPark.Domain.Factories;
+using MobiPark.Domain.Models;
 using MobiPark.Domain.Models.Vehicle;
 using MobiPark.Domain.Models.Vehicle.Engine;
 using MobiPark.Domain.Models.Vehicle.LicensePlate;
@@ -8,18 +10,22 @@ namespace MobiPark.Domain.Test;
 
 public class VehicleTest
 {
-
-    private readonly VehicleService _vehicleService;
-
     public VehicleTest()
     {
         var vehicleRepository = new VehicleRepository();
-        _vehicleService = new VehicleService(vehicleRepository);
+    }
+
+    private Car MakeCar()
+    {
+        var maker = "Toyota";
+        var licensePlate = new FrLicensePlate("AB-123-CD");
+        var vehicle = VehicleFactory.CreateCar(maker, licensePlate, new ThermalEngine());
+        return vehicle;
     }
 
     [Fact]
-    [Trait("Category", "Creating Vehicles")]
-    public void CreateVehicle_ShouldCreateVehicle()
+    [Trait("Vehicle", "Creating Vehicles")]
+    public void Vehicle_ShouldCreateVehicle()
     {
         // Arrange
         var maker = "Toyota";
@@ -33,5 +39,26 @@ public class VehicleTest
         Assert.IsType<Car>(vehicle);
         Assert.Equal(maker, vehicle.Maker);
         Assert.Equal(licensePlate, vehicle.LicensePlate);
+    }
+
+    [Fact]
+    [Trait("Vehicle", "Vehicle should park")]
+    public void Vehicle_VehicleShouldPark()
+    {
+        // Arrange
+        var vehicle = MakeCar();
+        var parkingPlace = new ParkingSpace(1,2);
+
+        var beginDateTime = new DateTime(2022, 11, 10, 14, 10, 0);
+        var endDateTime = new DateTime(2022, 11, 10, 15, 10, 0);
+        Reservation reservation = vehicle.Park(parkingPlace, beginDateTime, endDateTime);
+        
+        Assert.Equal(reservation.Vehicle, vehicle);
+        Assert.Equal(reservation.ParkingSpace, parkingPlace);
+        Assert.False(reservation.IsElectricCharging);
+        Assert.Equal(beginDateTime, reservation.ReservationStartTime);
+        Assert.Equal(endDateTime, reservation.ReservationEndTime);
+        // TODO: define the price algorithm
+        Assert.Equal(10, reservation.TotalPrice);
     }
 }

@@ -19,7 +19,7 @@ public class FakeParkingRepository : IParkingRepository
     }
     public List<ParkingSpace> GetAvailableSpaces(Vehicle vehicle)
     {
-        return spaces.Where(s => s.Status == "free" && s.Type.Equals(vehicle.GetType().Name, StringComparison.CurrentCultureIgnoreCase)).ToList();
+        return spaces.Where(s => s.Status == "free" && s.Size.Equals(vehicle.GetType().Name, StringComparison.CurrentCultureIgnoreCase)).ToList();
     }
 
     public void ParkVehicle(Vehicle vehicle, ParkingSpace parkingSpace)

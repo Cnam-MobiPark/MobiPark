@@ -11,7 +11,7 @@ namespace MobiPark.App.Presenters
         public ParkingSpacePresenter(ParkingSpace space)
         {
             Number = space.Number;
-            Type = space.Type;
+            Type = space.Size;
             Status = space.Status;
         }
     }

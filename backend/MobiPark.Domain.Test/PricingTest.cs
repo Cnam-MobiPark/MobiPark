@@ -1,5 +1,5 @@
+using MobiPark.Domain.Factories;
 using MobiPark.Domain.Interfaces;
-using MobiPark.Domain.Models.Vehicle;
 using MobiPark.Domain.Models.Vehicle.Engine;
 using MobiPark.Domain.Models.Vehicle.LicensePlate;
 using MobiPark.Domain.Services;
