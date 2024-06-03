@@ -4,6 +4,11 @@ using ReservationId = int;
 
 public class Reservation
 {
+    public Reservation(Vehicle.Vehicle vehicle, ParkingSpace parkingSpace, DateTime startTime, DateTime endTime, bool withElectricCharge)
+    {
+        throw new NotImplementedException();
+    }
+
     public ReservationId ReservationId { get; set; }
     public ParkingSpace ParkingSpace { get; set; }
     public Vehicle.Vehicle Vehicle { get; set; }

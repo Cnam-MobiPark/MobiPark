@@ -1,6 +1,7 @@
 using MobiPark.Domain.Factories;
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
+using MobiPark.Domain.Models.Vehicle;
 using MobiPark.Domain.Models.Vehicle.Engine;
 using MobiPark.Domain.Models.Vehicle.LicensePlate;
 using MobiPark.Domain.Services;
@@ -22,19 +23,27 @@ namespace MobiPark.Domain.Test
             _reservationService = new ReservationService(_reservations, _parkingService);
         }
 
+        private Vehicle MakeCar()
+        {
+            var plate = new FrLicensePlate("AB-123-CD");
+            var engine = new ThermalEngine();
+            var vehicle = VehicleFactory.CreateCar("Toyota", plate, engine);
+            return vehicle;
+        }
+
         [Fact]
         [Trait("Category", "Reservation Management")]
         public void CreateReservation_Should_Create_A_New_Reservation()
         {
             // Arrange
             var parkingSpace = new ParkingSpace(1, 2);
-            var vehicle = VehicleFactory.CreateCar("Toyota", new FrLicensePlate("AB-123-CD"), new ThermalEngine());
+            var vehicle = MakeCar();
             var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
             var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
             var isElectricCharging = false;
 
             // Act
-            var reservation = _reservationService.CreateReservation(parkingSpace, vehicle, startTime, endTime, isElectricCharging);
+            var reservation = new Reservation(vehicle, parkingSpace, startTime, endTime, false);
 
             // Assert
             Assert.NotNull(reservation);

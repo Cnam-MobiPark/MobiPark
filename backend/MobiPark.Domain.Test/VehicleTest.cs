@@ -3,7 +3,6 @@ using MobiPark.Domain.Models;
 using MobiPark.Domain.Models.Vehicle;
 using MobiPark.Domain.Models.Vehicle.Engine;
 using MobiPark.Domain.Models.Vehicle.LicensePlate;
-using MobiPark.Domain.Services;
 using MobiPark.Domain.Test.Repository;
 
 namespace MobiPark.Domain.Test;
