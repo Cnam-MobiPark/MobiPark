@@ -12,16 +12,16 @@ namespace MobiPark.Domain.Models.Vehicle.Engine
         {
             if (batteryCapacity <= 0)
             {
-                throw new InvalidBatteryException("Battery capacity cannot be negative or zero.");
+                throw new InvalidBatteryException("Battery capacity : " + batteryCapacity + " cannot be negative or zero.");
             }
 
             if (currentBatteryCapacity < 0)
             {
-                throw new InvalidBatteryException("Current battery capacity cannot be negative.");
+                throw new InvalidBatteryException("Current battery capacity : " + currentBatteryCapacity + " cannot be negative.");
             }
             if (currentBatteryCapacity > batteryCapacity)
             {
-                throw new InvalidBatteryException("Current battery capacity cannot be greater than battery capacity.");
+                throw new InvalidBatteryException("Current battery capacity : " + currentBatteryCapacity + " cannot be greater than battery capacity : " + batteryCapacity);
             }
 
             BatteryCapacity = batteryCapacity;
