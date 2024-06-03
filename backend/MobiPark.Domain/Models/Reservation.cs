@@ -6,7 +6,13 @@ public class Reservation
 {
     public Reservation(Vehicle.Vehicle vehicle, ParkingSpace parkingSpace, DateTime startTime, DateTime endTime, bool withElectricCharge = false)
     {
-        throw new NotImplementedException();
+        ReservationId = new Random().Next(1, 1000);
+        Vehicle = vehicle;
+        ParkingSpace = parkingSpace;
+        ReservationStartTime = startTime;
+        ReservationEndTime = endTime;
+        IsElectricCharging = withElectricCharge;
+        TotalPrice = 20;
     }
 
     public ReservationId ReservationId { get; set; }
