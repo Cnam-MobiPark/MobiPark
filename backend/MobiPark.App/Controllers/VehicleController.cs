@@ -11,44 +11,37 @@ namespace MobiPark.App.Controllers
     [Route("api/[controller]")]
     public class VehicleController : ControllerBase
     {
-        private readonly IVehicleService _vehicleService;
+        private readonly IVehicleRepository _vehicleRepository;
 
-        public VehicleController(IVehicleService vehicleService)
+        public VehicleController(IVehicleRepository vehicleRepository)
         {
-            _vehicleService = vehicleService;
+            _vehicleRepository = vehicleRepository;
         }
 
         [HttpGet]
-        public IActionResult GetVehicles()
+        public async Task<IActionResult> GetVehicles()
         {
-            var vehicles = _vehicleService.GetVehicles();
-            var vehiclePresenters = vehicles.Result.ConvertAll(v => new VehiclePresenter(v));
+            var vehicles = await _vehicleRepository.GetVehicles();
+            var vehiclePresenters = vehicles.ConvertAll(v => new VehiclePresenter(v));
             return Ok(vehiclePresenters);
         }
         
         [HttpGet("{licensePlate}")]
-        public IActionResult GetVehicle(string licensePlate)
+        public async Task<IActionResult> GetVehicle(string licensePlate)
         {
-            var vehicle = _vehicleService.GetVehicle(licensePlate);
-            return Ok(new VehiclePresenter(vehicle.Result));
+            var vehicle =await _vehicleRepository.GetVehicle(licensePlate);
+            return Ok(new VehiclePresenter(vehicle));
         }
         
         [HttpPost]
-        public IActionResult AddVehicle([FromBody] CreateVehicleDTO request)
+        public async Task<IActionResult> AddVehicle([FromBody] CreateVehicleDTO request)
         {
-            AbstractLicensePlate licensePlate;
-
-            switch (request.LicensePlate.Type)
+            AbstractLicensePlate licensePlate = request.LicensePlate.Type switch
             {
-                case "FR":
-                    licensePlate = new FrLicensePlate(request.LicensePlate.Value);
-                    break;
-                case "DE":
-                    licensePlate = new DeLicensePlate(request.LicensePlate.Value);
-                    break;
-                default:
-                    throw new ArgumentException("Invalid license plate type");
-            }
+                "FR" => new FrLicensePlate(request.LicensePlate.Value),
+                "DE" => new DeLicensePlate(request.LicensePlate.Value),
+                _ => throw new ArgumentException("Invalid license plate type")
+            };
 
             Engine engine;
             
@@ -66,8 +59,8 @@ namespace MobiPark.App.Controllers
                     throw new ArgumentException("Invalid engine type");
             }
 
-            var vehicle = _vehicleService.CreateVehicle(request.Type, request.Maker, licensePlate, engine);
-            return Ok(new VehiclePresenter(vehicle.Result));
+            var vehicle = await _vehicleRepository.CreateVehicle(request.Type, request.Maker, licensePlate, engine);
+            return Ok(new VehiclePresenter(vehicle));
         }
 
     }
