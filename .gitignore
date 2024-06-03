@@ -3,3 +3,9 @@
 
 # MacOS
 .DS_Store
+
+# BDD
+
+backend/MobiPark.App/mobiPark.db-shm
+backend/MobiPark.App/mobiPark.db-wal
+backend/MobiPark.Infra/mobiPark.db
