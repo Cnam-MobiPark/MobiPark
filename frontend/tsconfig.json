@@ -15,9 +15,9 @@
     "jsx": "react-jsx",
     "forceConsistentCasingInFileNames": true,
 
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     },
 
     /* Linting */

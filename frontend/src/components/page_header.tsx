@@ -10,7 +10,7 @@ export function PageHeader({
   description,
 }: PageHeaderProps): ReactElement {
   return (
-    <header>
+    <header className="mb-8">
       <h1 className="text-4xl font-bold mb-2">{title}</h1>
 
       {description && <p className="text-muted-foreground">{description}</p>}
