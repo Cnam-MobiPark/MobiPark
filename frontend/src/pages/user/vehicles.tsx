@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { type ReactElement } from "react";
 import { PageHeader } from "../../components/page_header";
 import { useForm } from "react-hook-form";
@@ -10,9 +11,26 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+interface Vehicle {
+  marque: string;
+  modele: string;
+  immatriculation: string;
+  type: string;
+  energie: string;
+}
 
 const formSchema = z.object({
   marque: z.string(),
@@ -22,29 +40,31 @@ const formSchema = z.object({
   energie: z.string(),
 });
 
-const vehicles = [
-  {
-    marque: "Renault",
-    modele: "Scenic",
-    immatriculation: "DH-456-JO",
-    type: "Moyen",
-    energie: "Combustion",
-  },
-  {
-    marque: "Renault",
-    modele: "Zoé",
-    immatriculation: "BR-789-YT",
-    type: "Petit",
-    energie: "Électrique",
-  },
-];
-
 export function MyVehicles(): ReactElement {
   const form = useForm<z.infer<typeof formSchema>>();
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     console.log(data);
   }
+
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+  useEffect(() => {
+    const fetchVehicles = async () => {
+      try {
+        const response = await fetch('/vehicules.json');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data: Vehicle[] = await response.json();
+        setVehicles(data);
+      } catch (error) {
+        console.error('Failed to fetch vehicles:', error);
+      }
+    };
+
+    fetchVehicles();
+  }, []);
+
 
 return (
     <div>
@@ -53,28 +73,28 @@ return (
         description="Gérer vos véhicules utilisés pour les réservations"
       />
       <div className="overflow-x-auto mb-16">
-        <table className="min-w-full bg-white border border-gray-300">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 border-b border-gray-300 text-left">Marque</th>
-              <th className="py-2 px-4 border-b border-gray-300 text-left">Modèle</th>
-              <th className="py-2 px-4 border-b border-gray-300 text-left">Immatriculation</th>
-              <th className="py-2 px-4 border-b border-gray-300 text-left">Taille</th>
-              <th className="py-2 px-4 border-b border-gray-300 text-left">Énergie</th>
-            </tr>
-          </thead>
-          <tbody>
+        <Table className="min-w-full bg-white border border-gray-300">
+          <TableHeader>
+            <TableRow>
+              <TableHead  className="py-2 px-4 border-b border-gray-300 text-left">Marque</TableHead>
+              <TableHead  className="py-2 px-4 border-b border-gray-300 text-left">Modèle</TableHead>
+              <TableHead  className="py-2 px-4 border-b border-gray-300 text-left">Immatriculation</TableHead>
+              <TableHead  className="py-2 px-4 border-b border-gray-300 text-left">Taille</TableHead>
+              <TableHead  className="py-2 px-4 border-b border-gray-300 text-left">Énergie</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
             {vehicles.map((vehicle, index) => (
-              <tr key={index}>
-                <td className="py-2 px-4 border-b border-gray-300">{vehicle.marque}</td>
-                <td className="py-2 px-4 border-b border-gray-300">{vehicle.modele}</td>
-                <td className="py-2 px-4 border-b border-gray-300">{vehicle.immatriculation}</td>
-                <td className="py-2 px-4 border-b border-gray-300">{vehicle.type}</td>
-                <td className="py-2 px-4 border-b border-gray-300">{vehicle.energie}</td>
-              </tr>
+              <TableRow  key={index}>
+                <TableCell  className="py-2 px-4 border-b border-gray-300">{vehicle.marque}</TableCell >
+                <TableCell  className="py-2 px-4 border-b border-gray-300">{vehicle.modele}</TableCell >
+                <TableCell  className="py-2 px-4 border-b border-gray-300">{vehicle.immatriculation}</TableCell >
+                <TableCell  className="py-2 px-4 border-b border-gray-300">{vehicle.type}</TableCell >
+                <TableCell  className="py-2 px-4 border-b border-gray-300">{vehicle.energie}</TableCell >
+              </TableRow >
             ))}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
       {/* Add Vehicle Form */}
       <PageHeader

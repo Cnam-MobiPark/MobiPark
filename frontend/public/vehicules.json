@@ -1,0 +1,16 @@
+[
+    {
+      "marque": "Renault",
+      "modele": "Scenic",
+      "immatriculation": "DH-456-JO",
+      "type": "Moyen",
+      "energie": "Combustion"
+    },
+    {
+      "marque": "Renault",
+      "modele": "Zoé",
+      "immatriculation": "BR-789-YT",
+      "type": "Petit",
+      "energie": "Électrique"
+    }
+  ]
