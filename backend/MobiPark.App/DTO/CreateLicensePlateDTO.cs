@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using MobiPark.Domain.Models.Vehicle.LicensePlate;
 
 namespace MobiPark.App.DTO;
 
@@ -12,5 +13,15 @@ public class CreateLicensePlateDTO
     {
         Type = type;
         Value = value;
+    }
+
+    public AbstractLicensePlate ToDomainModel()
+    {
+        return Type switch
+        {
+            "FR" => new FrLicensePlate(Value),
+            "DE" => new DeLicensePlate(Value),
+            _ => throw new ArgumentException("Invalid license plate type")
+        };
     }
 }

@@ -36,12 +36,7 @@ namespace MobiPark.App.Controllers
         [HttpPost]
         public async Task<IActionResult> AddVehicle([FromBody] CreateVehicleDTO request)
         {
-            AbstractLicensePlate licensePlate = request.LicensePlate.Type switch
-            {
-                "FR" => new FrLicensePlate(request.LicensePlate.Value),
-                "DE" => new DeLicensePlate(request.LicensePlate.Value),
-                _ => throw new ArgumentException("Invalid license plate type")
-            };
+            var licensePlate = request.LicensePlate.ToDomainModel();
 
             Engine engine;
             
