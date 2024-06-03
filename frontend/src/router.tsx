@@ -1,9 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Login } from "./pages/login";
+import { SidebarLayout } from "./layouts/sidebarLayout";
 
 export const router = createBrowserRouter([
   {
     path: "/",
+    element: <SidebarLayout />,
     children: [
       {
         path: "/",
