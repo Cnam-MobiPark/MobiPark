@@ -25,7 +25,7 @@ namespace MobiPark.App.Controllers
         }
         
         [HttpPut("spaces/park")]
-        public IActionResult ParkCar([FromBody] string licensePlate)
+        public IActionResult ParkCar(string licensePlate)
         {
             var result = _parkingService.ParkVehicle(licensePlate);
             return Ok(result);
