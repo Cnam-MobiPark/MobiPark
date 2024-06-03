@@ -29,7 +29,7 @@ namespace MobiPark.App.Controllers
         [HttpGet("{licensePlate}")]
         public async Task<IActionResult> GetVehicle(string licensePlate)
         {
-            var vehicle =await _vehicleRepository.GetVehicle(licensePlate);
+            var vehicle = await _vehicleRepository.FindByPlate(licensePlate);
             return Ok(new VehiclePresenter(vehicle));
         }
         

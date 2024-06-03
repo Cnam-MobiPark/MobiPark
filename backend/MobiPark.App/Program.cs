@@ -4,6 +4,7 @@ using MobiPark.Domain.Interfaces;
 using MobiPark.Infra;
 
 using System.Text.Json.Serialization;
+using MobiPark.Infra.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

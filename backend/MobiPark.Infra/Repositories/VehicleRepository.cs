@@ -5,7 +5,7 @@ using MobiPark.Domain.Models.Vehicle.Engine;
 using MobiPark.Domain.Models.Vehicle.LicensePlate;
 using MobiPark.Infra.Entities;
 
-namespace MobiPark.Infra;
+namespace MobiPark.Infra.Repositories;
 
 public class VehicleRepository : IVehicleRepository
 {
@@ -14,6 +14,14 @@ public class VehicleRepository : IVehicleRepository
     public VehicleRepository(ApplicationDbContext context)
     {
         _context = context;
+    }
+
+    public async Task<Vehicle> Save(Vehicle vehicle)
+    {
+        var entiy = new VehicleEntity(vehicle);
+        await _context.AddAsync(entiy);
+        await _context.SaveChangesAsync();
+        return vehicle;
     }
 
     public async Task<Vehicle> CreateVehicle(string type, string maker, AbstractLicensePlate licensePlate, Engine engine)
@@ -36,7 +44,7 @@ public class VehicleRepository : IVehicleRepository
             .ToListAsync();
     }
     
-    public async Task<Vehicle> GetVehicle(string licensePlate)
+    public async Task<Vehicle> FindByPlate(string licensePlate)
     {
         var vehicle = await _context.Vehicles
             .FirstOrDefaultAsync(v => v.Plate == licensePlate);

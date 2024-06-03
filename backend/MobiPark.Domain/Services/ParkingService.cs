@@ -32,7 +32,7 @@ namespace MobiPark.Domain.Services
 
         public async Task<ParkingSpace> ParkVehicle(string licensePlate)
         {
-            var vehicle = await _vehicleRepository.GetVehicle(licensePlate)
+            var vehicle = await _vehicleRepository.FindByPlate(licensePlate)
                 ?? throw new InvalidOperationException("Vehicle not found.");
             var space = await _repository.GetAvailableSpaces(vehicle)
                 ?? throw new InvalidOperationException("No available parking spaces.");
