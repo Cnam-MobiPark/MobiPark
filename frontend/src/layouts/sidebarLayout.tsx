@@ -38,7 +38,7 @@ export function SidebarLayout(): ReactElement {
             Logout
           </Button>
         </header>
-        <main className="p-4">
+        <main className="p-4 md:px-16">
           <Outlet />
         </main>
       </div>
