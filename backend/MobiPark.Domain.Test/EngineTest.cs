@@ -19,9 +19,9 @@ public class EngineTest
         // Assert
         Assert.NotNull(engine);
         Assert.IsType<ElectricalEngine>(engine);
-        Assert.Equal(batteryCapacity, engine.batteryCapacity);
-        Assert.Equal(currentBatteryCapacity, engine.currentBatteryCapacity);
-        Assert.Equal(50, engine.batteryLevel);
+        Assert.Equal(batteryCapacity, engine.BatteryCapacity);
+        Assert.Equal(currentBatteryCapacity, engine.CurrentBatteryCapacity);
+        Assert.Equal(50, engine.BatteryLevel);
     }
     
     [Fact]
