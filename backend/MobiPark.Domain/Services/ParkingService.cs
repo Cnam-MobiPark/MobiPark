@@ -9,9 +9,10 @@ namespace MobiPark.Domain.Services
         private readonly IParkingRepository _repository;
         private readonly IVehicleRepository _vehicleRepository;
 
-        public ParkingService(IParkingRepository repository)
+        public ParkingService(IParkingRepository repository, IVehicleRepository vehicleRepository)
         {
             _repository = repository;
+            _vehicleRepository = vehicleRepository;
         }
         
         public async Task<List<ParkingSpace>> GetAvailableSpaces()
