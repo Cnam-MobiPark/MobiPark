@@ -159,9 +159,9 @@ return (
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Petit">Petit</SelectItem>
-                    <SelectItem value="Moyen">Moyen</SelectItem>
-                    <SelectItem value="Grand">Grand</SelectItem>
+                    <SelectItem value="small">Petit</SelectItem>
+                    <SelectItem value="medium">Moyen</SelectItem>
+                    <SelectItem value="large">Grand</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
@@ -182,8 +182,8 @@ return (
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="Électrique">Électrique</SelectItem>
-                    <SelectItem value="Combustion">Combustion</SelectItem>
+                    <SelectItem value="elec">Électrique</SelectItem>
+                    <SelectItem value="gas">Combustion</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
