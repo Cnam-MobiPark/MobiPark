@@ -130,7 +130,7 @@ export function UserHome(): ReactElement {
 
           <FormField
             control={form.control}
-            name="beginDate"
+            name="endDate"
             render={({ field }) => (
               <FormItem className="flex flex-col">
                 <FormLabel>Au</FormLabel>
