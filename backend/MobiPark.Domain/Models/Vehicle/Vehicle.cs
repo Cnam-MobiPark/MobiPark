@@ -14,5 +14,12 @@ namespace MobiPark.Domain.Models.Vehicle
             LicensePlate = licensePlate;
             Engine = engine;
         }
+        
+        public Reservation Park(ParkingSpace parkingPlace, DateTime beginDateTime, DateTime endDateTime)
+        {
+            return null;
+        }
+
+        public abstract VehicleSize GetSize();
     }
 }

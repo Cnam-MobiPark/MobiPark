@@ -4,7 +4,7 @@ using ReservationId = int;
 
 public class Reservation
 {
-    public Reservation(Vehicle.Vehicle vehicle, ParkingSpace parkingSpace, DateTime startTime, DateTime endTime, bool withElectricCharge)
+    public Reservation(Vehicle.Vehicle vehicle, ParkingSpace parkingSpace, DateTime startTime, DateTime endTime, bool withElectricCharge = false)
     {
         throw new NotImplementedException();
     }

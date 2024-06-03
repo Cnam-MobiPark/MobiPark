@@ -11,7 +11,6 @@ public class VehicleTest
 {
     public VehicleTest()
     {
-        var vehicleRepository = new VehicleRepository();
     }
 
     private Car MakeCar()
@@ -46,7 +45,7 @@ public class VehicleTest
     {
         // Arrange
         var vehicle = MakeCar();
-        var parkingPlace = new ParkingSpace(1,2);
+        var parkingPlace = new ParkingSpace(1,VehicleSize.Medium);
 
         var beginDateTime = new DateTime(2022, 11, 10, 14, 10, 0);
         var endDateTime = new DateTime(2022, 11, 10, 15, 10, 0);

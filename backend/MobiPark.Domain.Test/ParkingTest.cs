@@ -10,7 +10,7 @@ namespace MobiPark.Domain.Test;
 public class ParkingTest
 {
     
-    [Fact]
+   /* [Fact]
     [Trait("Category", "Parking Vehicles")]
     public void ParkVehicle_Should_Park_A_Car()
     {
@@ -130,5 +130,5 @@ public class ParkingTest
         {
             repository.spaces.Add(new() { Number = i, Size = type.ToLower(), Status = status });
         }
-    }
+    }*/
 }

@@ -8,9 +8,9 @@ namespace MobiPark.Domain.Models.Vehicle
         {
         }
 
-        public Reservation Park(ParkingSpace parkingPlace, DateTime beginDateTime, DateTime endDateTime)
+        public override VehicleSize GetSize()
         {
-            
+            return VehicleSize.Medium;
         }
     }
 }

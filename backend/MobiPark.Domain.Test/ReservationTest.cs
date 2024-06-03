@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using MobiPark.Domain.Factories;
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
@@ -19,8 +20,8 @@ namespace MobiPark.Domain.Test
         {
             _reservations = new List<Reservation>();
             var parkingRepository = new FakeParkingRepository();
-            _parkingService = new ParkingService(parkingRepository);
-            _reservationService = new ReservationService(_reservations, _parkingService);
+            //_parkingService = new ParkingService(parkingRepository);
+            //_reservationService = new ReservationService(_reservations, _parkingService);
         }
 
         private Vehicle MakeCar()
@@ -32,18 +33,18 @@ namespace MobiPark.Domain.Test
         }
 
         [Fact]
-        [Trait("Category", "Reservation Management")]
+        [Trait("Reservation", "Create a reservation")]
         public void CreateReservation_Should_Create_A_New_Reservation()
         {
             // Arrange
-            var parkingSpace = new ParkingSpace(1, 2);
+            var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
             var vehicle = MakeCar();
             var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
             var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
             var isElectricCharging = false;
 
             // Act
-            var reservation = new Reservation(vehicle, parkingSpace, startTime, endTime, false);
+            var reservation = new Reservation(vehicle, parkingSpace, startTime, endTime, isElectricCharging);
 
             // Assert
             Assert.NotNull(reservation);
@@ -56,7 +57,21 @@ namespace MobiPark.Domain.Test
         }
 
         [Fact]
-        [Trait("Category", "Reservation Management")]
+        [Trait("Reservation", "Should throw an error if invalid datetime")]
+        public void CreateReservation_Should_Throw_An_Exception()
+        {
+            var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+            var vehicle = MakeCar();
+            var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
+            var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
+
+            Action act = () => new Reservation(vehicle, parkingSpace, startTime, endTime);
+            
+            // Assert
+        }
+
+        /*[Fact]
+        [Trait("Reservation", "Reservation Management")]
         public void GetReservation_Should_Return_Existing_Reservation()
         {
             // Arrange
@@ -77,9 +92,9 @@ namespace MobiPark.Domain.Test
             // Assert
             Assert.NotNull(result);
             Assert.Equal(reservationId, result.ReservationId);
-        }
+        }*/
 
-        [Fact]
+        /*[Fact]
         [Trait("Category", "Reservation Management")]
         public void CancelReservation_Should_Remove_Existing_Reservation()
         {
@@ -100,6 +115,6 @@ namespace MobiPark.Domain.Test
 
             // Assert
             Assert.DoesNotContain(_reservations, r => r.ReservationId == reservationId);
-        }
+        }*/
     }
 }

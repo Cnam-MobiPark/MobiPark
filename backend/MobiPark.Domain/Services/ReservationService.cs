@@ -15,24 +15,6 @@ namespace MobiPark.Domain.Services
             _parkingService = parkingService;
         }
 
-        public Reservation CreateReservation(ParkingSpace parkingSpace, Vehicle vehicle, DateTime startTime, DateTime endTime, bool isElectricCharging)
-        {
-            var reservation = new Reservation
-            {
-                ReservationId = _reservations.Count + 1,
-                ParkingSpace = parkingSpace,
-                Vehicle = vehicle,
-                ReservationStartTime = startTime,
-                ReservationEndTime = endTime,
-                IsElectricCharging = isElectricCharging,
-                TotalPrice = CalculateTotalPrice(startTime, endTime, isElectricCharging)
-            };
-
-            _reservations.Add(reservation);
-
-            return reservation;
-        }
-
         public Reservation? GetReservationById(int reservationId)
         {
             return _reservations.FirstOrDefault(r => r.ReservationId == reservationId);

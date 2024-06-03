@@ -1,3 +1,5 @@
+using MobiPark.Domain.Models.Vehicle;
+
 namespace MobiPark.Domain.Models;
 
 using ParkingSpaceNumber = int ;
@@ -11,12 +13,12 @@ public enum ParkingSpaceStatus
 public class ParkingSpace
 {
     public ParkingSpaceNumber Number { get; set; }
-    public int Size { get; set; }
+    public VehicleSize Size { get; set; }
     public ParkingSpaceStatus Status { get; set; }
     
     public ParkingSpace(
         ParkingSpaceNumber number,
-        int size,
+        VehicleSize size,
         ParkingSpaceStatus status = ParkingSpaceStatus.Available
     )
     {
