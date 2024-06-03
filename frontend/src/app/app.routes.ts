@@ -11,7 +11,33 @@ export const routes: Routes = [
   },
   {
     path: '',
-    canActivate: [authGuard],
-    children: [],
+    //canActivate: [authGuard],
+    loadComponent: () =>
+      import('./layouts/side-bar-layout/side-bar-layout.component').then(
+        (c) => c.SideBarLayoutComponent,
+      ),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./pages/user/home/home.component').then(
+            (c) => c.HomeComponent,
+          ),
+      },
+      {
+        path: 'my-reservations',
+        loadComponent: () =>
+          import('./pages/user/my-reservations/my-reservations.component').then(
+            (c) => c.MyReservationsComponent,
+          ),
+      },
+      {
+        path: 'my-vehicles',
+        loadComponent: () =>
+          import('./pages/user/my-vehicle/my-vehicle.component').then(
+            (c) => c.MyVehicleComponent,
+          ),
+      },
+    ],
   },
 ];

@@ -1,0 +1,28 @@
+<div class="flex flex-row min-h-screen">
+  <aside class="w-80 border-r border-gray-300 flex flex-col">
+    <h1 class="text-center text-2xl font-semibold py-6">MobiPark</h1>
+    <nav class="flex flex-col gap-2 p-2">
+      <app-menu-item href="/" [exact]="true" icon="pi pi-home">
+        Réserver
+      </app-menu-item>
+
+      <app-menu-item href="/my-reservations" icon="pi pi-ticket">
+        Mes réservations
+      </app-menu-item>
+
+      <app-menu-item href="/my-vehicles" icon="pi pi-car">
+        Mes véhicules
+      </app-menu-item>
+    </nav>
+  </aside>
+
+  <div class="flex-1">
+    <header class="px-6 py-4 flex justify-end">
+      <p-button label="Logout" icon="pi pi-sign-out" severity="secondary" />
+    </header>
+
+    <main>
+      <router-outlet />
+    </main>
+  </div>
+</div>
