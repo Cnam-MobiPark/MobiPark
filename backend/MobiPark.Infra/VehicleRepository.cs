@@ -35,4 +35,15 @@ public class VehicleRepository : IVehicleRepository
             .Select(v => v.ToDomainModel())
             .ToListAsync();
     }
+    
+    public async Task<Vehicle> GetVehicle(string licensePlate)
+    {
+        var vehicle = await _context.Vehicles
+            .FirstOrDefaultAsync(v => v.Plate == licensePlate);
+        if (vehicle == null)
+        {
+            throw new InvalidOperationException("Vehicle not found.");
+        }
+        return vehicle.ToDomainModel();
+    }
 }

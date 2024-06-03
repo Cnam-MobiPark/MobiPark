@@ -8,5 +8,6 @@ namespace MobiPark.Domain.Interfaces
     {
         Task<List<Vehicle>> GetVehicles();
         Task<Vehicle> CreateVehicle(string type, string maker, AbstractLicensePlate licensePlate, Engine engine);
+        Task<Vehicle> GetVehicle(string licensePlate);
     }
 }

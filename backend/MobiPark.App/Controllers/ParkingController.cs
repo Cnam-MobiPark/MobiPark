@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MobiPark.App.DTO;
 using MobiPark.App.Presenters;
 using MobiPark.Domain.Interfaces;
 
@@ -24,10 +25,10 @@ namespace MobiPark.App.Controllers
         }
         
         [HttpPut("spaces/park")]
-        public IActionResult ParkCar([FromBody] ParkVehicleRequest request)
+        public IActionResult ParkCar([FromBody] string licensePlate)
         {
-            var space = _parkingService.ParkVehicle(request.Vehicle);
-            return Ok(new ParkingSpacePresenter(space.Result));
+            var result = _parkingService.ParkVehicle(licensePlate);
+            return Ok(result);
         }
     }
 }

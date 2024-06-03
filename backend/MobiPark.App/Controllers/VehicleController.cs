@@ -26,6 +26,13 @@ namespace MobiPark.App.Controllers
             return Ok(vehiclePresenters);
         }
         
+        [HttpGet("{licensePlate}")]
+        public IActionResult GetVehicle(string licensePlate)
+        {
+            var vehicle = _vehicleService.GetVehicle(licensePlate);
+            return Ok(new VehiclePresenter(vehicle.Result));
+        }
+        
         [HttpPost]
         public IActionResult AddVehicle([FromBody] CreateVehicleDTO request)
         {

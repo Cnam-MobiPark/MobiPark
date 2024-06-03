@@ -8,6 +8,6 @@ namespace MobiPark.Domain.Interfaces
         Task<List<ParkingSpace>> GetSpaces();
         Task<List<ParkingSpace>> GetAvailableSpaces();
         Task<List<ParkingSpace>> GetAvailableSpacesFor(Vehicle vehicle);
-        Task<ParkingSpace> ParkVehicle(Vehicle vehicle);
+        Task<ParkingSpace> ParkVehicle(string licensePlate);
     }
 }

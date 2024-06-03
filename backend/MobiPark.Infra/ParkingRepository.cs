@@ -14,6 +14,13 @@ public class ParkingRepository: IParkingRepository
         _context = context;
     }
     
+    public async Task<Vehicle> GetVehicle(string licensePlate)
+    {
+        var vehicleEntity = await _context.Vehicles
+            .FirstOrDefaultAsync(v => v.Plate == licensePlate);
+        return vehicleEntity.ToDomainModel();
+    }
+    
     public async Task<List<ParkingSpace>> GetSpaces()
     {
         return await _context.ParkingSpaces.ToListAsync();

@@ -8,4 +8,5 @@ public interface IVehicleRepository
 {
     public Task<Vehicle> CreateVehicle(string type, string maker, AbstractLicensePlate licensePlate, Engine engine);
     public Task<List<Vehicle>> GetVehicles();
+    public Task<Vehicle> GetVehicle(string licensePlate);
 }

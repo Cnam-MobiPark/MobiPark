@@ -7,6 +7,7 @@ namespace MobiPark.Domain.Services
     public class ParkingService : IParkingService
     {
         private readonly IParkingRepository _repository;
+        private readonly IVehicleRepository _vehicleRepository;
 
         public ParkingService(IParkingRepository repository)
         {
@@ -28,8 +29,10 @@ namespace MobiPark.Domain.Services
             return await _repository.GetSpaces();
         }
 
-        public async Task<ParkingSpace> ParkVehicle(Vehicle vehicle)
+        public async Task<ParkingSpace> ParkVehicle(string licensePlate)
         {
+            var vehicle = await _vehicleRepository.GetVehicle(licensePlate)
+                ?? throw new InvalidOperationException("Vehicle not found.");
             var space = await _repository.GetAvailableSpaces(vehicle)
                 ?? throw new InvalidOperationException("No available parking spaces.");
 

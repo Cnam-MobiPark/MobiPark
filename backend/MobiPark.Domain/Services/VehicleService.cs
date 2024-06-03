@@ -19,6 +19,11 @@ namespace MobiPark.Domain.Services
             return await _repository.GetVehicles();
         }
         
+        public async Task<Vehicle> GetVehicle(string licensePlate)
+        {
+            return await _repository.GetVehicle(licensePlate);
+        }
+        
         public async Task<Vehicle> CreateVehicle(string type, string maker, AbstractLicensePlate licensePlate, Engine engine)
         {
             return await _repository.CreateVehicle(type, maker, licensePlate, engine);
