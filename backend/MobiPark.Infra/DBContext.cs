@@ -30,6 +30,9 @@ namespace MobiPark.Infra
             modelBuilder.Entity<ReservationEntity>()
                 .HasOne(r => r.Vehicle)
                 .WithOne(v => v.Reservation);
+
+            modelBuilder.Entity<ReservationEntity>()
+                .HasOne<ParkingSpace>(r => r.ParkingSpace);
         }
     }
 }
