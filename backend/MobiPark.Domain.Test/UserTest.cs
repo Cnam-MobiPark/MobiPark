@@ -63,4 +63,24 @@ public class UserTest
         // Assert
         Assert.Throws<InvalidCredentialsException>(act);
     }
+
+    [Theory]
+    [InlineData("toto", "password")]
+    [InlineData("toto", "titi")]
+    [Trait("User", "User register")]
+    public void User_WhenRegisterUserWithValidCredentials_ShouldWork(string username, string password)
+    {
+        // Arrange
+        var userRepository = new FakeUserRepository([]);
+        var hasher = new FakeHash();
+        var useCase = new RegisterUserUseCase(hasher, userRepository);
+
+        // Act
+        var user = useCase.Execute(username, password);
+
+        //Assert
+        Assert.Equal(1, user.Id);
+        Assert.Equal(user.Username, username);
+        user.CheckPassword(hasher, password);
+    }
 }
