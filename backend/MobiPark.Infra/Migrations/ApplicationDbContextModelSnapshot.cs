@@ -22,13 +22,13 @@ namespace MobiPark.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("IsElectric")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("Size")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Status")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("isElectric")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Number");
