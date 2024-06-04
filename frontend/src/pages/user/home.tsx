@@ -1,4 +1,4 @@
-import { type ReactElement } from "react";
+import { useEffect, type ReactElement } from "react";
 import { PageHeader } from "../../components/page_header";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
@@ -31,15 +31,25 @@ import { CalendarIcon } from "lucide-react";
 
 const formSchema = z.object({
   vehicle: z.string(),
-  licencePlate: z.string(),
   beginDate: z.date(),
+  beginTime: z.string().time(),
   endDate: z.date(),
+  endTime: z.string().time(),
 });
 
 export function UserHome(): ReactElement {
   const form = useForm<z.infer<typeof formSchema>>();
 
   function onSubmit() {}
+
+  const beginDateValue = form.watch("beginDate");
+
+  useEffect(() => {
+    const endDate = form.watch("endDate");
+    if (beginDateValue > endDate) {
+      form.setValue("endDate", beginDateValue);
+    }
+  }, [beginDateValue]);
 
   return (
     <div>
@@ -72,105 +82,119 @@ export function UserHome(): ReactElement {
             )}
           />
 
-          <FormField
-            control={form.control}
-            name="licencePlate"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Immatriculation</FormLabel>
-                <FormControl>
-                  <Input placeholder="Immatriculation" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="flex flex-col md:flex-row gap-2">
+            <FormField
+              control={form.control}
+              name="beginDate"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Du</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-[240px] pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) => date < new Date()}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="beginDate"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Du</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant="outline"
-                        className={cn(
-                          "w-[240px] pl-3 text-left font-normal",
-                          !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        {field.value ? (
-                          format(field.value, "PPP")
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={field.value}
-                      onSelect={field.onChange}
-                      disabled={(date) =>
-                        date > new Date() || date < new Date("1900-01-01")
-                      }
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="beginTime"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Heure</FormLabel>
+                  <Input type="time" {...field} />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
-          <FormField
-            control={form.control}
-            name="endDate"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Au</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant="outline"
-                        className={cn(
-                          "w-[240px] pl-3 text-left font-normal",
-                          !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        {field.value ? (
-                          format(field.value, "PPP")
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={field.value}
-                      onSelect={field.onChange}
-                      disabled={(date) =>
-                        date > new Date() || date < new Date("1900-01-01")
-                      }
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="flex flex-col gap-2 md:flex-row">
+            <FormField
+              control={form.control}
+              name="endDate"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Au</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-[240px] pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date < new Date() || date < beginDateValue
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <Button type="submit">Submit</Button>
+            <FormField
+              control={form.control}
+              name="endTime"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Heure</FormLabel>
+                  <Input type="time" {...field} />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <Button type="submit" disabled={form.formState.isValid}>
+            Submit
+          </Button>
         </form>
       </Form>
     </div>
