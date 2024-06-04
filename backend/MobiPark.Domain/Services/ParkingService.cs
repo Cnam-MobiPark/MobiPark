@@ -7,35 +7,40 @@ namespace MobiPark.Domain.Services
     public class ParkingService : IParkingService
     {
         private readonly IParkingRepository _repository;
+        private readonly IVehicleRepository _vehicleRepository;
 
-        public ParkingService(IParkingRepository repository)
+        public ParkingService(IParkingRepository repository, IVehicleRepository vehicleRepository)
         {
             _repository = repository;
+            _vehicleRepository = vehicleRepository;
         }
         
-        public List<ParkingSpace> GetAvailableSpaces()
+        public async Task<List<ParkingSpace>> GetAvailableSpaces()
         {
-            return _repository.GetAvailableSpaces();
+            return await _repository.GetAvailableSpaces();
         }
         
-        public List<ParkingSpace> GetAvailableSpacesFor(Vehicle vehicle)
+        public async Task<List<ParkingSpace>> GetAvailableSpacesFor(Vehicle vehicle)
         {
-            return _repository.GetAvailableSpaces(vehicle);
+            return await _repository.GetAvailableSpaces(vehicle);
         }
 
-        public List<ParkingSpace> GetSpaces()
+        public async Task<List<ParkingSpace>> GetSpaces()
         {
-            return _repository.GetSpaces();
+            return await _repository.GetSpaces();
         }
 
-        public ParkingSpace ParkVehicle(Vehicle vehicle)
+        public async Task<ParkingSpace> ParkVehicle(string licensePlate)
         {
-            var space = _repository.GetAvailableSpaces(vehicle).FirstOrDefault()
+            var vehicle = await _vehicleRepository.FindByPlate(licensePlate)
+                ?? throw new InvalidOperationException("Vehicle not found.");
+            var space = await _repository.GetAvailableSpaces(vehicle)
                 ?? throw new InvalidOperationException("No available parking spaces.");
 
-            _repository.ParkVehicle(vehicle, space);
+            var firstAvailableSpace = space.First();
+            _repository.ParkVehicle(vehicle, firstAvailableSpace);
 
-            return space;
+            return firstAvailableSpace;
         }
     }
 }
