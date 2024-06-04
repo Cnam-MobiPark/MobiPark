@@ -28,6 +28,9 @@ namespace MobiPark.Infra.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
+                    b.Property<bool>("isElectric")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Number");
 
                     b.ToTable("ParkingSpaces");

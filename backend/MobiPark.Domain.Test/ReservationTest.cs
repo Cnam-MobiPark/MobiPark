@@ -39,12 +39,12 @@ public class ReservationTest
         var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
 
         var fakeClock = new FakeClock(startTime.AddMinutes(-10));
-        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium, false);
         var vehicle = MakeCar();
         var isElectricCharging = false;
 
         // Act
-        var reservation = new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime, isElectricCharging);
+        var reservation = new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime);
 
         // Assert
         Assert.NotNull(reservation);
@@ -61,7 +61,7 @@ public class ReservationTest
     public void CreateReservation_ShouldThrowAnException_WhenStartTimeInPast()
     {
         // Arrange
-        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium, false);
         var vehicle = MakeCar();
         var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
         var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
@@ -78,7 +78,7 @@ public class ReservationTest
     public void CreateReservation_ShouldThrowAnException_WhenEndTimeInPast()
     {
         // Arrange
-        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium, false);
         var vehicle = MakeCar();
         var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
         var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
@@ -95,14 +95,14 @@ public class ReservationTest
     public void CreateReservation_ShouldThrowAnException_WhenStartTimeAfterEndTime()
     {
         // Arrange
-        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium, false);
         var vehicle = MakeCar();
         var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
         var endTime = startTime.AddMinutes(-10);
         var fakeClock = new FakeClock(endTime);
 
         // Act
-        Action act = () => new Reservation(fakeClock, vehicle, parkingSpace, endTime, startTime);
+        Action act = () => new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime);
 
         // Assert
         Assert.Throws<InvalidDateException>(act);

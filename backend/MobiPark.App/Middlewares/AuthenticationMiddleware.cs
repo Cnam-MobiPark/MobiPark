@@ -9,16 +9,11 @@ public class AuthenticationMiddleware(RequestDelegate next)
     {
         var user = context.Items["User"];
         if (user is null or not User)
-        {
             await ReturnErrorResponse(context);
-        }
         else
-        {
             await next(context);
-        }
-        
     }
-    
+
     private static async Task ReturnErrorResponse(HttpContext context)
     {
         context.Response.StatusCode = 403;

@@ -10,8 +10,8 @@ using MobiPark.Infra;
 namespace MobiPark.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240604095348_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240604082405_initCreate")]
+    partial class initCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,6 +29,9 @@ namespace MobiPark.Infra.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("isElectric")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Number");
@@ -57,25 +60,6 @@ namespace MobiPark.Infra.Migrations
                         .IsUnique();
 
                     b.ToTable("Reservations");
-                });
-
-            modelBuilder.Entity("MobiPark.Infra.Entities.UserEntity", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("MobiPark.Infra.Entities.VehicleEntity", b =>

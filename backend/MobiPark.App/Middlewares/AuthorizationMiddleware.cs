@@ -34,6 +34,7 @@ public class AuthorizationMiddleware(RequestDelegate next, IOptions<AppSettings>
         }
     }
 }
+
 public static class AuthorizationMiddlewareExtensions
 {
     public static IApplicationBuilder UseAuthorizationMiddleware(
