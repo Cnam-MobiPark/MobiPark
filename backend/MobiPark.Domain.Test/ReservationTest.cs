@@ -104,7 +104,7 @@ namespace MobiPark.Domain.Test
             
             // Act
             var fakeClock = new FakeClock(endTime);
-            Action act = () => new Reservation(fakeClock, vehicle, parkingSpace, endTime, startTime);
+            Action act = () => new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime);
             // Assert
             Assert.Throws<InvalidDateException>(act);
         }
