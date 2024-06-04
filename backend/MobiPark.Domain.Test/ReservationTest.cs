@@ -43,7 +43,8 @@ public class ReservationTest
         var isElectricCharging = false;
 
         // Act
-        var reservation = new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime);
+        var reservationFactory = new ReservationFactory(fakeClock);
+        var reservation = reservationFactory.MakeReservation(vehicle, parkingSpace, startTime, endTime);
 
         // Assert
         Assert.NotNull(reservation);
@@ -67,7 +68,8 @@ public class ReservationTest
         var fakeClock = new FakeClock(startTime.AddMinutes(10));
 
         // Act
-        Action act = () => new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime);
+        var reservationFactory = new ReservationFactory(fakeClock);
+        Action act = () => reservationFactory.MakeReservation(vehicle, parkingSpace, startTime, endTime);
         // Assert
         Assert.Throws<InvalidDateException>(act);
     }
@@ -84,7 +86,8 @@ public class ReservationTest
         var fakeClock = new FakeClock(endTime.AddMinutes(10));
 
         // Act
-        Action act = () => new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime);
+        var reservationFactory = new ReservationFactory(fakeClock);
+        Action act = () => reservationFactory.MakeReservation(vehicle, parkingSpace, startTime, endTime);
 
         // Assert
         var exception = Assert.Throws<InvalidDateException>(act);
@@ -103,7 +106,8 @@ public class ReservationTest
         var fakeClock = new FakeClock(endTime);
 
         // Act
-        Action act = () => new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime);
+        var reservationFactory = new ReservationFactory(fakeClock);
+        Action act = () => reservationFactory.MakeReservation(vehicle, parkingSpace, startTime, endTime);
 
         // Assert
         var exception = Assert.Throws<InvalidDateException>(act);
