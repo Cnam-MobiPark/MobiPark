@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MobiPark.App.Presenters;
 using MobiPark.Domain.Interfaces;
+using MobiPark.Domain.UseCases;
 
 namespace MobiPark.App.Controllers;
 
@@ -11,25 +12,24 @@ public class ParkingController : ControllerBase
     private readonly IParkingRepository _parkingRepository;
     private readonly IVehicleRepository _vehicleRepository;
 
-    public ParkingController(IParkingRepository parkingRepository)
+    public ParkingController(IParkingRepository parkingRepository, IVehicleRepository vehicleRepository)
     {
         _parkingRepository = parkingRepository;
+        _vehicleRepository = vehicleRepository;
     }
 
     [HttpGet("spaces")]
     public IActionResult GetSpaces()
     {
         var spaces = _parkingRepository.GetSpaces();
-        var spacePresenters = spaces.Result.Select(space => new ParkingSpacePresenter(space)).ToList();
+        var spacePresenters = spaces.Select(space => new ParkingSpacePresenter(space)).ToList();
         return Ok(spacePresenters);
     }
 
     [HttpPut("spaces/park")]
-    public async Task<IActionResult> ParkCar(string licensePlate)
+    public void ParkCar(string licensePlate)
     {
-        var vehicle =  await _vehicleRepository.FindByPlate(licensePlate) ?? throw new InvalidOperationException("Vehicle not found.");
-        var firstAvailableSpace = _parkingRepository.GetAvailableSpaces(vehicle).Result.FirstOrDefault() ?? throw new InvalidOperationException("No available parking spaces.");
-        _parkingRepository.ParkVehicle(vehicle, firstAvailableSpace);
-        return Ok(new ParkingSpacePresenter(firstAvailableSpace));
+        var ParkVehicleUseCase = new ParkVehicleUseCase(_vehicleRepository, _parkingRepository);
+        ParkVehicleUseCase.Execute(licensePlate);
     }
 }
