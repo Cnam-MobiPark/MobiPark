@@ -6,4 +6,5 @@ public interface IUserRepository
 {
     public User? FindByUsername(string username);
     public User? Find(int userId);
+    public User Save(User user);
 }

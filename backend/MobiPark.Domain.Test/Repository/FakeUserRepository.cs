@@ -21,4 +21,13 @@ public class FakeUserRepository : IUserRepository
     {
         return _users.FirstOrDefault(u => u.Id == userId);
     }
+
+    public User Save(User user)
+    {
+        user.Id = _users.Count == 0
+            ? 1
+            : _users.Max(user => user.Id) + 1;
+        _users.Add(user);
+        return user;
+    }
 }
