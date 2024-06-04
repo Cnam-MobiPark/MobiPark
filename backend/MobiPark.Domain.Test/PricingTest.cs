@@ -4,7 +4,6 @@ using MobiPark.Domain.Models;
 using MobiPark.Domain.Models.Vehicle;
 using MobiPark.Domain.Models.Vehicle.Engine;
 using MobiPark.Domain.Models.Vehicle.LicensePlate;
-using MobiPark.Domain.Services;
 using MobiPark.Domain.Test.Repository;
 
 namespace MobiPark.Domain.Test;
@@ -44,7 +43,7 @@ public class PricingTest
     {
         // Arrange
         var car = MakeThermalCar();
-        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium, false);
         var reservation = MakeReservation(car, parkingSpace);
         var priceCalculator = new PriceCalculator();
 
@@ -62,7 +61,7 @@ public class PricingTest
         // Arrange
         var startTime = new DateTime(2024, 9, 21, 20, 0, 0);
         var endTime = new DateTime(2024, 9, 22, 0, 0, 0);
-        var reservation = new Reservation(new FakeClock(new DateTime(2024, 5, 21, 22, 0, 0)), MakeThermalCar(), new ParkingSpace(1, VehicleSize.Medium), startTime, endTime);
+        var reservation = new Reservation(new FakeClock(new DateTime(2024, 5, 21, 22, 0, 0)), MakeThermalCar(), new ParkingSpace(1, VehicleSize.Medium, false), startTime, endTime);
         var priceCalculator = new PriceCalculator();
 
         // Act
@@ -78,7 +77,7 @@ public class PricingTest
     {
         // Arrange
         var car = MakeThermalCar();
-        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium, false);
         var reservation = MakeReservation(car, parkingSpace);
         var priceCalculator = new PriceCalculator();
 
@@ -95,7 +94,7 @@ public class PricingTest
     {
         // Arrange
         var motorcycle = MakeMotorcycle();
-        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium, false);
         var reservation = MakeReservation(motorcycle, parkingSpace);
         var priceCalculator = new PriceCalculator();
 
@@ -112,7 +111,7 @@ public class PricingTest
     {
         // Arrange
         var electricalCar = MakeElectricalCar(50);
-        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium, true);
         var reservation = MakeReservation(electricalCar, parkingSpace);
         var priceCalculator = new PriceCalculator();
 
@@ -129,7 +128,7 @@ public class PricingTest
     {
         // Arrange
         var electricalCar = MakeElectricalCar();
-        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+        var parkingSpace = new ParkingSpace(1, VehicleSize.Medium, true);
         var reservation = MakeReservation(electricalCar, parkingSpace);
         var priceCalculator = new PriceCalculator();
 

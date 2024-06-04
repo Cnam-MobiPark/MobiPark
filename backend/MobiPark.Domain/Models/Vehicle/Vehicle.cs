@@ -1,4 +1,6 @@
+using MobiPark.Domain.Exceptions;
 using MobiPark.Domain.Interfaces;
+using MobiPark.Domain.Models.Vehicle.Engine;
 using MobiPark.Domain.Models.Vehicle.LicensePlate;
 
 namespace MobiPark.Domain.Models.Vehicle
@@ -18,6 +20,20 @@ namespace MobiPark.Domain.Models.Vehicle
 
         public Reservation Park(IClock clock, ParkingSpace parkingPlace, DateTime beginDateTime, DateTime endDateTime)
         {
+            if (parkingPlace.Status == ParkingSpaceStatus.Occupied)
+            {
+                throw new VehicleCannotParkException("Parking space is already occupied");
+            }
+            
+            if (parkingPlace.Size < GetSize())
+            {
+                throw new VehicleCannotParkException("Parking space is too small");
+            }
+            
+            if (parkingPlace.IsElectric && Engine is ThermalEngine)
+            {
+                throw new VehicleCannotParkException("Parking space is electric only");
+            }
             return new Reservation(clock, this, parkingPlace, beginDateTime, endDateTime);
         }
 

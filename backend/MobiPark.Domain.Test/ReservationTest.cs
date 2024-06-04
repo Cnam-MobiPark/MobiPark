@@ -41,12 +41,12 @@ namespace MobiPark.Domain.Test
             var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
             
             var fakeClock = new FakeClock(startTime.AddMinutes(-10));
-            var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+            var parkingSpace = new ParkingSpace(1, VehicleSize.Medium, false);
             var vehicle = MakeCar();
             var isElectricCharging = false;
 
             // Act
-            var reservation = new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime, isElectricCharging);
+            var reservation = new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime);
 
             // Assert
             Assert.NotNull(reservation);
@@ -63,7 +63,7 @@ namespace MobiPark.Domain.Test
         public void CreateReservation_ShouldThrowAnException_WhenStartTimeInPast()
         {
             // Arrange
-            var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+            var parkingSpace = new ParkingSpace(1, VehicleSize.Medium, false);
             var vehicle = MakeCar();
             var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
             var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
@@ -80,7 +80,7 @@ namespace MobiPark.Domain.Test
         public void CreateReservation_ShouldThrowAnException_WhenEndTimeInPast()
         {
             // Arrange
-            var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+            var parkingSpace = new ParkingSpace(1, VehicleSize.Medium, false);
             var vehicle = MakeCar();
             var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
             var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
@@ -97,7 +97,7 @@ namespace MobiPark.Domain.Test
         public void CreateReservation_ShouldThrowAnException_WhenStartTimeAfterEndTime()
         {
             // Arrange
-            var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+            var parkingSpace = new ParkingSpace(1, VehicleSize.Medium, false);
             var vehicle = MakeCar();
             var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
             var endTime = startTime.AddMinutes(-10);

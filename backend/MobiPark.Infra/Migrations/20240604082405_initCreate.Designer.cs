@@ -10,8 +10,8 @@ using MobiPark.Infra;
 namespace MobiPark.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240602212508_Reservation")]
-    partial class Reservation
+    [Migration("20240604082405_initCreate")]
+    partial class initCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,13 +25,14 @@ namespace MobiPark.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Size")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("isElectric")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Number");
 
@@ -44,11 +45,16 @@ namespace MobiPark.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("ParkingSpaceNumber")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("VehicleId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("ReservationId");
+
+                    b.HasIndex("ParkingSpaceNumber");
 
                     b.HasIndex("VehicleId")
                         .IsUnique();
@@ -87,11 +93,19 @@ namespace MobiPark.Infra.Migrations
 
             modelBuilder.Entity("MobiPark.Infra.Entities.ReservationEntity", b =>
                 {
+                    b.HasOne("MobiPark.Domain.Models.ParkingSpace", "ParkingSpace")
+                        .WithMany()
+                        .HasForeignKey("ParkingSpaceNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MobiPark.Infra.Entities.VehicleEntity", "Vehicle")
                         .WithOne("Reservation")
                         .HasForeignKey("MobiPark.Infra.Entities.ReservationEntity", "VehicleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ParkingSpace");
 
                     b.Navigation("Vehicle");
                 });
