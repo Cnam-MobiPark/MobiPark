@@ -22,6 +22,6 @@ public class ReservationEntity
     
     public Reservation ToDomainModel()
     {
-        return new Reservation(ReservationId, Vehicle.ToDomainModel(), ParkingSpace);
+        return new Reservation(Vehicle.ToDomainModel(), ParkingSpace, DateTime.Now, DateTime.Now);
     }
 }

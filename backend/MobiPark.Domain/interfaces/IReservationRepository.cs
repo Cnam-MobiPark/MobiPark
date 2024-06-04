@@ -4,8 +4,7 @@ namespace MobiPark.Domain.Interfaces;
 
 public interface IReservationRepository
 {
-    Task<Reservation> Save(Reservation reservation);
-    Task<List<Reservation>> GetReservations();
-    Task<Reservation> FindByPlate(string plate);
+    Reservation Save(Reservation reservation);
+    Reservation FindByPlate(string plate);
     void Cancel(Reservation reservation);
 }

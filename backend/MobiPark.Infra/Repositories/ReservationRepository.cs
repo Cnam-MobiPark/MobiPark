@@ -14,25 +14,25 @@ public class ReservationRepository : IReservationRepository
         _context = context;
     }
     
-    public async Task<Reservation> Save(Reservation reservation)
+    public Reservation Save(Reservation reservation)
     {
         var entity = new ReservationEntity(reservation);
-        await _context.AddAsync(entity);
-        await _context.SaveChangesAsync();
+        _context.AddAsync(entity);
+        _context.SaveChangesAsync();
         return reservation;
     }
     
-    public async Task<List<Reservation>> GetReservations()
+    public List<Reservation> GetReservations()
     {
-        return await _context.Reservations
+        return _context.Reservations
             .Select(r => r.ToDomainModel())
-            .ToListAsync();
+            .ToList();
     }
     
-    public async Task<Reservation> FindByPlate(string plate)
+    public Reservation FindByPlate(string plate)
     {
-        var reservation = await _context.Reservations
-            .FirstOrDefaultAsync(r => r.Vehicle.Plate == plate);
+        var reservation = _context.Reservations
+            .FirstOrDefault(r => r.Vehicle.Plate == plate);
         if (reservation == null) throw new InvalidOperationException("Reservation not found.");
         return reservation.ToDomainModel();
     }
