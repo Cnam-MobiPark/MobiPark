@@ -1,12 +1,13 @@
 using MobiPark.Domain.Exceptions;
 using MobiPark.Domain.Models;
 using MobiPark.Domain.Test.Repository;
+using MobiPark.Domain.UseCases;
 
 namespace MobiPark.Domain.Test;
 
 public class UserTest
 {
-    private User MakeUser()
+    private static User MakeUser()
     {
         return new User(1, "toto", "tata");
     }
@@ -18,24 +19,46 @@ public class UserTest
         // Arrange
         var expectedUser = MakeUser();
         var userRepository = new FakeUserRepository([expectedUser]);
-
+        var hasher = new FakeHash();
+        var useCase = new LoginUserUseCase(hasher, userRepository);
+        
         // Act
-        var session = User.Login("toto", "tata", new FakeHash(), userRepository);
+        var user = useCase.Execute("toto", "tata");
 
         // Assert
-        Assert.Equal(expectedUser, session.User);
+        Assert.Equal(expectedUser, user);
     }
     
     [Fact]
-    [Trait("User", "User login empty credentials")]
-    public async void User_WhenLoginUserWithEmptyCredentials_ShouldThrowAnException()
+    [Trait("User", "User not found")]
+    public void User_WhenLoginUserButNotFound_ShouldThrowAnException()
+    {
+        // Arrange
+        var userRepository = new FakeUserRepository([]);
+        var hasher = new FakeHash();
+        var useCase = new LoginUserUseCase(hasher, userRepository);
+
+        // Act
+        Action act = () => useCase.Execute("toto", "tata");
+
+        // Assert
+        Assert.Throws<NotFoundException>(act);
+    }
+    
+    [Theory]
+    [InlineData("toto", "password")]
+    [InlineData("toto", "titi")]
+    [Trait("User", "User login invalid credentials")]
+    public void User_WhenLoginUserWithInvalidCredentials_ShouldThrowAnException(string username, string password)
     {
         // Arrange
         var user = MakeUser();
         var userRepository = new FakeUserRepository([user]);
+        var hasher = new FakeHash();
+        var useCase = new LoginUserUseCase(hasher, userRepository);
 
         // Act
-        Action act = () => User.Login("", "", new FakeHash(), userRepository);
+        Action act = () => useCase.Execute(username, password);
 
         // Assert
         Assert.Throws<InvalidCredentialsException>(act);

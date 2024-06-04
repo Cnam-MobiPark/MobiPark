@@ -11,7 +11,7 @@ public class FakeUserRepository : IUserRepository
         _users = users;
     }
     
-    public User? FindUserByUsername(string username)
+    public User? FindByUsername(string username)
     {
         return _users.FirstOrDefault(u => u.Username == username);
     }

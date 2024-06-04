@@ -4,5 +4,5 @@ namespace MobiPark.Domain.Interfaces;
 
 public interface IUserRepository
 {
-    public User? FindUserByUsername(string username);
+    public User? FindByUsername(string username);
 }
