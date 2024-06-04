@@ -42,7 +42,8 @@ public class UserTest
         Action act = () => useCase.Execute("toto", "tata");
 
         // Assert
-        Assert.Throws<NotFoundException>(act);
+        var exception = Assert.Throws<NotFoundException>(act);
+        Assert.Equal("User not found", exception.Message);
     }
 
     [Theory]

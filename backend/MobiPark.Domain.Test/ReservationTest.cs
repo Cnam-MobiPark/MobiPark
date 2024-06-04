@@ -86,8 +86,10 @@ public class ReservationTest
 
         // Act
         Action act = () => new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime);
+
         // Assert
-        Assert.Throws<InvalidDateException>(act);
+        var exception = Assert.Throws<InvalidDateException>(act);
+        Assert.Equal("Invalid date: Reservation start time must be in the future", exception.Message);
     }
 
     [Fact]
@@ -105,7 +107,8 @@ public class ReservationTest
         Action act = () => new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime);
 
         // Assert
-        Assert.Throws<InvalidDateException>(act);
+        var exception = Assert.Throws<InvalidDateException>(act);
+        Assert.Equal("Invalid date: Reservation start time must be before end time", exception.Message);
     }
 
     /*[Fact]
