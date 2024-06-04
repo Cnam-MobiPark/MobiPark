@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { type ReactElement } from "react";
 import { PageHeader } from "../../components/page_header";
 import { useForm } from "react-hook-form";
@@ -18,11 +18,19 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { fetchVehicles } from "@/api/vehicles";
+import { useQuery } from "@tanstack/react-query";
 
 interface Vehicle {
   marque: string;
@@ -47,26 +55,16 @@ export function MyVehicles(): ReactElement {
     console.log(data);
   }
 
-  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
-  useEffect(() => {
-    const fetchVehicles = async () => {
-      try {
-        const response = await fetch('/vehicules.json');
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const data: Vehicle[] = await response.json();
-        setVehicles(data);
-      } catch (error) {
-        console.error('Failed to fetch vehicles:', error);
-      }
-    };
+  const {
+    isPending,
+    data: vehicles,
+    error,
+  } = useQuery({
+    queryKey: ["vehicles", "list"],
+    queryFn: () => fetchVehicles(),
+  });
 
-    fetchVehicles();
-  }, []);
-
-
-return (
+  return (
     <div>
       <PageHeader
         title="Mes véhicules"
@@ -76,23 +74,51 @@ return (
         <Table className="min-w-full bg-white border border-gray-300">
           <TableHeader>
             <TableRow>
-              <TableHead  className="py-2 px-4 border-b border-gray-300 text-left">Marque</TableHead>
-              <TableHead  className="py-2 px-4 border-b border-gray-300 text-left">Modèle</TableHead>
-              <TableHead  className="py-2 px-4 border-b border-gray-300 text-left">Immatriculation</TableHead>
-              <TableHead  className="py-2 px-4 border-b border-gray-300 text-left">Taille</TableHead>
-              <TableHead  className="py-2 px-4 border-b border-gray-300 text-left">Énergie</TableHead>
+              <TableHead className="py-2 px-4 border-b border-gray-300 text-left">
+                Marque
+              </TableHead>
+              <TableHead className="py-2 px-4 border-b border-gray-300 text-left">
+                Immatriculation
+              </TableHead>
+              <TableHead className="py-2 px-4 border-b border-gray-300 text-left">
+                Taille
+              </TableHead>
+              <TableHead className="py-2 px-4 border-b border-gray-300 text-left">
+                Énergie
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {vehicles.map((vehicle, index) => (
-              <TableRow  key={index}>
-                <TableCell  className="py-2 px-4 border-b border-gray-300">{vehicle.marque}</TableCell >
-                <TableCell  className="py-2 px-4 border-b border-gray-300">{vehicle.modele}</TableCell >
-                <TableCell  className="py-2 px-4 border-b border-gray-300">{vehicle.immatriculation}</TableCell >
-                <TableCell  className="py-2 px-4 border-b border-gray-300">{vehicle.type}</TableCell >
-                <TableCell  className="py-2 px-4 border-b border-gray-300">{vehicle.energie}</TableCell >
-              </TableRow >
-            ))}
+            {isPending ? (
+              <TableRow>
+                <TableCell rowSpan={4}>
+                  <p>Chargement...</p>
+                </TableCell>
+              </TableRow>
+            ) : error ? (
+              <TableRow>
+                <TableCell rowSpan={4}>
+                  <p>Une error est survenue.</p>
+                </TableCell>
+              </TableRow>
+            ) : (
+              vehicles.map((vehicle, index) => (
+                <TableRow key={index}>
+                  <TableCell className="py-2 px-4 border-b border-gray-300">
+                    {vehicle.maker}
+                  </TableCell>
+                  <TableCell className="py-2 px-4 border-b border-gray-300">
+                    {vehicle.licencePlate}
+                  </TableCell>
+                  <TableCell className="py-2 px-4 border-b border-gray-300">
+                    {vehicle.type}
+                  </TableCell>
+                  <TableCell className="py-2 px-4 border-b border-gray-300">
+                    {vehicle.engine}
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </div>
@@ -103,7 +129,10 @@ return (
       />
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="grid grid-cols-2 gap-4"
+        >
           <FormField
             control={form.control}
             name="marque"
@@ -152,7 +181,10 @@ return (
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Taille</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Sélectionnez une taille" />
@@ -175,7 +207,10 @@ return (
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Énergie</FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Sélectionnez une énergie" />

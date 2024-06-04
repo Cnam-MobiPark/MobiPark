@@ -10,6 +10,7 @@ import { AuthProvider } from "./context/auth";
 import { Register } from "./pages/register";
 import { homeLoader } from "./pages/user/home.loader";
 import { reservationLoader } from "./pages/user/reservation.loader";
+import { vehicleLoader } from "./pages/user/vehicle.loader";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "/my-vehicles",
+            loader: vehicleLoader(queryClient),
             element: <MyVehicles />,
           },
         ],
