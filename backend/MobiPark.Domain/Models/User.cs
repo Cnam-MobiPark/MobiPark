@@ -10,14 +10,21 @@ public class User
     public string Username = null!;
     private string _password = null!;
 
-    public User(UserId userId, string username, string password)
+    private User(string username)
+    {
+        if (string.IsNullOrWhiteSpace(username))
+            throw new NullUsernameException();
+
+        Username = username;
+    }
+
+    public User(UserId userId, string username, string password) : this(username)
     {
         Id = userId;
-        Username = username;
         _password = password;
     }
 
-    public User(string username, string clearTextPassword, IHash hash)
+    public User(string username, string clearTextPassword, IHash hash) : this(username)
     {
         Username = username;
         _password = hash.Hash(clearTextPassword);

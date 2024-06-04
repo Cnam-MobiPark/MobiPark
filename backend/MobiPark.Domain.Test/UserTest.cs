@@ -104,4 +104,28 @@ public class UserTest
         var ex = Assert.Throws<UsernameAlreadyExistException>(act);
         Assert.Equal($"username {username} already exists", ex.Message);
     }
+
+    [Theory]
+    [InlineData("", "password")]
+    [InlineData("    ", "password")]
+    [InlineData("", "titi")]
+    [InlineData("          ", "titi")]
+    [InlineData("", "")]
+    [InlineData("    ", "")]
+    [InlineData("    ", "    ")]
+    [Trait("User", "User register null username")]
+    public void User_WhenRegisterUserWithNullUsername_ShouldThrow(string username, string password)
+    {
+        // Arrange
+        var userRepository = new FakeUserRepository([]);
+        var hasher = new FakeHash();
+        var useCase = new RegisterUserUseCase(hasher, userRepository);
+
+        // Act
+        Action act = () => useCase.Execute(username, password);
+
+        //Assert
+        var ex = Assert.Throws<NullUsernameException>(act);
+        Assert.Equal($"Value cannot be null. (Parameter 'username')", ex.Message);
+    }
 }
