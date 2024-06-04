@@ -83,4 +83,25 @@ public class UserTest
         Assert.Equal(user.Username, username);
         user.CheckPassword(hasher, password);
     }
+
+    [Theory]
+    [InlineData("toto", "password")]
+    [InlineData("toto", "titi")]
+    [InlineData("toto", "")]
+    [Trait("User", "User register existing user")]
+    public void User_WhenRegisterUserWithExistingUsername_ShouldThrow(string username, string password)
+    {
+        // Arrange
+        var user = MakeUser();
+        var userRepository = new FakeUserRepository([user]);
+        var hasher = new FakeHash();
+        var useCase = new RegisterUserUseCase(hasher, userRepository);
+
+        // Act
+        Action act = () => useCase.Execute(username, password);
+
+        //Assert
+        var ex = Assert.Throws<UsernameAlreadyExistException>(act);
+        Assert.Equal($"username {username} already exists", ex.Message);
+    }
 }
