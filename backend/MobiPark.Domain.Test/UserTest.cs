@@ -85,6 +85,23 @@ public class UserTest
         user.CheckPassword(hasher, password);
     }
 
+    [Fact]
+    [Trait("User", "User register id")]
+    public void User_WhenRegisterUserWithOtherUser_ShouldHaveRightId()
+    {
+        // Arrange
+        var existingUser = MakeUser();
+        var userRepository = new FakeUserRepository([existingUser]);
+        var hasher = new FakeHash();
+        var useCase = new RegisterUserUseCase(hasher, userRepository);
+
+        // Act
+        var user = useCase.Execute("titi", "tata");
+
+        //Assert
+        Assert.Equal(2, user.Id);
+    }
+
     [Theory]
     [InlineData("toto", "password")]
     [InlineData("toto", "titi")]
