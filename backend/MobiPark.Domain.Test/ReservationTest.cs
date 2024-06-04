@@ -46,7 +46,7 @@ namespace MobiPark.Domain.Test
             var isElectricCharging = false;
 
             // Act
-            var reservation = new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime, isElectricCharging);
+            var reservation = new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime);
 
             // Assert
             Assert.NotNull(reservation);
