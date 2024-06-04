@@ -4,11 +4,12 @@ using MobiPark.Domain.Interfaces;
 namespace MobiPark.Domain.Models;
 
 using UserId = int;
+
 public class User
 {
+    private readonly string _password = null!;
     public UserId Id;
     public string Username = null!;
-    private string _password = null!;
 
     private User(string username)
     {
@@ -31,7 +32,7 @@ public class User
 
         _password = hash.Hash(clearTextPassword);
     }
-    
+
     public void CheckPassword(IHash hash, string password)
     {
         if (!hash.Verify(password, _password)) throw new InvalidCredentialsException();

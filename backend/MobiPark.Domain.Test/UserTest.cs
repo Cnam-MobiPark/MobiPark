@@ -145,7 +145,7 @@ public class UserTest
 
         //Assert
         var ex = Assert.Throws<NullUsernameException>(act);
-        Assert.Equal($"Value cannot be null. (Parameter 'username')", ex.Message);
+        Assert.Equal("Value cannot be null. (Parameter 'username')", ex.Message);
     }
 
     [Theory]
@@ -163,6 +163,6 @@ public class UserTest
 
         //Assert
         var ex = Assert.Throws<NullPasswordException>(act);
-        Assert.Equal($"Value cannot be null. (Parameter 'password')", ex.Message);
+        Assert.Equal("Value cannot be null. (Parameter 'password')", ex.Message);
     }
 }

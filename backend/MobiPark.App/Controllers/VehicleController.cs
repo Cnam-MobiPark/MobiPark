@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using MobiPark.App.DTO;
-using MobiPark.App.Middlewares;
 using MobiPark.App.Presenters;
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models.Vehicle.Engine;
@@ -9,7 +8,6 @@ namespace MobiPark.App.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[MiddlewareFilter(typeof(AuthenticationMiddleware))]
 public class VehicleController : ControllerBase
 {
     private readonly IVehicleRepository _vehicleRepository;
