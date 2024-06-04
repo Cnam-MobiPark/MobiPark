@@ -1,3 +1,4 @@
+using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models.Vehicle.LicensePlate;
 
 namespace MobiPark.Domain.Models.Vehicle
@@ -14,10 +15,10 @@ namespace MobiPark.Domain.Models.Vehicle
             LicensePlate = licensePlate;
             Engine = engine;
         }
-        
-        public Reservation Park(ParkingSpace parkingPlace, DateTime beginDateTime, DateTime endDateTime)
+
+        public Reservation Park(IClock clock, ParkingSpace parkingPlace, DateTime beginDateTime, DateTime endDateTime)
         {
-            return new Reservation(this, parkingPlace, beginDateTime, endDateTime);
+            return new Reservation(clock, this, parkingPlace, beginDateTime, endDateTime);
         }
 
         public abstract VehicleSize GetSize();

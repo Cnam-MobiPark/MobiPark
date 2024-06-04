@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using MobiPark.Domain.Exceptions;
 using MobiPark.Domain.Factories;
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
@@ -36,14 +37,16 @@ namespace MobiPark.Domain.Test
         public void CreateReservation_Should_Create_A_New_Reservation()
         {
             // Arrange
-            var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
-            var vehicle = MakeCar();
             var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
             var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
+            
+            var fakeClock = new FakeClock(startTime.AddMinutes(-10));
+            var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+            var vehicle = MakeCar();
             var isElectricCharging = false;
 
             // Act
-            var reservation = new Reservation(vehicle, parkingSpace, startTime, endTime, isElectricCharging);
+            var reservation = new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime, isElectricCharging);
 
             // Assert
             Assert.NotNull(reservation);
@@ -56,17 +59,54 @@ namespace MobiPark.Domain.Test
         }
 
         [Fact]
-        [Trait("Reservation", "Should throw an error if invalid datetime")]
-        public void CreateReservation_Should_Throw_An_Exception()
+        [Trait("Reservation", "Should throw an error if start time in the past")]
+        public void CreateReservation_ShouldThrowAnException_WhenStartTimeInPast()
         {
+            // Arrange
             var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
             var vehicle = MakeCar();
             var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
             var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
-
-            Action act = () => new Reservation(vehicle, parkingSpace, startTime, endTime);
             
+            // Act
+            var fakeClock = new FakeClock(startTime.AddMinutes(10));
+            Action act = () => new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime);
             // Assert
+            Assert.Throws<InvalidDateException>(act);
+        }
+        
+        [Fact]
+        [Trait("Reservation ", "Should throw an error if end time in the past")]
+        public void CreateReservation_ShouldThrowAnException_WhenEndTimeInPast()
+        {
+            // Arrange
+            var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+            var vehicle = MakeCar();
+            var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
+            var endTime = new DateTime(2024, 5, 21, 12, 0, 0);
+            
+            // Act
+            var fakeClock = new FakeClock(endTime.AddMinutes(10));
+            Action act = () => new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime);
+            // Assert
+            Assert.Throws<InvalidDateException>(act);
+        }
+        
+        [Fact]
+        [Trait("Reservation ", "Should throw an error if start time after end time")]
+        public void CreateReservation_ShouldThrowAnException_WhenStartTimeAfterEndTime()
+        {
+            // Arrange
+            var parkingSpace = new ParkingSpace(1, VehicleSize.Medium);
+            var vehicle = MakeCar();
+            var startTime = new DateTime(2024, 5, 21, 8, 0, 0);
+            var endTime = startTime.AddMinutes(-10);
+            
+            // Act
+            var fakeClock = new FakeClock(endTime);
+            Action act = () => new Reservation(fakeClock, vehicle, parkingSpace, endTime, startTime);
+            // Assert
+            Assert.Throws<InvalidDateException>(act);
         }
 
         /*[Fact]

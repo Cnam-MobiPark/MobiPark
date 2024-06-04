@@ -9,13 +9,9 @@ namespace MobiPark.Domain.Test;
 
 public class VehicleTest
 {
-    public VehicleTest()
+    private static Car MakeCar()
     {
-    }
-
-    private Car MakeCar()
-    {
-        var maker = "Toyota";
+        const string maker = "Toyota";
         var licensePlate = new FrLicensePlate("AB-123-CD");
         var vehicle = VehicleFactory.CreateCar(maker, licensePlate, new ThermalEngine());
         return vehicle;
@@ -49,7 +45,8 @@ public class VehicleTest
 
         var beginDateTime = new DateTime(2022, 11, 10, 14, 10, 0);
         var endDateTime = new DateTime(2022, 11, 10, 15, 10, 0);
-        Reservation reservation = vehicle.Park(parkingPlace, beginDateTime, endDateTime);
+        var fakeClock = new FakeClock(beginDateTime.AddMinutes(-10));
+        Reservation reservation = vehicle.Park(fakeClock, parkingPlace, beginDateTime, endDateTime);
         
         Assert.Equal(reservation.Vehicle, vehicle);
         Assert.Equal(reservation.ParkingSpace, parkingPlace);
