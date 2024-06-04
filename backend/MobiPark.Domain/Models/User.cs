@@ -26,7 +26,9 @@ public class User
 
     public User(string username, string clearTextPassword, IHash hash) : this(username)
     {
-        Username = username;
+        if (string.IsNullOrEmpty(clearTextPassword))
+            throw new NullPasswordException();
+
         _password = hash.Hash(clearTextPassword);
     }
     

@@ -67,6 +67,7 @@ public class UserTest
     [Theory]
     [InlineData("toto", "password")]
     [InlineData("toto", "titi")]
+    [InlineData("toto", " ")]
     [Trait("User", "User register")]
     public void User_WhenRegisterUserWithValidCredentials_ShouldWork(string username, string password)
     {
@@ -127,5 +128,23 @@ public class UserTest
         //Assert
         var ex = Assert.Throws<NullUsernameException>(act);
         Assert.Equal($"Value cannot be null. (Parameter 'username')", ex.Message);
+    }
+
+    [Theory]
+    [InlineData("toto", "")]
+    [Trait("User", "User register null password")]
+    public void User_WhenRegisterUserWithNullPassword_ShouldThrow(string username, string password)
+    {
+        // Arrange
+        var userRepository = new FakeUserRepository([]);
+        var hasher = new FakeHash();
+        var useCase = new RegisterUserUseCase(hasher, userRepository);
+
+        // Act
+        Action act = () => useCase.Execute(username, password);
+
+        //Assert
+        var ex = Assert.Throws<NullPasswordException>(act);
+        Assert.Equal($"Value cannot be null. (Parameter 'password')", ex.Message);
     }
 }
