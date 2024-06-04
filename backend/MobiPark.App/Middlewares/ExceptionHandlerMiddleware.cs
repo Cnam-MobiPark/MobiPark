@@ -17,6 +17,12 @@ public class ExceptionHandlerMiddleware(RequestDelegate next)
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsync(JsonSerializer.Serialize(new { error = ex.Message }));
         }
+        catch (ConflictException ex)
+        {
+            context.Response.StatusCode = 409;
+            context.Response.ContentType = "application/json";
+            await context.Response.WriteAsync(JsonSerializer.Serialize(new { error = ex.Message }));
+        }
         catch (InvalidCredentialsException ex)
         {
             context.Response.StatusCode = 401;
@@ -34,6 +40,7 @@ public class ExceptionHandlerMiddleware(RequestDelegate next)
             context.Response.StatusCode = 500;
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsync(JsonSerializer.Serialize(new { error = ex.Message }));
+            throw;
         }
     }
 }

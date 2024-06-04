@@ -1,6 +1,6 @@
-import { Vehicle } from "@/types/vehicles";
-import { fetcher } from "./fetcher";
+import { Vehicle } from "./types";
+import { fetcherBody } from "./api";
 
 export async function fetchVehicles(): Promise<Vehicle[]> {
-  return fetcher("/api/Vehicle");
+  return fetcherBody("/api/Vehicle");
 }

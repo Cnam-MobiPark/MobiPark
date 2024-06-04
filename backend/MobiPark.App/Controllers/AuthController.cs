@@ -5,6 +5,7 @@ using MobiPark.App.Helpers;
 using MobiPark.App.Models;
 using MobiPark.App.Presenters;
 using MobiPark.Domain.Interfaces;
+using MobiPark.Domain.Models;
 using MobiPark.Domain.UseCases;
 
 namespace MobiPark.App.Controllers;
@@ -42,7 +43,7 @@ public class AuthController : ControllerBase
         session.SaveHeader(Response);
         return Ok(new UserPresenter(user));
     }
-    
+
     [HttpPost("register")]
     public IActionResult Register([FromBody] RegisterUserDTO registerUserDto)
     {
@@ -52,6 +53,13 @@ public class AuthController : ControllerBase
 
         var session = new JWTSession(_appSettings, _clock, user);
         session.SaveHeader(Response);
+        return Ok(new UserPresenter(user));
+    }
+
+    [HttpGet("")]
+    public IActionResult GetCurrentUser()
+    {
+        var user = (User)HttpContext.Items["User"]!;
         return Ok(new UserPresenter(user));
     }
 }

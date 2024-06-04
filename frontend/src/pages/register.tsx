@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { LogInIcon } from "lucide-react";
+import { UserPlusIcon } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -22,14 +22,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { useAuth } from "@/context";
+import { ConflictError } from "@/api/api";
 
 const formSchema = z.object({
   username: z.string().min(2),
   password: z.string(),
 });
 
-export function Login(): ReactElement {
-  const { login } = useAuth();
+export function Register(): ReactElement {
+  const { register } = useAuth();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,8 +41,16 @@ export function Login(): ReactElement {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      await login(values.username, values.password);
+      await register(values.username, values.password);
     } catch (error) {
+      if (error instanceof ConflictError) {
+        form.setError("username", {
+          type: "manual",
+          message: "Username already exists.",
+        });
+        return;
+      }
+
       if (error instanceof Error) {
         console.error(error);
       }
@@ -91,8 +100,8 @@ export function Login(): ReactElement {
                 )}
               />
               <Button className="w-full gap-x-2">
-                <LogInIcon className="size-5" />
-                Login
+                <UserPlusIcon className="size-5" />
+                Register
               </Button>
             </form>
           </Form>
@@ -103,9 +112,9 @@ export function Login(): ReactElement {
               variant: "link",
               className: "p-0 h-auto",
             })}
-            to="/register"
+            to="/login"
           >
-            No Account?
+            Already have an account?
           </Link>
         </CardFooter>
       </Card>

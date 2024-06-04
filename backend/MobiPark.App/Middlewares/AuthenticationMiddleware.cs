@@ -32,7 +32,16 @@ public static class AuthenticationMiddlewareExtensions
         builder.UseAuthentication();
 
 
-        builder.UseWhen(context => context.Request.Path.StartsWithSegments("/api/Vehicle"),
+        builder.UseWhen(
+            context =>
+            {
+                var path = context.Request.Path;
+                
+                if (path.StartsWithSegments("/api/Auth"))
+                    return context.Request.Method == "GET" && path == "/api/Auth";
+
+                return path.StartsWithSegments("/api");
+            },
             appBuilder => { appBuilder.UseMiddleware<AuthenticationMiddleware>(); });
 
         return builder;

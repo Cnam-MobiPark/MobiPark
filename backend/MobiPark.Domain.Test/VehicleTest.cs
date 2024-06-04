@@ -118,7 +118,8 @@ public class VehicleTest
         var fakeClock = new FakeClock(beginDateTime.AddMinutes(-10));
         Action act = () => vehicle.Park(fakeClock, parkingPlace, beginDateTime, endDateTime);
 
-        Assert.Throws<VehicleCannotParkException>(act);
+        var exception = Assert.Throws<VehicleCannotParkException>(act);
+        Assert.Equal("Parking space is electric only", exception.Message);
     }
 
     [Fact]
@@ -135,7 +136,8 @@ public class VehicleTest
         var fakeClock = new FakeClock(beginDateTime.AddMinutes(-10));
         Action act = () => vehicle.Park(fakeClock, parkingPlace, beginDateTime, endDateTime);
 
-        Assert.Throws<VehicleCannotParkException>(act);
+        var exception = Assert.Throws<VehicleCannotParkException>(act);
+        Assert.Equal("Parking space is occupied", exception.Message);
     }
 
     [Fact]
@@ -151,6 +153,7 @@ public class VehicleTest
         var fakeClock = new FakeClock(beginDateTime.AddMinutes(-10));
         Action act = () => vehicle.Park(fakeClock, parkingPlace, beginDateTime, endDateTime);
 
-        Assert.Throws<VehicleCannotParkException>(act);
+        var exception = Assert.Throws<VehicleCannotParkException>(act);
+        Assert.Equal("Parking space is too small", exception.Message);
     }
 }

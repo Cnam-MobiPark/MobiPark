@@ -1,4 +1,5 @@
 import { Button, buttonVariants } from "@/components/ui/button";
+import { useAuth } from "@/context";
 import { CarIcon, HomeIcon, LogOutIcon, TicketIcon } from "lucide-react";
 import { type ReactElement } from "react";
 import { Outlet, NavLink, NavLinkProps } from "react-router-dom";
@@ -10,6 +11,8 @@ const linkClasses: NavLinkProps["className"] = ({ isActive }) =>
   });
 
 export function SidebarLayout(): ReactElement {
+  const { logout } = useAuth();
+
   return (
     <div className="flex flex-row min-h-screen">
       <aside className="w-80 border-r flex flex-col">
@@ -33,7 +36,7 @@ export function SidebarLayout(): ReactElement {
 
       <div className="flex-1">
         <header className="flex flex-row justify-end items-center px-8 py-4">
-          <Button variant="ghost" className="gap-x-2">
+          <Button variant="ghost" className="gap-x-2" onClick={() => logout()}>
             <LogOutIcon className="size-5" />
             Logout
           </Button>
