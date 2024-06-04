@@ -7,9 +7,9 @@ using UserId = int;
 
 public class User
 {
-    private readonly string _password = null!;
+    public string Password;
     public UserId Id;
-    public string Username = null!;
+    public string Username;
 
     private User(string username)
     {
@@ -22,7 +22,7 @@ public class User
     public User(UserId userId, string username, string password) : this(username)
     {
         Id = userId;
-        _password = password;
+        Password = password;
     }
 
     public User(string username, string clearTextPassword, IHash hash) : this(username)
@@ -30,11 +30,11 @@ public class User
         if (string.IsNullOrEmpty(clearTextPassword))
             throw new NullPasswordException();
 
-        _password = hash.Hash(clearTextPassword);
+        Password = hash.Hash(clearTextPassword);
     }
 
     public void CheckPassword(IHash hash, string password)
     {
-        if (!hash.Verify(password, _password)) throw new InvalidCredentialsException();
+        if (!hash.Verify(password, Password)) throw new InvalidCredentialsException();
     }
 }

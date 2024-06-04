@@ -1,5 +1,6 @@
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
+using MobiPark.Infra.Entities;
 
 namespace MobiPark.Infra.Repositories;
 
@@ -26,6 +27,9 @@ public class UserRepository : IUserRepository
 
     public User Save(User user)
     {
-        throw new NotImplementedException();
+        var userEntity = new UserEntity(user);
+        _context.Users.Add(userEntity);
+        _context.SaveChanges();
+        return userEntity.ToDomainModel();
     }
 }
