@@ -7,7 +7,7 @@ using ReservationId = int;
 
 public class Reservation
 {
-    public Reservation(IClock clock, Vehicle.Vehicle vehicle, ParkingSpace parkingSpace, DateTime startTime, DateTime endTime, bool withElectricCharge = false)
+    public Reservation(IClock clock, Vehicle.Vehicle vehicle, ParkingSpace parkingSpace, DateTime startTime, DateTime endTime)
     {
         var now = clock.Now();
         if (now > startTime)
@@ -20,7 +20,7 @@ public class Reservation
         ParkingSpace = parkingSpace;
         ReservationStartTime = startTime;
         ReservationEndTime = endTime;
-        IsElectricCharging = withElectricCharge;
+        IsElectricCharging = parkingSpace.IsElectric;
         TotalPrice = 20;
     }
 
