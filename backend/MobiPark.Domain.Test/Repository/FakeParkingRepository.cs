@@ -18,26 +18,26 @@ public class FakeParkingRepository : IParkingRepository
         throw new NotImplementedException();
     }
 
-    public List<ParkingSpace> GetSpaces()
-    {
-        return spaces;
-    }
-    
     public Task<List<ParkingSpace>> GetAvailableSpaces()
     {
         return Task.FromResult(spaces.Where(s => s.Status == ParkingSpaceStatus.Available).ToList());
     }
+
     public Task<List<ParkingSpace>> GetAvailableSpaces(Vehicle vehicle)
     {
-        return Task.FromResult(spaces.Where(s => s.Status == ParkingSpaceStatus.Available && s.Size == vehicle.GetSize()).ToList());
+        return Task.FromResult(spaces
+            .Where(s => s.Status == ParkingSpaceStatus.Available && s.Size == vehicle.GetSize()).ToList());
     }
 
     public void ParkVehicle(Vehicle vehicle, ParkingSpace parkingSpace)
     {
         if (parkingSpace.Status != ParkingSpaceStatus.Available)
-        {
             throw new InvalidOperationException($"Parking space {parkingSpace.Number} is already occupied.");
-        }
         parkingSpace.Status = ParkingSpaceStatus.Occupied;
+    }
+
+    public List<ParkingSpace> GetSpaces()
+    {
+        return spaces;
     }
 }

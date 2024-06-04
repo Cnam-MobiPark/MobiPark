@@ -1,5 +1,4 @@
 using MobiPark.Domain.Factories;
-using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models;
 using MobiPark.Domain.Models.Vehicle;
 using MobiPark.Domain.Models.Vehicle.Engine;
@@ -11,6 +10,7 @@ namespace MobiPark.Domain.Test;
 public class PricingTest
 {
     private static readonly FrLicensePlate LicensePlate = new("AB-123-CD");
+
     private static Vehicle MakeThermalCar()
     {
         return VehicleFactory.CreateCar("Toyota", LicensePlate, new ThermalEngine());
@@ -20,13 +20,13 @@ public class PricingTest
     {
         return VehicleFactory.CreateMotorcycle("Yamaha", LicensePlate, new ThermalEngine());
     }
-    
-    private static Vehicle MakeElectricalCar( int currentBatteryCapacity = 100, int batteryCapacity = 100)
+
+    private static Vehicle MakeElectricalCar(int currentBatteryCapacity = 100, int batteryCapacity = 100)
     {
         var electricalEngine = new ElectricalEngine(batteryCapacity, currentBatteryCapacity);
         return VehicleFactory.CreateCar("Tesla", LicensePlate, electricalEngine);
     }
-    
+
     private static Reservation MakeReservation(Vehicle vehicle, ParkingSpace parkingSpace)
     {
         var startTime = new DateTime(2024, 9, 21, 8, 0, 0);
@@ -36,7 +36,7 @@ public class PricingTest
         var reservation = new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime);
         return reservation;
     }
-    
+
     [Fact]
     [Trait("Category", "Pricing Calculation")]
     public void GetDayHours_Should_Return_Correct_Hours()
@@ -53,7 +53,7 @@ public class PricingTest
         // Assert
         Assert.Equal(4, dayHours);
     }
-    
+
     [Fact]
     [Trait("Category", "Pricing Calculation")]
     public void GetNightHours_Should_Return_Correct_Hours()
@@ -61,7 +61,8 @@ public class PricingTest
         // Arrange
         var startTime = new DateTime(2024, 9, 21, 20, 0, 0);
         var endTime = new DateTime(2024, 9, 22, 0, 0, 0);
-        var reservation = new Reservation(new FakeClock(new DateTime(2024, 5, 21, 22, 0, 0)), MakeThermalCar(), new ParkingSpace(1, VehicleSize.Medium, false), startTime, endTime);
+        var reservation = new Reservation(new FakeClock(new DateTime(2024, 5, 21, 22, 0, 0)), MakeThermalCar(),
+            new ParkingSpace(1, VehicleSize.Medium, false), startTime, endTime);
         var priceCalculator = new PriceCalculator();
 
         // Act
@@ -70,7 +71,7 @@ public class PricingTest
         // Assert
         Assert.Equal(4, nightHours);
     }
-    
+
     [Fact]
     [Trait("Category", "Pricing Calculation")]
     public void CalculatePrice_Should_Return_Correct_Price_For_Car_Without_Charging()

@@ -59,6 +59,25 @@ namespace MobiPark.Infra.Migrations
                     b.ToTable("Reservations");
                 });
 
+            modelBuilder.Entity("MobiPark.Infra.Entities.UserEntity", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("MobiPark.Infra.Entities.VehicleEntity", b =>
                 {
                     b.Property<string>("Plate")

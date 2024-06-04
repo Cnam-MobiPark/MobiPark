@@ -7,14 +7,15 @@ using ReservationId = int;
 
 public class Reservation
 {
-    public Reservation(IClock clock, Vehicle.Vehicle vehicle, ParkingSpace parkingSpace, DateTime startTime, DateTime endTime)
+    public Reservation(IClock clock, Vehicle.Vehicle vehicle, ParkingSpace parkingSpace, DateTime startTime,
+        DateTime endTime)
     {
         var now = clock.Now();
         if (now > startTime)
             throw new InvalidDateException("Reservation start time must be in the future");
         if (startTime > endTime)
             throw new InvalidDateException("Reservation start time must be before end time");
-        
+
         ReservationId = new Random().Next(1, 1000);
         Vehicle = vehicle;
         ParkingSpace = parkingSpace;

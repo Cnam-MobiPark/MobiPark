@@ -7,31 +7,32 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MobiPark.Domain\MobiPark.Domain.csproj" />
+        <ProjectReference Include="..\MobiPark.Domain\MobiPark.Domain.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        <PrivateAssets>all</PrivateAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.6" />
-      <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="8.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+        <PackageReference Include="Argon2.Bindings" Version="1.16.1"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.6"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="8.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Content Update="appsettings.json">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </Content>
+        <Content Update="appsettings.json">
+            <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        </Content>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Migrations\" />
+        <Folder Include="Migrations\"/>
     </ItemGroup>
 
 </Project>

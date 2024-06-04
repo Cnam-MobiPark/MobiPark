@@ -1,12 +1,10 @@
 using MobiPark.Domain.Exceptions;
-using MobiPark.Domain.Models.Vehicle;
 using MobiPark.Domain.Models.Vehicle.LicensePlate;
 
 namespace MobiPark.Domain.Test;
 
 public class LicensePlateTest
 {
-    
     [Fact]
     [Trait("LicencePlate", "Creating License Plates")]
     public void CreatingALicensePlateWithNullValue_ShouldThrowException()
@@ -16,12 +14,11 @@ public class LicensePlateTest
 
         // Act
         Action act = () => new FrLicensePlate(nullLicensePlate);
-        
+
         // Assert
         Assert.Throws<InvalidLicensePlateException>(act);
-        
     }
-    
+
     [Fact]
     [Trait("LicencePlate", "Creating License Plates")]
     public void CreatingALicensePlateWithInvalidValue_ShouldThrowExceptionforFr()
@@ -36,7 +33,7 @@ public class LicensePlateTest
         // Assert
         Assert.Throws<InvalidLicensePlateException>(act);
     }
-    
+
     [Fact]
     [Trait("LicencePlate", "Creating License Plates")]
     public void CreatingALicensePlateWithGoodValue_ShouldWorkforFr()
@@ -51,7 +48,7 @@ public class LicensePlateTest
         // Assert
         Assert.NotNull(act);
     }
-    
+
     [Fact]
     [Trait("LicencePlate", "Creating License Plates")]
     public void CreatingALicensePlateWithInvalidValue_ShouldThrowExceptionforDe()
@@ -59,14 +56,14 @@ public class LicensePlateTest
         // Arrange
         var maker = "Toyota";
         var invalidLicensePlate = "AB-123-CD";
-        
+
         // Act
         Action act = () => new DeLicensePlate(invalidLicensePlate);
-        
+
         // Assert
         Assert.Throws<InvalidLicensePlateException>(act);
     }
-    
+
     [Fact]
     [Trait("LicencePlate", "Creating License Plates")]
     public void CreatingALicensePlateWithGoodValue_ShouldWorkforDe()

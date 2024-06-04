@@ -12,11 +12,6 @@ public enum ParkingSpaceStatus
 
 public class ParkingSpace
 {
-    public ParkingSpaceNumber Number { get; set; }
-    public VehicleSize Size { get; set; }
-    public ParkingSpaceStatus Status { get; set; }
-    public bool IsElectric { get; set; }
-
     public ParkingSpace(
         ParkingSpaceNumber number,
         VehicleSize size,
@@ -29,4 +24,9 @@ public class ParkingSpace
         IsElectric = isElectric;
         Status = status;
     }
+
+    public ParkingSpaceNumber Number { get; set; }
+    public VehicleSize Size { get; set; }
+    public ParkingSpaceStatus Status { get; set; }
+    public bool IsElectric { get; set; }
 }
