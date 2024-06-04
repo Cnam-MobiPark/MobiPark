@@ -8,6 +8,7 @@ import { authLoader } from "./layouts/authLayout.loader";
 import { queryClient } from "./api/api";
 import { AuthProvider } from "./context/auth";
 import { Register } from "./pages/register";
+import { homeLoader } from "./pages/user/home.loader";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "/",
+            loader: homeLoader(queryClient),
             element: <UserHome />,
           },
           {
