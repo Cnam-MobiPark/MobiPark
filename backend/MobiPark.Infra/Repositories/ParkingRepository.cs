@@ -14,30 +14,31 @@ public class ParkingRepository : IParkingRepository
         _context = context;
     }
 
-    public async Task<Vehicle> GetVehicle(string licensePlate)
+    public Vehicle? GetVehicle(string licensePlate)
     {
-        var vehicleEntity = await _context.Vehicles
-            .FirstOrDefaultAsync(v => v.Plate == licensePlate);
-        return vehicleEntity.ToDomainModel();
+        var vehicleEntity = _context.Vehicles
+            .FirstOrDefault(v => v.Plate == licensePlate);
+        return vehicleEntity?.ToDomainModel();
     }
 
-    public async Task<List<ParkingSpace>> GetSpaces()
+    public List<ParkingSpace> GetSpaces()
     {
-        return await _context.ParkingSpaces.ToListAsync();
+        return _context.ParkingSpaces.ToList();
     }
 
-    public async Task<List<ParkingSpace>> GetAvailableSpaces()
+    public List<ParkingSpace> GetAvailableSpaces()
     {
-        return await _context.ParkingSpaces
+        return _context.ParkingSpaces
             .Where(p => p.Status == ParkingSpaceStatus.Available)
-            .ToListAsync();
+            .ToList();
     }
 
-    public async Task<List<ParkingSpace>> GetAvailableSpaces(Vehicle vehicle)
+    public List<ParkingSpace> GetAvailableSpaces(Vehicle vehicle)
     {
-        return await _context.ParkingSpaces
-            .Where(p => p.Status == ParkingSpaceStatus.Available && p.Size == vehicle.GetSize())
-            .ToListAsync();
+        var spaces = _context.ParkingSpaces;
+        var spacesList = spaces.ToList();
+        var availableSpaces = spacesList.Where(p => p.Status == ParkingSpaceStatus.Available && p.Size == vehicle.GetSize()).ToList();
+        return availableSpaces;
     }
 
     public void ParkVehicle(Vehicle vehicle, ParkingSpace parkingSpace)

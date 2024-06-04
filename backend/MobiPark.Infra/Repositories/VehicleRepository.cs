@@ -16,15 +16,15 @@ public class VehicleRepository : IVehicleRepository
         _context = context;
     }
 
-    public async Task<Vehicle> Save(Vehicle vehicle)
+    public Vehicle Save(Vehicle vehicle)
     {
-        var entiy = new VehicleEntity(vehicle);
-        await _context.AddAsync(entiy);
-        await _context.SaveChangesAsync();
-        return vehicle;
+        var entity = new VehicleEntity(vehicle);
+        _context.Add(entity);
+        _context.SaveChanges();
+        return entity.ToDomainModel();
     }
 
-    public async Task<Vehicle> CreateVehicle(string type, string maker, AbstractLicensePlate licensePlate,
+    public Vehicle CreateVehicle(string type, string maker, AbstractLicensePlate licensePlate,
         Engine engine)
     {
         Vehicle vehicle = type switch
@@ -33,23 +33,22 @@ public class VehicleRepository : IVehicleRepository
             "Motorcycle" => new Motorcycle(maker, licensePlate, engine),
             _ => throw new InvalidOperationException("Unknown vehicle type")
         };
-        await _context.Vehicles.AddAsync(new VehicleEntity(vehicle));
-        await _context.SaveChangesAsync();
+        _context.Vehicles.Add(new VehicleEntity(vehicle));
+        _context.SaveChanges();
         return vehicle;
     }
 
-    public async Task<List<Vehicle>> GetVehicles()
+    public List<Vehicle> GetVehicles()
     {
-        return await _context.Vehicles
+        return _context.Vehicles
             .Select(v => v.ToDomainModel())
-            .ToListAsync();
+            .ToList();
     }
 
-    public async Task<Vehicle> FindByPlate(string licensePlate)
+    public Vehicle? FindByPlate(string licensePlate)
     {
-        var vehicle = await _context.Vehicles
-            .FirstOrDefaultAsync(v => v.Plate == licensePlate);
-        if (vehicle == null) throw new InvalidOperationException("Vehicle not found.");
-        return vehicle.ToDomainModel();
+        var vehicle = _context.Vehicles
+            .FirstOrDefault(v => v.Plate == licensePlate);
+        return vehicle?.ToDomainModel();
     }
 }

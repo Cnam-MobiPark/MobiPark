@@ -18,22 +18,22 @@ public class VehicleController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetVehicles()
+    public IActionResult GetVehicles()
     {
-        var vehicles = await _vehicleRepository.GetVehicles();
+        var vehicles = _vehicleRepository.GetVehicles();
         var vehiclePresenters = vehicles.ConvertAll(v => new VehiclePresenter(v));
         return Ok(vehiclePresenters);
     }
 
     [HttpGet("{licensePlate}")]
-    public async Task<IActionResult> GetVehicle(string licensePlate)
+    public IActionResult GetVehicle(string licensePlate)
     {
-        var vehicle = await _vehicleRepository.FindByPlate(licensePlate);
+        var vehicle = _vehicleRepository.FindByPlate(licensePlate);
         return Ok(new VehiclePresenter(vehicle));
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddVehicle([FromBody] CreateVehicleDTO request)
+    public IActionResult AddVehicle([FromBody] CreateVehicleDTO request)
     {
         var licensePlate = request.LicensePlate.ToDomainModel();
 
@@ -55,7 +55,7 @@ public class VehicleController : ControllerBase
                 throw new ArgumentException("Invalid engine type");
         }
 
-        var vehicle = await _vehicleRepository.CreateVehicle(request.Type, request.Maker, licensePlate, engine);
+        var vehicle = _vehicleRepository.CreateVehicle(request.Type, request.Maker, licensePlate, engine);
         return Ok(new VehiclePresenter(vehicle));
     }
 }
