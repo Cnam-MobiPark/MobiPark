@@ -19,6 +19,6 @@ public class ArgonHash : IHash
 
     public bool Verify(string input, string hash)
     {
-        return _hasher.Verify(input, hash);
+        return _hasher.Verify(hash, input);
     }
 }

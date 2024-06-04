@@ -1,4 +1,5 @@
 using MobiPark.Domain.Exceptions;
+using MobiPark.Domain.Factories;
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.Models.Vehicle.Engine;
 using MobiPark.Domain.Models.Vehicle.LicensePlate;
@@ -27,7 +28,9 @@ public abstract class Vehicle
 
         if (parkingPlace.IsElectric && Engine is ThermalEngine)
             throw new VehicleCannotParkException("Parking space is electric only");
-        return new Reservation(clock, this, parkingPlace, beginDateTime, endDateTime);
+        
+        var reservationFactory = new ReservationFactory(clock);
+        return reservationFactory.MakeReservation(this, parkingPlace, beginDateTime, endDateTime);
     }
 
     public abstract VehicleSize GetSize();

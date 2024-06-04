@@ -10,8 +10,8 @@ using MobiPark.Infra;
 namespace MobiPark.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240604130751_initCreate")]
-    partial class initCreate
+    [Migration("20240604164230_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

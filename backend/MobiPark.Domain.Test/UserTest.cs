@@ -42,7 +42,8 @@ public class UserTest
         Action act = () => useCase.Execute("toto", "tata");
 
         // Assert
-        Assert.Throws<NotFoundException>(act);
+        var exception = Assert.Throws<NotFoundException>(act);
+        Assert.Equal("User not found", exception.Message);
     }
 
     [Theory]
@@ -62,5 +63,106 @@ public class UserTest
 
         // Assert
         Assert.Throws<InvalidCredentialsException>(act);
+    }
+
+    [Theory]
+    [InlineData("toto", "password")]
+    [InlineData("toto", "titi")]
+    [InlineData("toto", " ")]
+    [Trait("User", "User register")]
+    public void User_WhenRegisterUserWithValidCredentials_ShouldWork(string username, string password)
+    {
+        // Arrange
+        var userRepository = new FakeUserRepository([]);
+        var hasher = new FakeHash();
+        var useCase = new RegisterUserUseCase(hasher, userRepository);
+
+        // Act
+        var user = useCase.Execute(username, password);
+
+        //Assert
+        Assert.Equal(1, user.Id);
+        Assert.Equal(user.Username, username);
+        user.CheckPassword(hasher, password);
+    }
+
+    [Fact]
+    [Trait("User", "User register id")]
+    public void User_WhenRegisterUserWithOtherUser_ShouldHaveRightId()
+    {
+        // Arrange
+        var existingUser = MakeUser();
+        var userRepository = new FakeUserRepository([existingUser]);
+        var hasher = new FakeHash();
+        var useCase = new RegisterUserUseCase(hasher, userRepository);
+
+        // Act
+        var user = useCase.Execute("titi", "tata");
+
+        //Assert
+        Assert.Equal(2, user.Id);
+    }
+
+    [Theory]
+    [InlineData("toto", "password")]
+    [InlineData("toto", "titi")]
+    [InlineData("toto", "")]
+    [Trait("User", "User register existing user")]
+    public void User_WhenRegisterUserWithExistingUsername_ShouldThrow(string username, string password)
+    {
+        // Arrange
+        var user = MakeUser();
+        var userRepository = new FakeUserRepository([user]);
+        var hasher = new FakeHash();
+        var useCase = new RegisterUserUseCase(hasher, userRepository);
+
+        // Act
+        Action act = () => useCase.Execute(username, password);
+
+        //Assert
+        var ex = Assert.Throws<UsernameAlreadyExistException>(act);
+        Assert.Equal($"username {username} already exists", ex.Message);
+    }
+
+    [Theory]
+    [InlineData("", "password")]
+    [InlineData("    ", "password")]
+    [InlineData("", "titi")]
+    [InlineData("          ", "titi")]
+    [InlineData("", "")]
+    [InlineData("    ", "")]
+    [InlineData("    ", "    ")]
+    [Trait("User", "User register null username")]
+    public void User_WhenRegisterUserWithNullUsername_ShouldThrow(string username, string password)
+    {
+        // Arrange
+        var userRepository = new FakeUserRepository([]);
+        var hasher = new FakeHash();
+        var useCase = new RegisterUserUseCase(hasher, userRepository);
+
+        // Act
+        Action act = () => useCase.Execute(username, password);
+
+        //Assert
+        var ex = Assert.Throws<NullUsernameException>(act);
+        Assert.Equal("Value cannot be null. (Parameter 'username')", ex.Message);
+    }
+
+    [Theory]
+    [InlineData("toto", "")]
+    [Trait("User", "User register null password")]
+    public void User_WhenRegisterUserWithNullPassword_ShouldThrow(string username, string password)
+    {
+        // Arrange
+        var userRepository = new FakeUserRepository([]);
+        var hasher = new FakeHash();
+        var useCase = new RegisterUserUseCase(hasher, userRepository);
+
+        // Act
+        Action act = () => useCase.Execute(username, password);
+
+        //Assert
+        var ex = Assert.Throws<NullPasswordException>(act);
+        Assert.Equal("Value cannot be null. (Parameter 'password')", ex.Message);
     }
 }

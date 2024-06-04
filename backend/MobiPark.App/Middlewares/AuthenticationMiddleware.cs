@@ -21,3 +21,29 @@ public class AuthenticationMiddleware(RequestDelegate next)
         await context.Response.StartAsync();
     }
 }
+
+public static class AuthenticationMiddlewareExtensions
+{
+    public static IApplicationBuilder UseAuthenticationMiddleware(
+        this IApplicationBuilder builder)
+    {
+        builder.UseRouting();
+
+        builder.UseAuthentication();
+
+
+        builder.UseWhen(
+            context =>
+            {
+                var path = context.Request.Path;
+                
+                if (path.StartsWithSegments("/api/Auth"))
+                    return context.Request.Method == "GET" && path == "/api/Auth";
+
+                return path.StartsWithSegments("/api");
+            },
+            appBuilder => { appBuilder.UseMiddleware<AuthenticationMiddleware>(); });
+
+        return builder;
+    }
+}

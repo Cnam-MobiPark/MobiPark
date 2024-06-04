@@ -1,4 +1,4 @@
-import { type ReactElement } from "react";
+import { useEffect, type ReactElement } from "react";
 import { PageHeader } from "../../components/page_header";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
@@ -27,65 +27,65 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, TicketIcon } from "lucide-react";
+import { fetchVehicles } from "@/api/vehicles";
+import { useQuery } from "@tanstack/react-query";
+import { Vehicle } from "@/api/types";
 
 const formSchema = z.object({
   vehicle: z.string(),
-  licencePlate: z.string(),
   beginDate: z.date(),
+  beginTime: z.string().time(),
   endDate: z.date(),
+  endTime: z.string().time(),
 });
 
-export function UserHome(): ReactElement {
+function BookForm({ vehicles }: { vehicles: Vehicle[] }) {
   const form = useForm<z.infer<typeof formSchema>>();
+
+  const beginDateValue = form.watch("beginDate");
+
+  useEffect(() => {
+    const endDate = form.watch("endDate");
+    if (beginDateValue > endDate) {
+      form.setValue("endDate", beginDateValue);
+    }
+  }, [beginDateValue]);
 
   function onSubmit() {}
 
   return (
-    <div>
-      <PageHeader
-        title="Faire une réservation"
-        description="Réserver une place de parking pour votre véhicule"
-      />
-
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
-            control={form.control}
-            name="vehicle"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Véhicule</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Sélectionnez un véhicule" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent></SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="licencePlate"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Immatriculation</FormLabel>
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4 max-w-screen-md mx-auto"
+      >
+        <FormField
+          control={form.control}
+          name="vehicle"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Véhicule</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
-                  <Input placeholder="Immatriculation" {...field} />
+                  <SelectTrigger>
+                    <SelectValue placeholder="Sélectionnez un véhicule" />
+                  </SelectTrigger>
                 </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                <SelectContent>
+                  {vehicles.map((v) => (
+                    <SelectItem value={v.licencePlate}>
+                      {v.maker} - <i>{v.licencePlate}</i>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
+        <div className="flex flex-col md:flex-row gap-2">
           <FormField
             control={form.control}
             name="beginDate"
@@ -105,7 +105,7 @@ export function UserHome(): ReactElement {
                         {field.value ? (
                           format(field.value, "PPP")
                         ) : (
-                          <span>Pick a date</span>
+                          <span>Sélectionnez une date</span>
                         )}
                         <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                       </Button>
@@ -116,9 +116,7 @@ export function UserHome(): ReactElement {
                       mode="single"
                       selected={field.value}
                       onSelect={field.onChange}
-                      disabled={(date) =>
-                        date > new Date() || date < new Date("1900-01-01")
-                      }
+                      disabled={(date) => date < new Date()}
                       initialFocus
                     />
                   </PopoverContent>
@@ -128,6 +126,20 @@ export function UserHome(): ReactElement {
             )}
           />
 
+          <FormField
+            control={form.control}
+            name="beginTime"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Heure</FormLabel>
+                <Input type="time" {...field} />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex flex-col gap-2 md:flex-row">
           <FormField
             control={form.control}
             name="endDate"
@@ -147,7 +159,7 @@ export function UserHome(): ReactElement {
                         {field.value ? (
                           format(field.value, "PPP")
                         ) : (
-                          <span>Pick a date</span>
+                          <span>Sélectionnez une date</span>
                         )}
                         <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                       </Button>
@@ -159,7 +171,7 @@ export function UserHome(): ReactElement {
                       selected={field.value}
                       onSelect={field.onChange}
                       disabled={(date) =>
-                        date > new Date() || date < new Date("1900-01-01")
+                        date < new Date() || date < beginDateValue
                       }
                       initialFocus
                     />
@@ -170,9 +182,58 @@ export function UserHome(): ReactElement {
             )}
           />
 
-          <Button type="submit">Submit</Button>
-        </form>
-      </Form>
+          <FormField
+            control={form.control}
+            name="endTime"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Heure</FormLabel>
+                <Input type="time" {...field} />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="text-center pt-8">
+          <Button
+            type="submit"
+            disabled={form.formState.isValid}
+            className="gap-2"
+          >
+            <TicketIcon className="size-5" />
+            Valider
+          </Button>
+        </div>
+      </form>
+    </Form>
+  );
+}
+
+export function UserHome(): ReactElement {
+  const {
+    isPending,
+    data: vehicles,
+    error,
+  } = useQuery({
+    queryKey: ["vehicles", "list"],
+    queryFn: () => fetchVehicles(),
+  });
+
+  return (
+    <div>
+      <PageHeader
+        title="Faire une réservation"
+        description="Réserver une place de parking pour votre véhicule"
+      />
+
+      {isPending ? (
+        <p>Chargement...</p>
+      ) : error ? (
+        <p>Une erreur est survenu</p>
+      ) : (
+        <BookForm vehicles={vehicles} />
+      )}
     </div>
   );
 }

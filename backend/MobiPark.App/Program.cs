@@ -36,7 +36,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 app.UseAuthorizationMiddleware();
+app.UseAuthenticationMiddleware();
 app.UseExceptionHandlerMiddleware();
+
 app.MapControllers();
 
 using (var scope = app.Services.CreateScope())

@@ -31,9 +31,10 @@ public class PricingTest
     {
         var startTime = new DateTime(2024, 9, 21, 8, 0, 0);
         var endTime = new DateTime(2024, 9, 21, 12, 0, 0);
-
         var fakeClock = new FakeClock(new DateTime(2024, 5, 21, 10, 0, 0));
-        var reservation = new Reservation(fakeClock, vehicle, parkingSpace, startTime, endTime);
+
+        var reservationFactory = new ReservationFactory(fakeClock);
+        var reservation = reservationFactory.MakeReservation(vehicle, parkingSpace, startTime, endTime);
         return reservation;
     }
 
@@ -61,8 +62,15 @@ public class PricingTest
         // Arrange
         var startTime = new DateTime(2024, 9, 21, 20, 0, 0);
         var endTime = new DateTime(2024, 9, 22, 0, 0, 0);
-        var reservation = new Reservation(new FakeClock(new DateTime(2024, 5, 21, 22, 0, 0)), MakeThermalCar(),
-            new ParkingSpace(1, VehicleSize.Medium, false), startTime, endTime);
+        var fakeClock = new FakeClock(new DateTime(2024, 5, 21, 22, 0, 0));
+
+        var reservationFactory = new ReservationFactory(fakeClock);
+        var reservation = reservationFactory.MakeReservation(
+            MakeThermalCar(),
+            new ParkingSpace(1, VehicleSize.Medium, false),
+            startTime,
+            endTime
+        );
         var priceCalculator = new PriceCalculator();
 
         // Act
