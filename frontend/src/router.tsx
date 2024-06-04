@@ -9,6 +9,7 @@ import { queryClient } from "./api/api";
 import { AuthProvider } from "./context/auth";
 import { Register } from "./pages/register";
 import { homeLoader } from "./pages/user/home.loader";
+import { reservationLoader } from "./pages/user/reservation.loader";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "/my-reservations",
+            loader: reservationLoader(queryClient),
             element: <MyReservations />,
           },
           {

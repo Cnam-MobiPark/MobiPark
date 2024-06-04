@@ -30,8 +30,7 @@ import { cn } from "@/lib/utils";
 import { CalendarIcon, TicketIcon } from "lucide-react";
 import { fetchVehicles } from "@/api/vehicles";
 import { useQuery } from "@tanstack/react-query";
-import { Vehicle } from "@/types/vehicles";
-import { useLoaderData } from "react-router-dom";
+import { Vehicle } from "@/api/types";
 
 const formSchema = z.object({
   vehicle: z.string(),

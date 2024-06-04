@@ -1,15 +1,20 @@
 [
-    {
-      "vehicle": "Renault Scenic",
-      "place": "18B",
-      "beginDate": "22/05/2024 à 15:45",
-      "endDate": "22/05/2024 à 17:05"
+  {
+    "vehicle": {
+      "licencePlate": "AB-123-CD",
+      "maker": "Renault"
     },
-    {
-      "vehicle": "Renault Zoé",
-      "place": "18B",
-      "beginDate": "25/05/2024 à 15:45",
-      "endDate": "25/05/2024 à 17:00"
-    }
-  ]
-  
+    "place": "18B",
+    "beginDate": "22/05/2024 à 15:45",
+    "endDate": "22/05/2024 à 17:05"
+  },
+  {
+    "vehicle": {
+      "licencePlate": "AB-123-CD",
+      "maker": "Renault"
+    },
+    "place": "18B",
+    "beginDate": "25/05/2024 à 15:45",
+    "endDate": "25/05/2024 à 17:00"
+  }
+]
