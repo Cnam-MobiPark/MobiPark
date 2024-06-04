@@ -8,25 +8,25 @@ public class FakeParkingRepository : IParkingRepository
 {
     public readonly List<ParkingSpace> spaces = [];
 
-    public Task<Vehicle> GetVehicle(string licensePlate)
+    public Vehicle GetVehicle(string licensePlate)
     {
         throw new NotImplementedException();
     }
 
-    Task<List<ParkingSpace>> IParkingRepository.GetSpaces()
+    List<ParkingSpace> IParkingRepository.GetSpaces()
     {
         throw new NotImplementedException();
     }
 
-    public Task<List<ParkingSpace>> GetAvailableSpaces()
+    public List<ParkingSpace> GetAvailableSpaces()
     {
-        return Task.FromResult(spaces.Where(s => s.Status == ParkingSpaceStatus.Available).ToList());
+        return spaces.Where(s => s.Status == ParkingSpaceStatus.Available).ToList();
     }
 
-    public Task<List<ParkingSpace>> GetAvailableSpaces(Vehicle vehicle)
+    public List<ParkingSpace> GetAvailableSpaces(Vehicle vehicle)
     {
-        return Task.FromResult(spaces
-            .Where(s => s.Status == ParkingSpaceStatus.Available && s.Size == vehicle.GetSize()).ToList());
+        return spaces
+            .Where(s => s.Status == ParkingSpaceStatus.Available && s.Size == vehicle.GetSize()).ToList();
     }
 
     public void ParkVehicle(Vehicle vehicle, ParkingSpace parkingSpace)
