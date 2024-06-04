@@ -8,25 +8,28 @@ namespace MobiPark.App.Controllers;
 [Route("api/[controller]")]
 public class ParkingController : ControllerBase
 {
-    private readonly IParkingService _parkingService;
+    private readonly IParkingRepository _parkingRepository;
+    private readonly IVehicleRepository _vehicleRepository;
 
-    public ParkingController(IParkingService parkingService)
+    public ParkingController(IParkingRepository parkingRepository)
     {
-        _parkingService = parkingService;
+        _parkingRepository = parkingRepository;
     }
 
     [HttpGet("spaces")]
     public IActionResult GetSpaces()
     {
-        var spaces = _parkingService.GetSpaces();
+        var spaces = _parkingRepository.GetSpaces();
         var spacePresenters = spaces.Result.Select(space => new ParkingSpacePresenter(space)).ToList();
         return Ok(spacePresenters);
     }
 
     [HttpPut("spaces/park")]
-    public IActionResult ParkCar(string licensePlate)
+    public async Task<IActionResult> ParkCar(string licensePlate)
     {
-        var result = _parkingService.ParkVehicle(licensePlate);
-        return Ok(result);
+        var vehicle =  await _vehicleRepository.FindByPlate(licensePlate) ?? throw new InvalidOperationException("Vehicle not found.");
+        var firstAvailableSpace = _parkingRepository.GetAvailableSpaces(vehicle).Result.FirstOrDefault() ?? throw new InvalidOperationException("No available parking spaces.");
+        _parkingRepository.ParkVehicle(vehicle, firstAvailableSpace);
+        return Ok(new ParkingSpacePresenter(firstAvailableSpace));
     }
 }
