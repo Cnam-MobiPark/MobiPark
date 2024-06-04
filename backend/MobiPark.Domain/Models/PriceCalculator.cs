@@ -35,18 +35,78 @@ public class PriceCalculator : IPriceCalculator
         var startTime = reservation.ReservationStartTime;
         var endTime = reservation.ReservationEndTime;
         
-        var dayHours = (int) (endTime - startTime).TotalHours;
-        return dayHours;
+        TimeSpan dayStart = new TimeSpan(8, 0, 0); // 8:00 AM
+        TimeSpan dayEnd = new TimeSpan(20, 0, 0); // 8:00 PM
+        
+        if (startTime.TimeOfDay < dayStart)
+        {
+            startTime = startTime.Date + dayStart;
+        }
+        
+        if (endTime.TimeOfDay > dayEnd)
+        {
+            endTime = endTime.Date + dayEnd;
+        }
+        
+        if (startTime < endTime)
+        {
+            TimeSpan dayHours = endTime - startTime;
+            return (int)dayHours.TotalHours;
+        }
+    
+        return 0;
     }
+
     
     public int GetNightHours(Reservation reservation)
     {
         var startTime = reservation.ReservationStartTime;
         var endTime = reservation.ReservationEndTime;
         
-        var nightHours = (int) (endTime - startTime).TotalHours;
-        return nightHours;
+        TimeSpan nightStart = new TimeSpan(20, 0, 0); // 8:00 PM
+        TimeSpan nightEnd = new TimeSpan(8, 0, 0); // 8:00 AM the next day
+
+        DateTime nightEndAdjusted = endTime.Date + nightEnd;
+        
+        TimeSpan nightHours = TimeSpan.Zero;
+
+        if (startTime.TimeOfDay < nightEnd)
+        {
+            if (endTime.TimeOfDay <= nightEnd)
+            {
+                nightHours = endTime - startTime;
+            }
+            else
+            {
+                nightHours = nightEndAdjusted - startTime;
+            }
+        }
+        else if (startTime.TimeOfDay >= nightStart)
+        {
+            if (endTime.TimeOfDay <= nightStart)
+            {
+                nightHours = endTime - startTime;
+            }
+            else
+            {
+                nightHours = (startTime.Date.AddDays(1) + nightEnd) - startTime;
+            }
+        }
+        else
+        {
+            if (endTime.TimeOfDay >= nightStart)
+            {
+                nightHours = (nightEndAdjusted - startTime) + (endTime - (endTime.Date + nightStart));
+            }
+            else
+            {
+                nightHours = nightEndAdjusted - startTime;
+            }
+        }
+
+        return (int)nightHours.TotalHours;
     }
+
     
     public int calculateHoursPrice(Reservation reservation)
     {
