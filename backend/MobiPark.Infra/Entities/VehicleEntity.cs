@@ -50,7 +50,7 @@ public class VehicleEntity
             EngineType = EngineType.Electrical;
         }
 
-        VehicleType = (vehicle is Car) ? VehicleType.Car : VehicleType.Motorcycle;
+        VehicleType = vehicle is Car ? VehicleType.Car : VehicleType.Motorcycle;
     }
 
     public Vehicle ToDomainModel()
