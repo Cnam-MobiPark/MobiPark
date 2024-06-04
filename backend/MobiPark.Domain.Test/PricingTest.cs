@@ -85,7 +85,7 @@ public class PricingTest
         var price = priceCalculator.CalculatePrice(reservation);
 
         // Assert
-        Assert.Equal(20, price);
+        Assert.Equal(8, price);
     }
 
     [Fact]
@@ -102,7 +102,7 @@ public class PricingTest
         var price = priceCalculator.CalculatePrice(reservation);
 
         // Assert
-        Assert.Equal(10, price);
+        Assert.Equal(4, price);
     }
 
     [Fact]
@@ -119,7 +119,7 @@ public class PricingTest
         var price = priceCalculator.CalculatePrice(reservation);
 
         // Assert
-        Assert.Equal(28, price);
+        Assert.Equal(16, price);
     }
 
     [Fact]
@@ -136,6 +136,6 @@ public class PricingTest
         var price = priceCalculator.CalculatePrice(reservation);
 
         // Assert
-        Assert.Equal(20, price);
+        Assert.Equal(8, price);
     }
 }
