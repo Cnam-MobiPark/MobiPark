@@ -3,20 +3,13 @@ using MobiPark.Domain.Exceptions;
 
 namespace MobiPark.App.Middlewares;
 
-public class ExceptionHandlerMiddleware
+public class ExceptionHandlerMiddleware(RequestDelegate next)
 {
-    public readonly RequestDelegate _next;
-    
-    public ExceptionHandlerMiddleware(RequestDelegate next)
-    {
-        _next = next;
-    }
-    
     public async Task Invoke(HttpContext context)
     {
         try
         {
-            await _next(context);
+            await next(context);
         }
         catch (NotFoundException ex)
         {

@@ -2,12 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MobiPark.App.DTO;
 using MobiPark.App.Helpers;
+using MobiPark.App.Middlewares;
 using MobiPark.App.Models;
 using MobiPark.App.Presenters;
 using MobiPark.Domain.Interfaces;
 using MobiPark.Domain.UseCases;
-using MobiPark.Infra;
-using MobiPark.Infra.Repositories;
 
 namespace MobiPark.App.Controllers;
 

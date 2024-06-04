@@ -16,4 +16,9 @@ public class FakeUserRepository : IUserRepository
     {
         return _users.FirstOrDefault(u => u.Username == username);
     }
+
+    public User? Find(int userId)
+    {
+        return _users.FirstOrDefault(u => u.Id == userId);
+    }
 }

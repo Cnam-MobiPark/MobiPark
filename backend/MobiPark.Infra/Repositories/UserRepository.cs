@@ -17,4 +17,10 @@ public class UserRepository : IUserRepository
         var userEntity = _context.Users.FirstOrDefault(u => u.Username == username);
         return userEntity?.ToDomainModel();
     }
+
+    public User? Find(int userId)
+    {
+        var userEntity = _context.Users.FirstOrDefault(u => u.UserId == userId);
+        return userEntity?.ToDomainModel();
+    }
 }
