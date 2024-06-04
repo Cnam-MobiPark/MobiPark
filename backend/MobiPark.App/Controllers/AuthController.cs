@@ -42,4 +42,16 @@ public class AuthController : ControllerBase
         session.SaveHeader(Response);
         return Ok(new UserPresenter(user));
     }
+    
+    [HttpPost("register")]
+    public IActionResult Register([FromBody] RegisterUserDTO registerUserDto)
+    {
+        // Register user
+        var registerUseCase = new RegisterUserUseCase(_hash, _userRepository);
+        var user = registerUseCase.Execute(registerUserDto.Username, registerUserDto.Password);
+
+        var session = new JWTSession(_appSettings, _clock, user);
+        session.SaveHeader(Response);
+        return Ok(new UserPresenter(user));
+    }
 }
