@@ -8,9 +8,15 @@ public class ReservationRepository : IReservationRepository
 {
     private readonly List<Reservation> _reservations = [];
 
-    public void Save(Reservation reservation)
+    public Reservation Save(Reservation reservation)
     {
         _reservations.Add(reservation);
+        return reservation;
+    }
+
+    public Reservation FindByPlate(string plate)
+    {
+        throw new NotImplementedException();
     }
 
     public Reservation FindById(int reservationId)
