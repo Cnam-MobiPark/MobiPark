@@ -4,6 +4,7 @@ import { Login } from "./pages/login";
 import { UserHome } from "./pages/user/home";
 import { MyReservations } from "./pages/user/reservations";
 import { MyVehicles } from "./pages/user/vehicles";
+import { Confirmation } from "./pages/user/confirmation";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
       {
         path: "/my-vehicles",
         element: <MyVehicles />,
+      },
+      {
+        path: "/confirmation/:spotNumber",
+        element: <Confirmation />,
       },
     ],
   },
