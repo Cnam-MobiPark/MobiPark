@@ -1,8 +1,3 @@
 namespace MobiPark.Domain.Exceptions;
 
-public class InvalidBatteryException : System.ArgumentException
-{
-    public InvalidBatteryException(string message) : base(message)
-    {
-    }
-}
+public class InvalidBatteryException(string message) : AbstractBadDataException(message);

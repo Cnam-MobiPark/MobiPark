@@ -5,13 +5,13 @@ namespace MobiPark.Infra.Repositories;
 
 public class ArgonHash : IHash
 {
-    private Argon2PasswordHasher _hasher;
-    
+    private readonly Argon2PasswordHasher _hasher;
+
     public ArgonHash()
     {
         _hasher = new Argon2PasswordHasher();
     }
-    
+
     public string Hash(string input)
     {
         return _hasher.Hash(input);

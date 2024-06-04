@@ -1,25 +1,21 @@
 using MobiPark.Domain.Exceptions;
 
-namespace MobiPark.Domain.Models.Vehicle.LicensePlate
+namespace MobiPark.Domain.Models.Vehicle.LicensePlate;
+
+public abstract class AbstractLicensePlate
 {
-    public abstract class AbstractLicensePlate
+    protected AbstractLicensePlate(string value)
     {
-        public string Value { get; protected set; }
+        if (string.IsNullOrWhiteSpace(value) || !IsValid(value)) throw new InvalidLicensePlateException(value);
+        Value = value;
+    }
 
-        protected AbstractLicensePlate(string value)
-        {
-            if ((string.IsNullOrWhiteSpace(value)) || (!IsValid(value)))
-            {
-                throw new InvalidLicensePlateException(value);
-            }
-            Value = value;
-        }
+    public string Value { get; protected set; }
 
-        protected abstract bool IsValid(string value);
+    protected abstract bool IsValid(string value);
 
-        public override string ToString()
-        {
-            return Value;
-        }
+    public override string ToString()
+    {
+        return Value;
     }
 }

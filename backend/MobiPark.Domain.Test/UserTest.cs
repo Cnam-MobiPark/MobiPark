@@ -11,7 +11,7 @@ public class UserTest
     {
         return new User(1, "toto", "tata");
     }
-    
+
     [Fact]
     [Trait("User", "User login")]
     public void User_WhenLoginUser_ShouldReturnSession()
@@ -21,14 +21,14 @@ public class UserTest
         var userRepository = new FakeUserRepository([expectedUser]);
         var hasher = new FakeHash();
         var useCase = new LoginUserUseCase(hasher, userRepository);
-        
+
         // Act
         var user = useCase.Execute("toto", "tata");
 
         // Assert
         Assert.Equal(expectedUser, user);
     }
-    
+
     [Fact]
     [Trait("User", "User not found")]
     public void User_WhenLoginUserButNotFound_ShouldThrowAnException()
@@ -44,7 +44,7 @@ public class UserTest
         // Assert
         Assert.Throws<NotFoundException>(act);
     }
-    
+
     [Theory]
     [InlineData("toto", "password")]
     [InlineData("toto", "titi")]

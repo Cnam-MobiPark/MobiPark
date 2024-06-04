@@ -11,7 +11,7 @@ public class UserRepository : IUserRepository
     {
         _context = context;
     }
-    
+
     public User? FindByUsername(string username)
     {
         var userEntity = _context.Users.FirstOrDefault(u => u.Username == username);

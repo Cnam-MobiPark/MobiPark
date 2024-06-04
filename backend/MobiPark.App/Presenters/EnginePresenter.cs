@@ -4,10 +4,6 @@ namespace MobiPark.App.Presenters;
 
 public class EnginePresenter
 {
-    public string EngineType { get; }
-    public int BatteryCapacity { get; }
-    public int CurrentBatteryCapacity { get; }
-    
     public EnginePresenter(Engine engine)
     {
         EngineType = engine.GetType().ToString();
@@ -15,4 +11,8 @@ public class EnginePresenter
         BatteryCapacity = electricalEngine.BatteryCapacity;
         CurrentBatteryCapacity = electricalEngine.CurrentBatteryCapacity;
     }
+
+    public string EngineType { get; }
+    public int BatteryCapacity { get; }
+    public int CurrentBatteryCapacity { get; }
 }

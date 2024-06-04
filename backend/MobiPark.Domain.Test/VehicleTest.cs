@@ -41,13 +41,13 @@ public class VehicleTest
     {
         // Arrange
         var vehicle = MakeCar();
-        var parkingPlace = new ParkingSpace(1,VehicleSize.Medium);
+        var parkingPlace = new ParkingSpace(1, VehicleSize.Medium);
 
         var beginDateTime = new DateTime(2022, 11, 10, 14, 10, 0);
         var endDateTime = new DateTime(2022, 11, 10, 15, 10, 0);
         var fakeClock = new FakeClock(beginDateTime.AddMinutes(-10));
-        Reservation reservation = vehicle.Park(fakeClock, parkingPlace, beginDateTime, endDateTime);
-        
+        var reservation = vehicle.Park(fakeClock, parkingPlace, beginDateTime, endDateTime);
+
         Assert.Equal(reservation.Vehicle, vehicle);
         Assert.Equal(reservation.ParkingSpace, parkingPlace);
         Assert.False(reservation.IsElectricCharging);

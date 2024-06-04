@@ -9,11 +9,8 @@ public class LoginUserUseCase(IHash hash, IUserRepository userRepository)
     public User Execute(string username, string password)
     {
         var user = userRepository.FindByUsername(username);
-        if (user == null)
-        {
-            throw new NotFoundException("User not found");
-        }
-        
+        if (user == null) throw new NotFoundException("User not found");
+
         user.CheckPassword(hash, password);
 
         return user;

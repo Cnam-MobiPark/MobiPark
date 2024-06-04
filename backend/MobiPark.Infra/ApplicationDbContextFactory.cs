@@ -2,23 +2,22 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
-namespace MobiPark.Infra
+namespace MobiPark.Infra;
+
+public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
 {
-    public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+    public ApplicationDbContext CreateDbContext(string[] args)
     {
-        public ApplicationDbContext CreateDbContext(string[] args)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
+        var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseSqlite(connectionString);
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
 
-            return new ApplicationDbContext(optionsBuilder.Options);
-        }
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        optionsBuilder.UseSqlite(connectionString);
+
+        return new ApplicationDbContext(optionsBuilder.Options);
     }
 }

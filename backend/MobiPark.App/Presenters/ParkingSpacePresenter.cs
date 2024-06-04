@@ -1,18 +1,17 @@
 using MobiPark.Domain.Models;
 
-namespace MobiPark.App.Presenters
-{
-    public class ParkingSpacePresenter
-    {
-        public int Number { get; private set; }
-        public string Type { get; private set; }
-        public string Status { get; private set; }
+namespace MobiPark.App.Presenters;
 
-        public ParkingSpacePresenter(ParkingSpace space)
-        {
-            Number = space.Number;
-            Type = space.Size.ToString();
-            Status = space.Status.ToString();
-        }
+public class ParkingSpacePresenter
+{
+    public ParkingSpacePresenter(ParkingSpace space)
+    {
+        Number = space.Number;
+        Type = space.Size.ToString();
+        Status = space.Status.ToString();
     }
+
+    public int Number { get; }
+    public string Type { get; }
+    public string Status { get; }
 }

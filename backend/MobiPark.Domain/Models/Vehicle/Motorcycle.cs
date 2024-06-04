@@ -4,7 +4,8 @@ namespace MobiPark.Domain.Models.Vehicle;
 
 public class Motorcycle : Vehicle
 {
-    public Motorcycle(string maker, AbstractLicensePlate licensePlate, Engine.Engine engine) : base(maker, licensePlate, engine)
+    public Motorcycle(string maker, AbstractLicensePlate licensePlate, Engine.Engine engine) : base(maker, licensePlate,
+        engine)
     {
     }
 

@@ -24,7 +24,8 @@ public class VehicleRepository : IVehicleRepository
         return vehicle;
     }
 
-    public async Task<Vehicle> CreateVehicle(string type, string maker, AbstractLicensePlate licensePlate, Engine engine)
+    public async Task<Vehicle> CreateVehicle(string type, string maker, AbstractLicensePlate licensePlate,
+        Engine engine)
     {
         Vehicle vehicle = type switch
         {
@@ -43,15 +44,12 @@ public class VehicleRepository : IVehicleRepository
             .Select(v => v.ToDomainModel())
             .ToListAsync();
     }
-    
+
     public async Task<Vehicle> FindByPlate(string licensePlate)
     {
         var vehicle = await _context.Vehicles
             .FirstOrDefaultAsync(v => v.Plate == licensePlate);
-        if (vehicle == null)
-        {
-            throw new InvalidOperationException("Vehicle not found.");
-        }
+        if (vehicle == null) throw new InvalidOperationException("Vehicle not found.");
         return vehicle.ToDomainModel();
     }
 }

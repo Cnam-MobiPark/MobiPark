@@ -4,7 +4,6 @@ using VehicleId = int;
 
 public class Pricing
 {
-    
     public VehicleId Id { get; set; }
     public Vehicle.Vehicle Vehicle { get; set; }
     public DateTime StartTime { get; set; }

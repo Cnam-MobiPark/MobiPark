@@ -10,7 +10,7 @@ public class VehicleFactory
     {
         return new Car(maker, licensePlate, engine);
     }
-    
+
     public static Motorcycle CreateMotorcycle(string maker, AbstractLicensePlate licensePlate, Engine engine)
     {
         return new Motorcycle(maker, licensePlate, engine);

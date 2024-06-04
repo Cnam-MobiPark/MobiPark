@@ -16,10 +16,7 @@ public class ReservationRepository : IReservationRepository
     public Reservation FindById(int reservationId)
     {
         var res = _reservations.FirstOrDefault(r => r.ReservationId == reservationId);
-        if (res is null)
-        {
-            throw new NotFoundException("No reservation found");
-        }
+        if (res is null) throw new NotFoundException("No reservation found");
 
         return res;
     }

@@ -2,5 +2,7 @@ namespace MobiPark.Domain.Exceptions;
 
 public class PricingNotFoundException : NotFoundException
 {
-    public PricingNotFoundException(string vehicleType) : base($"Pricing not found for vehicle type {vehicleType}") { }
+    public PricingNotFoundException(string vehicleType) : base($"Pricing not found for vehicle type {vehicleType}")
+    {
+    }
 }
