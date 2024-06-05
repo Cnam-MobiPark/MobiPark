@@ -17,17 +17,17 @@ public class ReservationController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<IActionResult> GetReservations()
+    public IActionResult GetReservations()
     {
-        var reservations = await _reservationRepository.GetReservations();
+        var reservations = _reservationRepository.GetReservations();
         var reservationPresenters = reservations.ConvertAll(r => new ReservationPresenter(r));
         return Ok(reservationPresenters);
     }
     
     [HttpGet("{plate}")]
-    public async Task<IActionResult> GetReservation(string plate)
+    public IActionResult GetReservation(string plate)
     {
-        var reservation = await _reservationRepository.FindByPlate(plate);
+        var reservation = _reservationRepository.FindByPlate(plate);
         return Ok(new ReservationPresenter(reservation));
     }
 }
