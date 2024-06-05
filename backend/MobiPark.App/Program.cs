@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using MobiPark.App.Helpers;
 using MobiPark.App.Middlewares;
 using MobiPark.Domain.Interfaces;
-using MobiPark.Domain.Services;
 using MobiPark.Infra;
 using MobiPark.Infra.Repositories;
 
@@ -20,7 +19,6 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSet
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddTransient<IParkingService, ParkingService>();
 builder.Services.AddTransient<IParkingRepository, ParkingRepository>();
 builder.Services.AddTransient<IVehicleRepository, VehicleRepository>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();

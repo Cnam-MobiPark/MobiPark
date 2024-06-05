@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MobiPark.App.Presenters;
 using MobiPark.Domain.Interfaces;
+using MobiPark.Domain.UseCases;
 
 namespace MobiPark.App.Controllers;
 
@@ -8,25 +9,27 @@ namespace MobiPark.App.Controllers;
 [Route("api/[controller]")]
 public class ParkingController : ControllerBase
 {
-    private readonly IParkingService _parkingService;
+    private readonly IParkingRepository _parkingRepository;
+    private readonly IVehicleRepository _vehicleRepository;
 
-    public ParkingController(IParkingService parkingService)
+    public ParkingController(IParkingRepository parkingRepository, IVehicleRepository vehicleRepository)
     {
-        _parkingService = parkingService;
+        _parkingRepository = parkingRepository;
+        _vehicleRepository = vehicleRepository;
     }
 
     [HttpGet("spaces")]
     public IActionResult GetSpaces()
     {
-        var spaces = _parkingService.GetSpaces();
-        var spacePresenters = spaces.Result.Select(space => new ParkingSpacePresenter(space)).ToList();
+        var spaces = _parkingRepository.GetSpaces();
+        var spacePresenters = spaces.Select(space => new ParkingSpacePresenter(space)).ToList();
         return Ok(spacePresenters);
     }
 
     [HttpPut("spaces/park")]
-    public IActionResult ParkCar(string licensePlate)
+    public void ParkCar(string licensePlate)
     {
-        var result = _parkingService.ParkVehicle(licensePlate);
-        return Ok(result);
+        var ParkVehicleUseCase = new ParkVehicleUseCase(_vehicleRepository, _parkingRepository);
+        ParkVehicleUseCase.Execute(licensePlate);
     }
 }
